@@ -57,11 +57,55 @@ class JsonDatabase {
         setInterval(() => { if (this.dirty) this.save(); }, 5000);
     }
     
-    save() { saveDatabase(this.db); this.dirty = false; }
+    save() {
+        saveDatabase(this.db);
+        this.dirty = false;
+        if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+            this.remoteSave = (this.remoteSave || Promise.resolve()).then(() => this.persistRemote()).catch(err => console.error('Supabase persistence error:', err.message));
+        }
+    }
     table(name) { if (!this.db[name]) this.db[name] = []; return new TableProxy(this, name); }
     exec(sql) { console.warn('SQL not supported:', sql.substring(0,100)); return { changes: 0 }; }
     pragma() {}
     close() { this.save(); }
+
+    // Optional durable remote JSON store backed by a single Supabase Postgres row.
+    // The in-memory API remains synchronous for compatibility with existing routes.
+    async loadRemote() {
+        const url = process.env.SUPABASE_URL;
+        const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+        if (!url || !key) return { enabled: false };
+        const endpoint = `${url.replace(/\/$/, '')}/rest/v1/league_state?id=eq.1&select=payload`;
+        const response = await fetch(endpoint, { headers: { apikey: key, Authorization: `Bearer ${key}` } });
+        if (!response.ok) throw new Error(`Supabase load failed (${response.status}): ${await response.text()}`);
+        const rows = await response.json();
+        if (rows.length && rows[0].payload) {
+            this.db = rows[0].payload;
+            this.dirty = false;
+            return { enabled: true, loaded: true };
+        }
+        await this.persistRemote();
+        return { enabled: true, loaded: false, seeded: true };
+    }
+
+    async persistRemote() {
+        const url = process.env.SUPABASE_URL;
+        const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+        if (!url || !key) return;
+        const endpoint = `${url.replace(/\/$/, '')}/rest/v1/league_state`;
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                apikey: key,
+                Authorization: `Bearer ${key}`,
+                'Content-Type': 'application/json',
+                Prefer: 'resolution=merge-duplicates,return=minimal'
+            },
+            body: JSON.stringify({ id: 1, payload: this.db, updated_at: new Date().toISOString() })
+        });
+        if (!response.ok) throw new Error(`Supabase save failed (${response.status}): ${await response.text()}`);
+    }
+
     prepare(sql) { return new PreparedStatement(this, sql); }
     
     // Convenience methods

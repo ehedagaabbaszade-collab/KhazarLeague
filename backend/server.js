@@ -34,7 +34,7 @@ app.use(helmet({
     crossOriginResourcePolicy: { policy: 'cross-origin' }
 }));
 
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',').map(v => v.trim()) : '*' }));
 
 // Body parsing
 app.use(express.json({ limit: '50mb' }));
@@ -87,7 +87,14 @@ app.use('/api', (req, res, next) => {
         const isOwnTeamRead = req.method === 'GET' && (
             req.path === `/teams/${ownTeam}` || req.path === `/teams/${ownTeam}/players`
         );
-        if (!isOwnTeamRead && req.path !== '/auth/me') return res.status(403).json({ error: 'Bu əməliyyat üçün icazə yoxdur' });
+        const isOwnTeamUpdate = req.method === 'PUT' && req.path === `/teams/${ownTeam}`;
+        const isOwnPlayerCreate = req.method === 'POST' && req.path === '/players' && req.body?.team_id === ownTeam;
+        const playerId = req.path.match(/^\/players\/([^/]+)$/)?.[1];
+        const player = playerId ? db.findById('players', playerId) : null;
+        const isOwnPlayerUpdate = ['PUT','DELETE'].includes(req.method) && player && player.team_id === ownTeam;
+        if (!isOwnTeamRead && !isOwnTeamUpdate && !isOwnPlayerCreate && !isOwnPlayerUpdate && req.path !== '/auth/me') {
+            return res.status(403).json({ error: 'Bu əməliyyat üçün icazə yoxdur' });
+        }
     }
     if (role === 'player') {
         const player = db.findById('players', req.currentUser.player_id);
@@ -348,6 +355,15 @@ app.put('/api/teams/:id', (req, res) => {
         
         const team = db.findById('teams', id);
         if (!team) return res.status(404).json({ error: 'Team not found' });
+        if (req.currentUser?.role === 'team_captain' && req.currentUser.team_id !== id) {
+            return res.status(403).json({ error: 'Yalnız öz komandanızı redaktə edə bilərsiniz' });
+        }
+        if (req.currentUser?.role === 'team_captain') {
+            const safeFields = ['coach_name','contact_email','contact_phone','description','captain_name','captain_phone'];
+            for (const key of Object.keys(req.body || {})) {
+                if (!safeFields.includes(key)) return res.status(403).json({ error: 'Bu komanda sahəsini dəyişmək icazəniz yoxdur' });
+            }
+        }
 
         const updated = {
             ...team,
@@ -416,7 +432,8 @@ app.get('/api/teams/:teamId/players', (req, res) => {
 
 app.post('/api/players', (req, res) => {
     try {
-        const { first_name, last_name, team_id, jersey_number, position, preferred_foot, date_of_birth, nationality, student_id, photo_path, phone, course } = req.body;
+        let { first_name, last_name, team_id, jersey_number, position, preferred_foot, date_of_birth, nationality, student_id, photo_path, phone, course } = req.body;
+        if (req.currentUser?.role === 'team_captain') team_id = req.currentUser.team_id;
         if (!first_name || !last_name || !team_id) {
             return res.status(400).json({ error: 'First name, last name, and team_id required' });
         }
@@ -469,7 +486,10 @@ app.post('/api/players', (req, res) => {
 app.put('/api/players/:id', (req, res) => {
     const player = db.findById('players', req.params.id);
     if (!player) return res.status(404).json({ error: 'Oyunçu tapılmadı' });
-    const allowed = ['first_name','last_name','team_id','jersey_number','position','preferred_foot','date_of_birth','nationality','student_id','phone','course','registration_status','status','is_captain'];
+    if (req.currentUser?.role === 'team_captain' && player.team_id !== req.currentUser.team_id) return res.status(403).json({ error: 'Yalnız öz komandanızın oyunçularını redaktə edə bilərsiniz' });
+    const allowed = req.currentUser?.role === 'team_captain'
+        ? ['first_name','last_name','jersey_number','position','course']
+        : ['first_name','last_name','team_id','jersey_number','position','preferred_foot','date_of_birth','nationality','student_id','phone','course','registration_status','status','is_captain'];
     const updates = {};
     allowed.forEach(key => { if (req.body[key] !== undefined) updates[key] = req.body[key]; });
     if (updates.first_name !== undefined || updates.last_name !== undefined) updates.full_name = `${updates.first_name ?? player.first_name} ${updates.last_name ?? player.last_name}`.trim();
@@ -478,6 +498,8 @@ app.put('/api/players/:id', (req, res) => {
 });
 
 app.delete('/api/players/:id', (req, res) => {
+    const existing = db.findById('players', req.params.id);
+    if (req.currentUser?.role === 'team_captain' && (!existing || existing.team_id !== req.currentUser.team_id)) return res.status(403).json({ error: 'Yalnız öz komandanızın oyunçularını silə bilərsiniz' });
     const result = db.table('players').delete(req.params.id);
     if (!result.changes) return res.status(404).json({ error: 'Oyunçu tapılmadı' });
     res.json({ success: true });
@@ -1423,13 +1445,24 @@ app.get('/api/public/player/:playerId', (req, res) => {
     });
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`Khazar League API Server running on port ${PORT}`);
-    console.log(`Health check: http://localhost:${PORT}/api/health`);
-    console.log(`Default admin: admin@khazar.org`);
-});
+// Start server only after durable database state is loaded.
+async function startServer() {
+    try {
+        if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+            const state = await db.loadRemote();
+            console.log('Supabase database initialized:', state);
+        } else {
+            console.warn('Supabase is not configured; using local JSON storage.');
+        }
+        app.listen(PORT, () => {
+            console.log(`Khazar League API Server running on port ${PORT}`);
+            console.log(`Health check: http://localhost:${PORT}/api/health`);
+        });
+    } catch (error) {
+        console.error('Database initialization failed:', error);
+        process.exit(1);
+    }
+}
+startServer();
 
 module.exports = app;
-
-console.log('Part 4C loaded - Server ready');
