@@ -39,7 +39,7 @@ function createEmptyDatabase() {
         teams: [], users: [], user_permissions: [], players: [],
         matches: [], match_events: [], match_lineups: [],
         group_standings: [], player_tournament_stats: [], awards: [],
-        announcements: [], notifications: [], documents: [],
+        announcements: [], notifications: [], push_subscriptions: [], documents: [],
         media_templates: [], media_generations: [], sponsors: [], audit_logs: [],
         settings: [], backup_records: []
     };

@@ -159,6 +159,9 @@ export const mediaApi = {
 // Public endpoints (no auth required)
 export const publicApi = {
   getOverview: () => api.get('/public/overview'),
+  getPushKey: () => api.get('/public/push-key'),
+  savePushSubscription: (data) => api.post('/public/push-subscriptions', data),
+  removePushSubscription: (data) => api.delete('/public/push-subscriptions', { data }),
   getTournament: (tournamentId) => api.get(`/public/tournament/${tournamentId}`),
   getTeam: (teamId) => api.get(`/public/team/${teamId}`),
   getPlayer: (playerId) => api.get(`/public/player/${playerId}`),

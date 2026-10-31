@@ -68,6 +68,39 @@ const { seedKhazar2026 } = require('../database/seed-khazar-2026');
 const seedResult = seedKhazar2026();
 if (seedResult.seeded) console.log('Khazar League seed:', seedResult);
 
+
+// Web Push (PWA). VAPID private key stays on the backend only.
+let webPush = null;
+try { webPush = require('web-push'); } catch (_) { console.warn('web-push dependency not installed; push delivery disabled'); }
+function pushConfigured() { return !!(webPush && process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY); }
+if (pushConfigured()) webPush.setVapidDetails(process.env.VAPID_SUBJECT || 'mailto:admin@khazarleague.az', process.env.VAPID_PUBLIC_KEY, process.env.VAPID_PRIVATE_KEY);
+async function sendLeaguePush(payload, teamId = null) {
+    if (!pushConfigured()) return;
+    const subscriptions = db.db.push_subscriptions || [];
+    const targets = subscriptions.filter(item => !teamId || !item.preference || item.preference === 'all' || item.team_id === teamId);
+    await Promise.allSettled(targets.map(async item => {
+        try { await webPush.sendNotification(item.subscription, JSON.stringify(payload)); }
+        catch (err) { if (err.statusCode === 404 || err.statusCode === 410) { db.db.push_subscriptions = db.db.push_subscriptions.filter(x => x.id !== item.id); db.dirty = true; } }
+    }));
+}
+app.get('/api/public/push-key', (_req, res) => res.json({ enabled: pushConfigured(), publicKey: process.env.VAPID_PUBLIC_KEY || null }));
+app.post('/api/public/push-subscriptions', (req, res) => {
+    const { subscription, preference = 'all', team_id = null } = req.body || {};
+    if (!subscription || !subscription.endpoint || !subscription.keys) return res.status(400).json({ error: 'Push subscription yanlışdır' });
+    if (!['all','team'].includes(preference) || (preference === 'team' && !team_id)) return res.status(400).json({ error: 'Bildiriş seçimi yanlışdır' });
+    db.db.push_subscriptions ||= [];
+    const existing = db.db.push_subscriptions.find(x => x.subscription?.endpoint === subscription.endpoint);
+    const item = { id: existing?.id || generateId(), subscription, preference, team_id: preference === 'team' ? team_id : null, updated_at: new Date().toISOString() };
+    if (existing) Object.assign(existing, item); else db.db.push_subscriptions.push(item);
+    db.dirty = true; db.save();
+    res.status(201).json({ ok: true });
+});
+app.delete('/api/public/push-subscriptions', (req, res) => {
+    const endpoint = req.body?.endpoint;
+    db.db.push_subscriptions = (db.db.push_subscriptions || []).filter(x => x.subscription?.endpoint !== endpoint);
+    db.dirty = true; db.save(); res.json({ ok: true });
+});
+
 // Protect management APIs. Public routes and login remain accessible.
 app.use('/api', (req, res, next) => {
     if (req.path === '/health' || req.path === '/auth/login' || req.path.startsWith('/public/')) return next();
@@ -654,7 +687,15 @@ app.put('/api/matches/:id', (req, res) => {
         created_at:new Date().toISOString()
     });
     db.dirty = true;
-    res.json(db.findById('matches', req.params.id));
+    const updatedMatch = db.findById('matches', req.params.id);
+    const homeTeam = db.findById('teams', updatedMatch.home_team_id);
+    const awayTeam = db.findById('teams', updatedMatch.away_team_id);
+    if (updates.match_status === 'completed' && match.match_status !== 'completed') {
+        sendLeaguePush({ title: 'Matç başa çatdı', body: `${homeTeam?.name || 'Ev sahibi'} ${updatedMatch.home_score}:${updatedMatch.away_score} ${awayTeam?.name || 'Qonaq'}`, url: '/', tag: `finished-${updatedMatch.id}`, type: 'match' }).catch(console.error);
+    } else if (updates.match_status === 'live' && match.match_status !== 'live') {
+        sendLeaguePush({ title: 'Matç başladı', body: `${homeTeam?.name || 'Ev sahibi'} – ${awayTeam?.name || 'Qonaq'}`, url: '/', tag: `started-${updatedMatch.id}`, type: 'match' }).catch(console.error);
+    }
+    res.json(updatedMatch);
 });
 
 
@@ -748,6 +789,18 @@ app.post('/api/matches/:matchId/events', (req, res) => {
         };
 
         db.table('match_events').insert(newEvent);
+        db.dirty = true;
+        if (['goal','penalty_scored','own_goal'].includes(String(event_type).toLowerCase())) {
+            const match = db.findById('matches', match_id);
+            const team = db.findById('teams', team_id);
+            const player = player_id ? db.findById('players', player_id) : null;
+            const home = match?.home_team_id === team_id;
+            const hs = Number(match?.home_score || 0) + (home ? 1 : 0);
+            const as = Number(match?.away_score || 0) + (!home ? 1 : 0);
+            const homeTeam = db.findById('teams', match?.home_team_id);
+            const awayTeam = db.findById('teams', match?.away_team_id);
+            sendLeaguePush({ title: 'QOL! Khazar League', body: `${team?.name || 'Komanda'}${player?.name ? ` — ${player.name}` : ''} · ${minute}' · ${hs}:${as}`, url: '/', tag: `goal-${newEvent.id}`, type: 'goal' }, team_id).catch(console.error);
+        }
         res.status(201).json(newEvent);
     } catch (err) {
         console.error('Create match event error:', err);
@@ -940,7 +993,9 @@ app.post('/api/announcements/:id/publish',(req,res)=>{
     const item=db.findById('announcements',req.params.id);
     if(!item)return res.status(404).json({error:'Elan tapılmadı'});
     db.table('announcements').update(item.id,{is_published:1,published_at:new Date().toISOString(),published_by:req.currentUser?.id||null});
-    res.json(db.findById('announcements',item.id));
+    const published = db.findById('announcements',item.id);
+    sendLeaguePush({ title: published.title || 'Yeni xəbər', body: published.summary || published.content || 'Khazar League-də yeni xəbər yayımlandı', url: '/', tag: `news-${item.id}`, type: 'news' }).catch(console.error);
+    res.json(published);
 });
 
 // Secure document upload (PDF/DOCX only, 10 MB maximum).

@@ -13,6 +13,7 @@ import './index.css';
 import './App.css';
 import './components/layout/Layout.css';
 import './pages/auth/LoginPage.css';
+import PwaControls from './components/PwaControls';
 
 function ProtectedRoute({ children, allowedRoles }) {
   const { isAuthenticated, user, loading } = useAuth();
@@ -51,5 +52,5 @@ function AppRoutes() {
 }
 
 export default function App() {
-  return <AuthProvider><BrowserRouter><AppRoutes /></BrowserRouter></AuthProvider>;
+  return <AuthProvider><BrowserRouter><AppRoutes /><PwaControls /></BrowserRouter></AuthProvider>;
 }

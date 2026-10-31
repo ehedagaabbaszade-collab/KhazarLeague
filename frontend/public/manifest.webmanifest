@@ -1,0 +1,22 @@
+{
+  "name": "Khazar League",
+  "short_name": "Khazar",
+  "description": "Xəzər Universitetinin futbol liqası",
+  "lang": "az",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#071d35",
+  "theme_color": "#071d35",
+  "icons": [
+    {
+      "src": "/khazar-league-logo.jpg",
+      "sizes": "any",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ],
+  "categories": [
+    "sports",
+    "lifestyle"
+  ]
+}
