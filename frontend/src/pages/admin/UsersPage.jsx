@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../../services/api';
 export function UsersPage(){
- const [users,setUsers]=useState([]),[teams,setTeams]=useState([]),[players,setPlayers]=useState([]),[form,setForm]=useState({role:'team_captain'}),[open,setOpen]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState('');
+ const [users,setUsers]=useState([]),[teams,setTeams]=useState([]),[players,setPlayers]=useState([]),[form,setForm]=useState({role:'team_captain'}),[open,setOpen]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState(''),[permissionCatalog,setPermissionCatalog]=useState([]),[selectedUser,setSelectedUser]=useState(null),[selectedPermissions,setSelectedPermissions]=useState([]);le:'team_captain'}),[open,setOpen]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState('');
  const load=async()=>{try{const [u,t,p,c]=await Promise.all([api.get('/users'),api.get('/teams'),api.get('/players'),api.get('/permissions/catalog')]);setUsers(u.data||[]);setTeams(t.data||[]);setPlayers(p.data||[]);setPermissionCatalog(c.data||[]);}catch(e){setError(e.response?.data?.error||'İstifadəçilər yüklənmədi.');}};
  const editPermissions=async user=>{try{const r=await api.get(`/users/${user.id}/permissions`);setSelectedUser(user);setSelectedPermissions(r.data||[]);}catch(e){setError(e.response?.data?.error||'İcazələr yüklənmədi.');}};
  const savePermissions=async()=>{try{await api.put(`/users/${selectedUser.id}/permissions`,{permissions:selectedPermissions});setNotice('İcazələr yeniləndi.');setSelectedUser(null);}catch(e){setError(e.response?.data?.error||'İcazələr yadda saxlanmadı.');}};
