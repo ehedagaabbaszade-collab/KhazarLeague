@@ -1,0 +1,36 @@
+-- Khazar League Database Schema - Players
+
+-- Players table
+CREATE TABLE IF NOT EXISTS players (
+    id TEXT PRIMARY KEY,
+    organization_id TEXT NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+    season_id TEXT REFERENCES seasons(id) ON DELETE SET NULL,
+    team_id TEXT REFERENCES teams(id) ON DELETE SET NULL,
+    user_id TEXT REFERENCES users(id) ON DELETE SET NULL,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    date_of_birth DATE,
+    nationality TEXT DEFAULT 'Azerbaijan',
+    student_id TEXT,
+    jersey_number INTEGER,
+    position TEXT,
+    preferred_foot TEXT,
+    height_cm INTEGER,
+    weight_kg INTEGER,
+    photo_path TEXT,
+    registration_status TEXT DEFAULT 'pending',
+    registration_date DATETIME,
+    approved_by TEXT REFERENCES users(id),
+    approved_at DATETIME,
+    is_captain INTEGER DEFAULT 0,
+    is_vice_captain INTEGER DEFAULT 0,
+    status TEXT DEFAULT 'active',
+    appearances INTEGER DEFAULT 0,
+    goals INTEGER DEFAULT 0,
+    assists INTEGER DEFAULT 0,
+    yellow_cards INTEGER DEFAULT 0,
+    red_cards INTEGER DEFAULT 0,
+    minutes_played INTEGER DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
