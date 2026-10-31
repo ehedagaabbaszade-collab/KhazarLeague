@@ -64,9 +64,7 @@ const sessions = {};
 
 // Seed only verified tournament metadata when the project has no teams.
 // Player records, logos, match dates and scores are never fabricated.
-const { seedKhazar2026 } = require('../database/seed-khazar-2026');
-const seedResult = seedKhazar2026();
-if (seedResult.seeded) console.log('Khazar League seed:', seedResult);
+
 
 
 // Web Push (PWA). VAPID private key stays on the backend only.
