@@ -17,6 +17,7 @@ const { isVotingPolicy, hashAnonymousVoterToken, readCookie, serializeVoterCooki
 const db = getDatabase();
 
 const app = express();
+app.set('trust proxy', 1);
 const DOCUMENT_UPLOAD_DIR = path.join(__dirname, '..', 'uploads', 'documents');
 fs.mkdirSync(DOCUMENT_UPLOAD_DIR, { recursive: true });
 const documentUpload = multer({
