@@ -1,95 +1,230 @@
 # Khazar League 2026
+### Open-Source Football Tournament Management Platform
 
-Khazar League management platform built on the existing Express + JSON database + React/Vite project.
+Khazar League is a web-based football tournament management platform designed to digitize and simplify the organization of university-level and amateur football competitions.
 
-## Confirmed source data imported
+The platform brings tournament administration, team and player management, match scheduling, live standings, competition statistics, and media management into one centralized system.
 
-The original user-provided `khazar-league-ehtiyat-nusxe (1)(1).json` is preserved as `data/khazar-league-source.json`.
+**Live Platform:** https://khazar-league.vercel.app
 
-The database import preserves:
-- 16 teams and their exact IDs/names
-- 128 registered player records
-- 4 group assignments
-- 24 original group fixtures and IDs
-- All 16 original team logos as image files under `uploads/teams/`
-- Original registration-status and coordinator fields where present
+**Repository:** https://github.com/ehedagaabbaszade-collab/KhazarLeague
 
-The JSON has no match dates, kickoff times, venue, or completed scores. These remain unset. Its knockout array is empty and remains empty. No missing player or match data is fabricated.
+**License:** MIT
 
-Private phone numbers and student-ticket identifiers are stored in the database but are not returned by public endpoints. The source JSON is retained for exact data provenance; do not expose it as a public static asset.
+---
 
-## Run on Windows
+## Project Overview
 
-Requirements: Node.js 18+.
+Khazar League was developed to address the operational challenges of organizing football tournaments through disconnected spreadsheets, messaging applications, and manual administrative processes.
 
-1. Extract the project to `C:\KhazarLeague`.
-2. Run `START_KHAZAR_LEAGUE.bat`.
-3. Open `http://localhost:4173`.
-4. Admin login: `http://localhost:4173/login`.
+The project aims to provide an accessible, structured, and reusable digital infrastructure for football competitions, universities, student organizations, and amateur sports communities.
 
-The existing initial administrator is `admin@khazar.org`. The initial password from the supplied project is `KhazarLeague2024!`. Change it before publishing the platform on the internet.
+The platform is designed around modular architecture, data integrity, administrative control, and a responsive user experience.
 
-## Development
+## Key Features
 
-Backend:
-```cmd
-node backend\server.js
+### Tournament Management
+- Tournament and season administration
+- Group-stage competition management
+- Knockout-stage progression
+- Automated fixture scheduling
+- Match result management
+- Automatic standings calculation
+- Configurable tournament rules
+
+### Team and Player Management
+- Team registration and administration
+- Player records and roster management
+- Captain and player account roles
+- Individual permissions
+- Team and player management interfaces
+
+### Match and Competition Management
+- Match score entry and result locking
+- Automatic points calculation (3/1/0)
+- Configurable tie-break rules
+- Penalty shootout validation
+- Knockout-stage qualification
+- Automatic competition awards
+
+### Administration and Security
+- Role-based access control
+- Backend permission enforcement
+- Protected API endpoints
+- Server-side authentication checks
+- Restricted access to private user information
+
+### Media and Communication
+- Instagram post and story editor
+- PNG media export
+- Server-side media archive
+- Sponsor management
+- Announcement and document management
+
+## Technology Stack
+
+The project uses a web application architecture based on:
+
+- **Backend:** Node.js and Express.js
+- **Frontend:** React and Vite
+- **Database:** JSON-based data storage and database integration modules
+- **Styling:** Responsive dark sports dashboard interface
+- **Media:** Canvas-based design and PNG export
+- **Testing:** Automated data-integrity tests
+
+## Project Structure
+
+```text
+KhazarLeague/
+├── backend/
+├── database/
+├── docs/
+├── frontend/
+│   ├── public/
+│   └── src/
+├── tests/
+├── uploads/
+│   └── teams/
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── README.md
+├── LICENSE
+├── START_KHAZAR_LEAGUE.bat
+└── STOP_KHAZAR_LEAGUE.bat
 ```
 
-Frontend:
-```cmd
+## Getting Started
+
+### Requirements
+
+- Node.js 18 or later
+- npm
+- Windows, macOS, or Linux environment with the required dependencies
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/ehedagaabbaszade-collab/KhazarLeague.git
+```
+
+Enter the project directory:
+
+```bash
+cd KhazarLeague
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+### Running the Application
+
+On supported Windows environments, use:
+
+```text
+START_KHAZAR_LEAGUE.bat
+```
+
+Open the application:
+
+```text
+http://localhost:4173
+```
+
+For backend development:
+
+```bash
+node backend/server.js
+```
+
+For frontend development:
+
+```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Data integrity tests:
-```cmd
+### Testing
+
+Run data-integrity tests:
+
+```bash
 npm test
 ```
 
-Frontend production build:
-```cmd
+Build the frontend:
+
+```bash
 cd frontend
 npm run build
 ```
 
-## Implemented in this delivery
+## Development Roadmap
 
-- Dark Sports Dashboard visual system, responsive layout, Azerbaijani UI
-- Public tournament home page with actual team names, original logos, groups and fixtures
-- Admin dashboard
-- Team, player, match, tournament, season, award, announcement, document and media-template management screens
-- Manual match score entry and result locking
-- Weekend-only automatic schedule generator; admin selects start date, kickoff, daily match count and interval
-- Group standings recalculation from completed matches only
-- Correct 3/1/0 points and configured tie-break sequence
-- Super Admin user creation for admin, captain and player account roles
-- Individual permission assignment and backend permission enforcement
-- Knockout progression from quarter-finals to semi-finals, final and third-place match
-- Penalty shootout validation for tied knockout matches
-- Automatic team awards after final and third-place matches
-- Tournament settings for team/player limits, match duration, weekend schedule and registration/payment mode
-- Sponsor management and public sponsor section
-- PDF/DOCX document upload with file-size/type validation
-- Canvas-based Instagram post/story editor with PNG export and server-side media archive
-- Captain and player read-only cabinet entry points
-- Server-side authentication checks for protected API routes
-- Public API responses exclude phone numbers and student-ticket data
-- Original data and logo integrity tests
+The following areas are planned for further development:
 
-## Remaining integrations / next implementation phase
+- Complete online team registration and waiting-list workflows
+- Payment provider integrations
+- Advanced media design editor
+- PDF and DOCX document generation
+- Email and WhatsApp notification integrations
+- Audit-log viewer
+- Season cloning and archival workflows
+- Advanced public player profiles
+- Extended team detail pages
+- Improved API documentation
+- Additional automated tests and security improvements
 
-The current delivery is a working core and data-integrity foundation, not a claim that every advanced module is production-finished.
+Integrations requiring third-party credentials will be considered operational only after successful configuration and testing.
 
-Still requiring a dedicated implementation and testing phase:
-- Full online team registration application workflow and waiting list
-- Payment provider integration (requires provider credentials); manual receipt review UI
-- Layer-based design editor, template editing and JPG export in Media Studio (current canvas editor supports editable text/format/accent color and PNG export)
-- PDF/DOCX document generation and signature-sheet templates (upload/download is implemented)
-- Email and WhatsApp delivery integrations (require API credentials)
-- Full role-permission matrix UI is implemented; audit-log viewer remains pending
-- Season cloning and full season archival workflows
-- Advanced public player profile pages and team detail routes
+## Open-Source Contributions
 
-Do not treat an integration as connected until valid credentials are supplied and a delivery test succeeds.
+Contributions from developers, designers, testers, and sports technology enthusiasts are welcome.
+
+Potential contribution areas include:
+
+- Frontend and backend development
+- Bug fixes and performance improvements
+- Security reviews
+- Automated testing
+- Documentation
+- Accessibility improvements
+- New tournament management features
+
+Before submitting significant changes, please open an issue to discuss the proposed implementation.
+
+Pull requests should include a clear description of the changes and relevant testing information.
+
+## Security
+
+Security is an important part of the project's development.
+
+Please do not publish passwords, API keys, database credentials, private user information, or other sensitive material in issues or pull requests.
+
+If you discover a security vulnerability, contact the project maintainer privately rather than publishing exploit details.
+
+## License
+
+This project is distributed under the MIT License.
+
+See the [LICENSE](LICENSE) file for details.
+
+Third-party logos, trademarks, photographs, and other externally owned assets are not automatically covered by this software license.
+
+## Project Maintainer
+
+**Əhədağa Abbaszadə**
+
+Founder and Project Maintainer — Khazar League
+
+GitHub: https://github.com/ehedagaabbaszade-collab
+
+---
+
+*Khazar League — Building accessible digital infrastructure for football competitions.*
