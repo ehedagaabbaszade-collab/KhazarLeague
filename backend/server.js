@@ -1786,73 +1786,255 @@ app.get('/api/public/player/:playerId', (req, res, next) => {
 });
 
 
-// Bulk player-position approval import (Super Admin only; guarded by /api auth middleware).
-const positionImportUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 2 * 1024 * 1024 }, fileFilter: (_req, file, cb) => cb(file.mimetype === 'application/json' || /\.json$/i.test(file.originalname) ? null : new Error('Yalnız JSON faylı qəbul edilir'), file.mimetype === 'application/json' || /\.json$/i.test(file.originalname)) });
+// Bulk player-position approval import (Super Admin only).
+const positionImportUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 2 * 1024 * 1024 },
+    fileFilter: (_req, file, cb) => {
+        const allowed = file.mimetype === 'application/json' || /\.json$/i.test(file.originalname);
+        cb(allowed ? null : new Error('Yalnız JSON faylı qəbul edilir'), allowed);
+    }
+});
+
 function normalizePositionImportText(value) {
-    return String(value || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('az').replace(/[^a-z0-9]/g, '');
+    return String(value || '')
+        .trim()
+        .toLocaleLowerCase('az')
+        .replace(/ə/g, 'e')
+        .replace(/ı/g, 'i')
+        .replace(/ş/g, 's')
+        .replace(/ç/g, 'c')
+        .replace(/ğ/g, 'g')
+        .replace(/ö/g, 'o')
+        .replace(/ü/g, 'u')
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]/g, '');
 }
+
 app.post('/api/admin/player-position-import', positionImportUpload.single('file'), async (req, res) => {
     try {
-        if (req.currentUser?.role !== 'super_admin') return res.status(403).json({ error: 'Yalnız Super Admin bu əməliyyatı edə bilər.' });
-        if (!req.file) return res.status(400).json({ error: 'JSON faylı seçilməyib.' });
-        let payload;
-        try { payload = JSON.parse(req.file.buffer.toString('utf8').replace(/^\uFEFF/, '')); }
-        catch (_) { return res.status(400).json({ error: 'JSON faylının formatı oxunmur.' }); }
-        if (payload.format !== 'khazar-league-position-approval-v1' || !Array.isArray(payload.players) || payload.players.length !== 128 || !Array.isArray(payload.teams) || payload.teams.length !== 16) {
-            return res.status(400).json({ error: 'Fayl formatı uyğun deyil. 16 komanda və 128 oyunçu tələb olunur.' });
+        if (req.currentUser?.role !== 'super_admin') {
+            return res.status(403).json({ error: 'Yalnız Super Admin bu əməliyyatı edə bilər.' });
         }
+
+        if (!req.file) {
+            return res.status(400).json({ error: 'JSON faylı seçilməyib.' });
+        }
+
+        let payload;
+
+        try {
+            payload = JSON.parse(
+                req.file.buffer.toString('utf8').replace(/^\uFEFF/, '')
+            );
+        } catch (_) {
+            return res.status(400).json({ error: 'JSON faylının formatı oxunmur.' });
+        }
+
+        if (
+            payload.format !== 'khazar-league-position-approval-v1' ||
+            !Array.isArray(payload.players) ||
+            payload.players.length !== 128 ||
+            !Array.isArray(payload.teams) ||
+            payload.teams.length !== 16
+        ) {
+            return res.status(400).json({
+                error: 'Fayl formatı uyğun deyil. 16 komanda və 128 oyunçu tələb olunur.'
+            });
+        }
+
         const norm = normalizePositionImportText;
-        const teamAliases = new Map([['turizimfk','turizmfk'],['khazareaglesfc','khazareagles'],['khazarstormfc','khazarstorm'],['zenithmfc','zenithfc'],['haropmfc','haropmfk']]);
+
+        const teamAliases = new Map([
+            ['turizimfk', 'turizmfk'],
+            ['khazareaglesfc', 'khazareagles'],
+            ['khazarstormfc', 'khazarstorm'],
+            ['zenithmfc', 'zenithfc'],
+            ['haropmfc', 'haropmfk']
+        ]);
+
         const canonical = value => teamAliases.get(norm(value)) || norm(value);
-        const teamMap = new Map((db.db.teams || []).map(team => [canonical(team.name), team]));
-        const playerMap = new Map((db.db.players || []).map(player => [`${player.team_id}|${norm(player.full_name || `${player.first_name || ''} ${player.last_name || ''}`)}`, player]));
-        const allowedPositions = new Set(['GK','CB','RB','LB','RWB','LWB','CDM','CM','CAM','RM','LM','RW','LW','CF','ST']);
+
+        const teamMap = new Map(
+            (db.db.teams || []).map(team => [canonical(team.name), team])
+        );
+
+        const playersByTeamAndName = new Map();
+        const playersByTeamAndNumber = new Map();
+
+        for (const player of (db.db.players || [])) {
+            const fullName = player.full_name ||
+                `${player.first_name || ''} ${player.last_name || ''}`;
+
+            const nameKey = `${player.team_id}|${norm(fullName)}`;
+
+            if (!playersByTeamAndName.has(nameKey)) {
+                playersByTeamAndName.set(nameKey, []);
+            }
+
+            playersByTeamAndName.get(nameKey).push(player);
+
+            const jersey = String(
+                player.jersey_number ?? player.shirt_number ?? ''
+            ).trim();
+
+            if (jersey) {
+                const numberKey = `${player.team_id}|${jersey}`;
+
+                if (!playersByTeamAndNumber.has(numberKey)) {
+                    playersByTeamAndNumber.set(numberKey, []);
+                }
+
+                playersByTeamAndNumber.get(numberKey).push(player);
+            }
+        }
+
+        const allowedPositions = new Set([
+            'GK', 'CB', 'RB', 'LB', 'RWB', 'LWB',
+            'CDM', 'CM', 'CAM', 'RM', 'LM',
+            'RW', 'LW', 'CF', 'ST'
+        ]);
+
         const seen = new Set();
         const updates = [];
         const errors = [];
+
         for (const item of payload.players) {
             const team = teamMap.get(canonical(item.team));
-            if (!team) { errors.push(`Komanda tapılmadı: ${item.team}`); continue; }
-            const player = playerMap.get(`${team.id}|${norm(item.name)}`);
-            if (!player) { errors.push(`Oyunçu tapılmadı: ${item.team} — ${item.name}`); continue; }
-            if (seen.has(player.id)) { errors.push(`Təkrar oyunçu: ${item.team} — ${item.name}`); continue; }
+
+            if (!team) {
+                errors.push(`Komanda tapılmadı: ${item.team}`);
+                continue;
+            }
+
+            const nameKey = `${team.id}|${norm(item.name)}`;
+            const nameMatches = playersByTeamAndName.get(nameKey) || [];
+
+            let player = null;
+
+            if (nameMatches.length === 1) {
+                player = nameMatches[0];
+            } else if (nameMatches.length > 1) {
+                errors.push(`Ad üzrə birdən çox uyğun oyunçu tapıldı: ${item.team} — ${item.name}`);
+                continue;
+            }
+
+            if (!player && item.shirtNumber != null) {
+                const numberKey = `${team.id}|${String(item.shirtNumber).trim()}`;
+                const numberMatches = playersByTeamAndNumber.get(numberKey) || [];
+
+                if (numberMatches.length === 1) {
+                    player = numberMatches[0];
+                } else if (numberMatches.length > 1) {
+                    errors.push(`Forma nömrəsi unikal deyil: ${item.team} — ${item.name} (#${item.shirtNumber})`);
+                    continue;
+                }
+            }
+
+            if (!player) {
+                errors.push(`Oyunçu tapılmadı: ${item.team} — ${item.name} (#${item.shirtNumber ?? '?'})`);
+                continue;
+            }
+
+            if (seen.has(player.id)) {
+                errors.push(`Təkrar oyunçu: ${item.team} — ${item.name}`);
+                continue;
+            }
+
+            if (!allowedPositions.has(item.primaryPosition)) {
+                errors.push(`Yanlış mövqe kodu: ${item.name} — ${item.primaryPosition}`);
+                continue;
+            }
+
             seen.add(player.id);
-            if (!allowedPositions.has(item.primaryPosition)) { errors.push(`Yanlış mövqe kodu: ${item.name} — ${item.primaryPosition}`); continue; }
             updates.push({ player, item });
         }
+
+        // Heç bir dəyişiklik edilməzdən əvvəl bütün 128 oyunçu yoxlanılır.
         if (errors.length || updates.length !== 128 || seen.size !== 128) {
-            return res.status(422).json({ error: 'Yoxlama uğursuz oldu. Heç bir məlumat dəyişdirilmədi.', matched: updates.length, expected: 128, errors: errors.slice(0, 30), errorCount: errors.length });
+            return res.status(422).json({
+                error: 'Yoxlama uğursuz oldu. Heç bir məlumat dəyişdirilmədi.',
+                matched: updates.length,
+                expected: 128,
+                errors: errors.slice(0, 30),
+                errorCount: errors.length
+            });
         }
+
         const summary = {
-            teams: 16, players: updates.length,
-            positionCounts: updates.reduce((acc, { item }) => { acc[item.primaryPosition] = (acc[item.primaryPosition] || 0) + 1; return acc; }, {}),
+            teams: 16,
+            players: updates.length,
+            positionCounts: updates.reduce((acc, { item }) => {
+                acc[item.primaryPosition] = (acc[item.primaryPosition] || 0) + 1;
+                return acc;
+            }, {}),
             provisional: updates.filter(({ item }) => item.provisional === true).length
         };
-        if (req.query.apply !== 'true') return res.json({ dryRun: true, summary, message: '128 oyunçunun hamısı mövcud komanda və oyunçularla uyğunlaşdırıldı. Tətbiq etməzdən əvvəl nəticəni yoxlayın.' });
 
-        // Create a timestamped local backup before mutating the in-memory database.
+        // İlk mərhələdə yalnız yoxlama aparılır.
+        if (req.query.apply !== 'true') {
+            return res.json({
+                dryRun: true,
+                summary,
+                message: '128 oyunçunun hamısı uyğunlaşdırıldı. Tətbiq etməzdən əvvəl nəticəni yoxlayın.'
+            });
+        }
+
+        // Dəyişiklikdən əvvəl ehtiyat nüsxə yaradılır.
         const backupDir = path.join(__dirname, '..', 'backups');
         fs.mkdirSync(backupDir, { recursive: true });
-        const backupName = `before-position-approval-${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
-        fs.writeFileSync(path.join(backupDir, backupName), JSON.stringify(db.db, null, 2), 'utf8');
+
+        const backupName = `before-position-approval-${new Date()
+            .toISOString()
+            .replace(/[:.]/g, '-')}.json`;
+
+        fs.writeFileSync(
+            path.join(backupDir, backupName),
+            JSON.stringify(db.db, null, 2),
+            'utf8'
+        );
+
         const now = new Date().toISOString();
+
         for (const { player, item } of updates) {
             player.position_code = item.primaryPosition;
             player.position_label_az = item.positionLabelAz || null;
             player.position_status = item.positionStatus || 'approved';
-            player.secondary_positions = Array.isArray(item.secondaryPositions) ? item.secondaryPositions : [];
+            player.secondary_positions = Array.isArray(item.secondaryPositions)
+                ? item.secondaryPositions
+                : [];
+
             player.position_source = 'admin_bulk_approval_import';
-            player.position_review_note = item.provisional ? 'İlkin mövqe bölgüsü admin tərəfindən toplu şəkildə təsdiqlənib; zərurət olduqda sonradan dəyişdirilə bilər.' : null;
+
+            player.position_review_note = item.provisional
+                ? 'İlkin mövqe bölgüsü admin tərəfindən toplu şəkildə təsdiqlənib; zərurət olduqda sonradan dəyişdirilə bilər.'
+                : null;
+
             player.position = item.positionLabelAz || player.position || null;
             player.updated_at = now;
         }
+
         db.dirty = true;
         db.save();
-        if (db.remoteSave) await db.remoteSave;
-        res.json({ applied: true, summary, backup: backupName, message: '128 oyunçunun mövqeyi uğurla tətbiq edildi.' });
+
+        if (db.remoteSave) {
+            await db.remoteSave;
+        }
+
+        return res.json({
+            applied: true,
+            summary,
+            backup: backupName,
+            message: '128 oyunçunun mövqeyi uğurla tətbiq edildi.'
+        });
+
     } catch (error) {
         console.error('Player position import failed:', error);
-        res.status(500).json({ error: 'Mövqe importu zamanı server xətası baş verdi.' });
+
+        return res.status(500).json({
+            error: 'Mövqe importu zamanı server xətası baş verdi.'
+        });
     }
 });
 
