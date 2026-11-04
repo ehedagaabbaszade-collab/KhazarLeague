@@ -1,3 +1,4 @@
+import './AdminPages.css';
 import { useEffect, useRef, useState } from 'react';
 import api, { tournamentApi } from '../../services/api';
 const API_ORIGIN=(import.meta.env.VITE_API_BASE_URL||'http://localhost:3000/api').replace(/\/api\/?$/,'');
@@ -48,7 +49,7 @@ export function MediaStudioPage(){
   }catch(e){setError(e.response?.data?.error||'Dizayn ixrac edilə bilmədi.');}
   finally{setSaving(false);}
  };
- return <section className="page-shell"><div className="page-heading"><div><span className="eyebrow">KREATİV İDARƏETMƏ</span><h1>Media Studio</h1><p>Turnir üçün post və story vizualları hazırla, PNG kimi ixrac et və arxivlə.</p></div><button className="btn btn-primary" onClick={exportDesign} disabled={saving}>{saving?'Hazırlanır...':'PNG ixrac et'}</button></div>
+ return <section className="page-shell admin-workspace kl-motion-enter"><div className="page-heading"><div><span className="eyebrow">KREATİV İDARƏETMƏ</span><h1>Media Studio</h1><p>Turnir üçün post və story vizualları hazırla, PNG kimi ixrac et və arxivlə.</p></div><button className="btn btn-primary" onClick={exportDesign} disabled={saving}>{saving?'Hazırlanır...':'PNG ixrac et'}</button></div>
  {notice&&<div className="notice success">{notice}</div>}{error&&<div className="notice error">{error}</div>}
  <div className="media-layout"><div className="panel media-controls"><h2>Dizayn parametrləri</h2>
  <label className="field">Format<select value={format} onChange={e=>setFormat(e.target.value)}><option value="post">Instagram Post · 1080 × 1350</option><option value="story">Instagram Story · 1080 × 1920</option></select></label>

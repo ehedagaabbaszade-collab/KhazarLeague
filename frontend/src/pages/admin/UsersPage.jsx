@@ -1,3 +1,4 @@
+import './AdminPages.css';
 
 import { useEffect, useState } from 'react';
 import api from '../../services/api';
@@ -72,7 +73,7 @@ export function UsersPage() {
   };
 
   return (
-    <section className="page-shell">
+    <section className="page-shell admin-workspace kl-motion-enter">
       <div className="page-heading">
         <div>
           <span className="eyebrow">HESAB VƏ İCAZƏLƏR</span>

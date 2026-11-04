@@ -1,0 +1,110 @@
+{
+  "generated_at": "2026-11-04T19:24:12.088Z",
+  "source": "imports\\khazar_league_rosters_2026_az.json",
+  "source_sha256": "de060a3ea713b009e41d5c8d7de154ff19604b1795ee2348d53e9f6e664a335c",
+  "mode": "applied",
+  "totals": {
+    "teams": 16,
+    "players": 128,
+    "matched_existing_players": 128,
+    "added_players": 0,
+    "archived_legacy_players": 28
+  },
+  "captains": [
+    {
+      "team": "Khazar Force",
+      "player": "Həkimxan Həsənxanlı"
+    },
+    {
+      "team": "Khazar United",
+      "player": "Ağa Ağazadə"
+    }
+  ],
+  "teams": [
+    {
+      "source": "Los Caspios FC",
+      "database": "Los Caspios FC",
+      "team_id": "khazar-11"
+    },
+    {
+      "source": "Khazar Masallı FK",
+      "database": "Khazar Masallı FK",
+      "team_id": "khazar-03"
+    },
+    {
+      "source": "Ghost FC",
+      "database": "Ghost FC",
+      "team_id": "khazar-14"
+    },
+    {
+      "source": "Turizm FK",
+      "database": "Turizm FK",
+      "team_id": "khazar-05"
+    },
+    {
+      "source": "Comita FC",
+      "database": "Comita FC",
+      "team_id": "khazar-04"
+    },
+    {
+      "source": "Khazar Force",
+      "database": "Khazar Force",
+      "team_id": "khazar-02"
+    },
+    {
+      "source": "Khazar Eagles FC",
+      "database": "Khazar Eagles FC",
+      "team_id": "khazar-09"
+    },
+    {
+      "source": "Real Munich",
+      "database": "Real Munich",
+      "team_id": "khazar-12"
+    },
+    {
+      "source": "Khazar Storm FC",
+      "database": "Khazar Storm FC",
+      "team_id": "khazar-10"
+    },
+    {
+      "source": "Caspian FC",
+      "database": "Caspian FC",
+      "team_id": "khazar-16"
+    },
+    {
+      "source": "Zenith MFC",
+      "database": "Zenith MFC",
+      "team_id": "khazar-08"
+    },
+    {
+      "source": "Harop MFK",
+      "database": "Harop MFK",
+      "team_id": "khazar-07"
+    },
+    {
+      "source": "Khazar Vortex",
+      "database": "Khazar Vortex",
+      "team_id": "khazar-15"
+    },
+    {
+      "source": "Khazar Fire",
+      "database": "Khazar Fire",
+      "team_id": "khazar-13"
+    },
+    {
+      "source": "Khazar United",
+      "database": "Khazar United",
+      "team_id": "khazar-06"
+    },
+    {
+      "source": "Khazar Waves",
+      "database": "Khazar Waves",
+      "team_id": "khazar-01"
+    }
+  ],
+  "validation": {
+    "teams": true,
+    "eight_players_each": true,
+    "unique_players": true
+  }
+}

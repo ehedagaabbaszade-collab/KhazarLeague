@@ -7,6 +7,6 @@ export function AuthProvider({children}){
  const login=async(email,password)=>{const r=await authApi.login(email,password);localStorage.setItem('khazar_session',r.data.sessionId);localStorage.setItem('khazar_user',JSON.stringify(r.data.user));setUser(r.data.user);return r.data;};
  const logout=()=>{authApi.logout().catch(()=>{});localStorage.removeItem('khazar_session');localStorage.removeItem('khazar_user');setUser(null);};
  const role=user?.role;
- return <AuthContext.Provider value={{user,login,logout,isAuthenticated:!!user,isAdmin:['super_admin','tournament_admin'].includes(role),isCaptain:role==='team_captain',isPlayer:role==='player',isReferee:role==='match_official',isMedia:role==='media_manager',loading}}>{children}</AuthContext.Provider>;
+ return <AuthContext.Provider value={{user,login,logout,isAuthenticated:!!user,isAdmin:role==='super_admin',isCaptain:false,isPlayer:false,isReferee:false,isMedia:false,loading}}>{children}</AuthContext.Provider>;
 }
 export function useAuth(){const value=useContext(AuthContext);if(!value)throw new Error('useAuth must be used within AuthProvider');return value;}

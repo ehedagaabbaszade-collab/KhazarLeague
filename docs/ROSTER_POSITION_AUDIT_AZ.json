@@ -1,0 +1,688 @@
+{
+  "source_workbook": "khazar_league_rosters_2026_az(2).xlsx",
+  "worksheets": [
+    "Bütün oyunçular",
+    "Los Caspios FC",
+    "Khazar Masallı FK",
+    "Ghost FC",
+    "Turizm FK",
+    "Comita FC",
+    "Khazar Force",
+    "Khazar Eagles FC",
+    "Real Munich",
+    "Khazar Storm FC",
+    "Caspian FC",
+    "Zenith MFC",
+    "Harop MFK",
+    "Khazar Vortex",
+    "Khazar Fire",
+    "Khazar United",
+    "Khazar Waves"
+  ],
+  "excel_players": 128,
+  "excel_teams": 16,
+  "players_per_team": {
+    "Los Caspios FC": 8,
+    "Khazar Masallı FK": 8,
+    "Ghost FC": 8,
+    "Turizm FK": 8,
+    "Comita FC": 8,
+    "Khazar Force": 8,
+    "Khazar Eagles FC": 8,
+    "Real Munich": 8,
+    "Khazar Storm FC": 8,
+    "Caspian FC": 8,
+    "Zenith MFC": 8,
+    "Harop MFK": 8,
+    "Khazar Vortex": 8,
+    "Khazar Fire": 8,
+    "Khazar United": 8,
+    "Khazar Waves": 8
+  },
+  "database_teams": 16,
+  "database_players": 128,
+  "excel_to_database_matches": 128,
+  "unmatched_or_duplicate_records": 0,
+  "position_status_counts": {
+    "needs_admin_review": 97,
+    "confirmed": 24,
+    "confirmed_user": 7
+  },
+  "position_code_counts": {
+    "GK": 16,
+    "CDM": 2,
+    "LW": 5,
+    "RW": 4,
+    "CAM": 1,
+    "ST": 1,
+    "CB": 2
+  },
+  "position_review_required": [
+    {
+      "team": "Los Caspios FC",
+      "player": "Bayram Ağayev",
+      "excel_position": "Müdafiəçi",
+      "jersey": 22
+    },
+    {
+      "team": "Los Caspios FC",
+      "player": "Ömər Ramazanov",
+      "excel_position": "Hücumçu",
+      "jersey": 10
+    },
+    {
+      "team": "Los Caspios FC",
+      "player": "Yusif Əliyev",
+      "excel_position": "Müdafiəçi",
+      "jersey": 3
+    },
+    {
+      "team": "Los Caspios FC",
+      "player": "Pənah Pənahlı",
+      "excel_position": "Müdafiəçi",
+      "jersey": 13
+    },
+    {
+      "team": "Los Caspios FC",
+      "player": "Elçin Musayev",
+      "excel_position": "Hücumçu",
+      "jersey": 36
+    },
+    {
+      "team": "Los Caspios FC",
+      "player": "Əlmusa Dəmirov",
+      "excel_position": "Hücumçu",
+      "jersey": 19
+    },
+    {
+      "team": "Los Caspios FC",
+      "player": "Anar Həsənov",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 8
+    },
+    {
+      "team": "Khazar Masallı FK",
+      "player": "Mayıl Məmmədov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 44
+    },
+    {
+      "team": "Khazar Masallı FK",
+      "player": "Timur İsmayılov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 7
+    },
+    {
+      "team": "Khazar Masallı FK",
+      "player": "Murad Heydərzadə",
+      "excel_position": "Müdafiəçi",
+      "jersey": 4
+    },
+    {
+      "team": "Khazar Masallı FK",
+      "player": "Malik Rəcəbov",
+      "excel_position": "Hücumçu",
+      "jersey": 11
+    },
+    {
+      "team": "Khazar Masallı FK",
+      "player": "Fərid Vahidli",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 10
+    },
+    {
+      "team": "Khazar Masallı FK",
+      "player": "Röyal Şamizadə",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 8
+    },
+    {
+      "team": "Khazar Masallı FK",
+      "player": "Munir Musayev",
+      "excel_position": "Hücumçu",
+      "jersey": 17
+    },
+    {
+      "team": "Ghost FC",
+      "player": "Uğur Məmmədli",
+      "excel_position": "Müdafiəçi",
+      "jersey": 21
+    },
+    {
+      "team": "Ghost FC",
+      "player": "Amin İsmayılov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 22
+    },
+    {
+      "team": "Ghost FC",
+      "player": "Ayxan Məmmədli",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 23
+    },
+    {
+      "team": "Ghost FC",
+      "player": "Əli Qarayev",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 8
+    },
+    {
+      "team": "Ghost FC",
+      "player": "Nihad Qəhrəmanlı",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 7
+    },
+    {
+      "team": "Ghost FC",
+      "player": "Yunis Abbaslı",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 45
+    },
+    {
+      "team": "Ghost FC",
+      "player": "Furqan Məmmədov",
+      "excel_position": "Hücumçu",
+      "jersey": 10
+    },
+    {
+      "team": "Turizm FK",
+      "player": "Şiralı Əliyev",
+      "excel_position": "Gizli hücumçu",
+      "jersey": 10
+    },
+    {
+      "team": "Turizm FK",
+      "player": "Elxan Bənnayev",
+      "excel_position": "Hücumçu",
+      "jersey": 7
+    },
+    {
+      "team": "Turizm FK",
+      "player": "Hüseyn Gülverdizadə",
+      "excel_position": "Müdafiəçi",
+      "jersey": 4
+    },
+    {
+      "team": "Turizm FK",
+      "player": "Arda Allahverdiyev",
+      "excel_position": "Müdafiəçi",
+      "jersey": 3
+    },
+    {
+      "team": "Turizm FK",
+      "player": "Raul Mahmudlu",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 11
+    },
+    {
+      "team": "Comita FC",
+      "player": "Abdulla Hüseynli",
+      "excel_position": "Müdafiəçi",
+      "jersey": 23
+    },
+    {
+      "team": "Comita FC",
+      "player": "Pərviz Xalıqov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 4
+    },
+    {
+      "team": "Comita FC",
+      "player": "Bayram Namazov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 5
+    },
+    {
+      "team": "Comita FC",
+      "player": "Cavidan Mustafayev",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 10
+    },
+    {
+      "team": "Comita FC",
+      "player": "Mehman Allahverdiyev",
+      "excel_position": "Hücumçu",
+      "jersey": 11
+    },
+    {
+      "team": "Comita FC",
+      "player": "Vilayət Şəmiyev",
+      "excel_position": "Hücumçu",
+      "jersey": 9
+    },
+    {
+      "team": "Comita FC",
+      "player": "Əbülfəz Həsənov",
+      "excel_position": "Hücumçu",
+      "jersey": 17
+    },
+    {
+      "team": "Khazar Force",
+      "player": "Vüsal Cəfərzadə",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 8
+    },
+    {
+      "team": "Khazar Force",
+      "player": "Məhəmməd İbrahimov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 5
+    },
+    {
+      "team": "Khazar Force",
+      "player": "Məhəmməd Bağırsoy",
+      "excel_position": "Müdafiəçi",
+      "jersey": 4
+    },
+    {
+      "team": "Khazar Force",
+      "player": "Həsən Rəhimov",
+      "excel_position": "Hücumçu",
+      "jersey": 17
+    },
+    {
+      "team": "Khazar Force",
+      "player": "Rəsul Abbasov",
+      "excel_position": "Hücumçu",
+      "jersey": 6
+    },
+    {
+      "team": "Khazar Force",
+      "player": "Bilal Kazımov",
+      "excel_position": "Hücumçu",
+      "jersey": 7
+    },
+    {
+      "team": "Khazar Force",
+      "player": "Yunis Əhmədov",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 10
+    },
+    {
+      "team": "Khazar Eagles FC",
+      "player": "Rəvan Zeynalov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 4
+    },
+    {
+      "team": "Khazar Eagles FC",
+      "player": "Ramal Aslanov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 20
+    },
+    {
+      "team": "Khazar Eagles FC",
+      "player": "Əli Hüseynov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 3
+    },
+    {
+      "team": "Khazar Eagles FC",
+      "player": "Fuad Məmmədov",
+      "excel_position": "Hücumçu",
+      "jersey": 7
+    },
+    {
+      "team": "Khazar Eagles FC",
+      "player": "Emin Ramazanlı",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 10
+    },
+    {
+      "team": "Khazar Eagles FC",
+      "player": "Orxan Yolçuyev",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 8
+    },
+    {
+      "team": "Khazar Eagles FC",
+      "player": "Riad Mustafayev",
+      "excel_position": "Hücumçu",
+      "jersey": 77
+    },
+    {
+      "team": "Real Munich",
+      "player": "Pünhan Rəsulov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 4
+    },
+    {
+      "team": "Real Munich",
+      "player": "Tərlan Kərimov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 27
+    },
+    {
+      "team": "Real Munich",
+      "player": "Mahir Mehdiyev",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 17
+    },
+    {
+      "team": "Real Munich",
+      "player": "Qurban Mirzəyev",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 10
+    },
+    {
+      "team": "Real Munich",
+      "player": "Murad Fərəcov",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 11
+    },
+    {
+      "team": "Real Munich",
+      "player": "Samir Eyyubov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 30
+    },
+    {
+      "team": "Khazar Storm FC",
+      "player": "İslam Fətullazadə",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 7
+    },
+    {
+      "team": "Khazar Storm FC",
+      "player": "Kənan Musayev",
+      "excel_position": "Müdafiəçi",
+      "jersey": 4
+    },
+    {
+      "team": "Khazar Storm FC",
+      "player": "Rəvan Əliyev",
+      "excel_position": "Hücumçu",
+      "jersey": 11
+    },
+    {
+      "team": "Khazar Storm FC",
+      "player": "Faiq Adıgözəlov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 6
+    },
+    {
+      "team": "Khazar Storm FC",
+      "player": "Mirzə Hacızadə",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 10
+    },
+    {
+      "team": "Khazar Storm FC",
+      "player": "Yaqub Yaqubov",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 8
+    },
+    {
+      "team": "Khazar Storm FC",
+      "player": "Osama Almousli",
+      "excel_position": "Müdafiəçi",
+      "jersey": 3
+    },
+    {
+      "team": "Caspian FC",
+      "player": "Əli Əzimli",
+      "excel_position": "Hücumçu",
+      "jersey": 7
+    },
+    {
+      "team": "Caspian FC",
+      "player": "Vüsal Əmkişiyev",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 11
+    },
+    {
+      "team": "Caspian FC",
+      "player": "Əkbər Məmmədov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 5
+    },
+    {
+      "team": "Caspian FC",
+      "player": "Bilal Musalı",
+      "excel_position": "Müdafiəçi",
+      "jersey": 4
+    },
+    {
+      "team": "Caspian FC",
+      "player": "Rauf Məhəmmədov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 27
+    },
+    {
+      "team": "Zenith MFC",
+      "player": "Sahib Kərimli",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 10
+    },
+    {
+      "team": "Zenith MFC",
+      "player": "Ozal Kərimzadə",
+      "excel_position": "Müdafiəçi",
+      "jersey": 4
+    },
+    {
+      "team": "Zenith MFC",
+      "player": "Məhəmməd Məmmədov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 5
+    },
+    {
+      "team": "Zenith MFC",
+      "player": "Zamiq Quliyev",
+      "excel_position": "Hücumçu",
+      "jersey": 9
+    },
+    {
+      "team": "Zenith MFC",
+      "player": "Nazim Qəribov",
+      "excel_position": "Hücumçu",
+      "jersey": 28
+    },
+    {
+      "team": "Zenith MFC",
+      "player": "Nurlan Osmanlı",
+      "excel_position": "Hücumçu",
+      "jersey": 7
+    },
+    {
+      "team": "Zenith MFC",
+      "player": "Rövşən Məmmədli",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 17
+    },
+    {
+      "team": "Harop MFK",
+      "player": "Ramazan Əliyev",
+      "excel_position": "Hücumçu / Yarımmüdafiəçi / Müdafiəçi",
+      "jersey": 7
+    },
+    {
+      "team": "Harop MFK",
+      "player": "Elnur Miriyev",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 8
+    },
+    {
+      "team": "Harop MFK",
+      "player": "Emin Hacıyev",
+      "excel_position": "Müdafiəçi",
+      "jersey": 4
+    },
+    {
+      "team": "Harop MFK",
+      "player": "Qulam Ağasiyev",
+      "excel_position": "Hücumçu",
+      "jersey": 19
+    },
+    {
+      "team": "Harop MFK",
+      "player": "Amin Fətəliyev",
+      "excel_position": "Müdafiəçi",
+      "jersey": 17
+    },
+    {
+      "team": "Harop MFK",
+      "player": "Yunus Cumazadə",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 10
+    },
+    {
+      "team": "Harop MFK",
+      "player": "Elmir Ağayev",
+      "excel_position": "Hücumçu",
+      "jersey": 99
+    },
+    {
+      "team": "Khazar Vortex",
+      "player": "Famil Abbasov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 3
+    },
+    {
+      "team": "Khazar Vortex",
+      "player": "Tuncay Əliyev",
+      "excel_position": "Hücumçu",
+      "jersey": 9
+    },
+    {
+      "team": "Khazar Vortex",
+      "player": "Telman Məmmədov",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 7
+    },
+    {
+      "team": "Khazar Vortex",
+      "player": "Şakir Əzizov",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 10
+    },
+    {
+      "team": "Khazar Vortex",
+      "player": "Tərlan Danyalov",
+      "excel_position": "Hücumçu",
+      "jersey": 8
+    },
+    {
+      "team": "Khazar Vortex",
+      "player": "Fərid İslamov",
+      "excel_position": "Hücumçu",
+      "jersey": 11
+    },
+    {
+      "team": "Khazar Vortex",
+      "player": "Rəvan Əsgərov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 4
+    },
+    {
+      "team": "Khazar Fire",
+      "player": "Aqşin Cəfərzadə",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 7
+    },
+    {
+      "team": "Khazar Fire",
+      "player": "Rəşid İsgəndərov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 3
+    },
+    {
+      "team": "Khazar Fire",
+      "player": "Əli Muxtarlı",
+      "excel_position": "Müdafiəçi",
+      "jersey": 4
+    },
+    {
+      "team": "Khazar United",
+      "player": "Ağa Ağazadə",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 20
+    },
+    {
+      "team": "Khazar United",
+      "player": "Rəsul Səfərli",
+      "excel_position": "Yarımmüdafiəçi",
+      "jersey": 17
+    },
+    {
+      "team": "Khazar United",
+      "player": "Qabil Əhmədov",
+      "excel_position": "Hücumçu",
+      "jersey": 10
+    },
+    {
+      "team": "Khazar United",
+      "player": "Mirəli Abdullayev",
+      "excel_position": "Müdafiəçi",
+      "jersey": 4
+    },
+    {
+      "team": "Khazar United",
+      "player": "Əli Məmmədov",
+      "excel_position": "Müdafiəçi",
+      "jersey": 99
+    },
+    {
+      "team": "Khazar United",
+      "player": "Hacı Muradov",
+      "excel_position": "Hücumçu",
+      "jersey": 7
+    },
+    {
+      "team": "Khazar United",
+      "player": "Onur Rzayev",
+      "excel_position": "Müdafiəçi",
+      "jersey": 5
+    },
+    {
+      "team": "Khazar Waves",
+      "player": "Yusif Mehdizadə",
+      "excel_position": "Müdafiəçi",
+      "jersey": 3
+    }
+  ],
+  "khazar_waves_confirmed_positions": {
+    "Büsat Əsədov": {
+      "code": "LW",
+      "label": "Sol cinah hücumçusu",
+      "status": "confirmed_user"
+    },
+    "Məmməd Məmmədli": {
+      "code": "CAM",
+      "label": "Hücumameyilli yarımmüdafiəçi",
+      "status": "confirmed_user"
+    },
+    "Fuad Cumayev": {
+      "code": "ST",
+      "label": "Hücumçu",
+      "status": "confirmed_user"
+    },
+    "Ayxan Sultanlı": {
+      "code": "RW",
+      "label": "Sağ cinah hücumçusu",
+      "status": "confirmed_user"
+    },
+    "Əli Manaflı": {
+      "code": "CB",
+      "label": "Mərkəz müdafiəçisi",
+      "status": "confirmed_user"
+    },
+    "Ziyad Hacızadə": {
+      "code": "CB",
+      "label": "Mərkəz müdafiəçisi",
+      "status": "confirmed_user"
+    },
+    "Məlik Əliyev": {
+      "code": "GK",
+      "label": "Qapıçı",
+      "status": "confirmed_user"
+    },
+    "Yusif Mehdizadə": {
+      "code": null,
+      "label": "Müdafiəçi",
+      "status": "needs_admin_review"
+    }
+  },
+  "mamed_identity_note": "Məmməd Məmmədli is present once in Khazar Waves roster. The earlier MAMED alias was not merged or treated as a separate player; confirmation remains pending.",
+  "note": "Broad Excel categories were not guessed into CB/RB/LB, CM/CDM/CAM, or ST/CF. They remain pending admin review."
+}

@@ -2,3 +2,526 @@
 @media(max-width:1000px){.site-header{padding:0 24px}.site-nav{gap:15px}.league-hero{padding-left:40px;padding-right:40px}.content-section,.editorial-section{padding:70px 40px}.club-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero-ring.ring-two{width:420px}.hero-ring.ring-one{width:360px}.fan-callout{padding:60px 40px}.site-footer{padding:25px 40px}}
 @media(max-width:720px){.site-header{height:70px;padding:0 16px}.site-brand{min-width:0}.site-brand img{width:40px;height:40px}.site-brand span{font-size:14px}.site-nav{display:none;position:absolute;top:69px;left:0;right:0;background:var(--pub-card);border-bottom:1px solid var(--pub-line);padding:18px;flex-direction:column;align-items:flex-start}.site-nav.nav-open{display:flex}.mobile-menu{display:block}.theme-toggle{padding:8px 10px}.theme-toggle span{display:none}.admin-link{padding:10px 11px;font-size:10px}.league-hero{grid-template-columns:1fr;padding:58px 24px 68px;min-height:auto}.hero-copy h1{font-size:59px}.hero-art{min-height:310px;margin-top:28px}.hero-logo-wrap{width:235px}.ring-one{width:290px}.ring-two{width:340px}.hero-stamp{right:8%;bottom:0}.hero-meta{margin-top:34px;gap:23px}.hero-meta span{font-size:19px}.hero-bottom{left:24px;right:24px}.stats-strip{padding:20px 12px}.stat-item strong{font-size:27px}.stat-item span{font-size:7px;letter-spacing:.1em}.content-section,.editorial-section{padding:58px 20px}.section-heading,.editorial-heading{align-items:flex-start;flex-direction:column;gap:10px}.section-heading h2,.editorial-heading h2,.fan-callout h2{font-size:42px}.section-index{padding:0}.group-grid{grid-template-columns:1fr}.match-teams{grid-template-columns:1fr 90px 1fr;gap:7px;margin:25px auto}.match-team-logo,.match-team-fallback{width:60px;height:60px}.match-side b{font-size:10px}.match-score{font-size:30px}.match-card-top{font-size:8px}.match-countdown{align-items:flex-start;flex-direction:column}.match-countdown strong{font-size:17px}.club-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.club-card{min-height:150px;padding:13px}.club-card h3{font-size:15px}.news-grid{grid-template-columns:1fr}.news-1{grid-column:auto}.fan-callout{grid-template-columns:1fr;padding:50px 22px;gap:20px}.fan-feature-list{gap:6px}.fan-feature-list span{font-size:11px}.site-footer{padding:25px 20px;flex-wrap:wrap}.site-footer>span{order:3;width:100%}.sponsor-row a{min-width:120px}.settings-grid{grid-template-columns:1fr}.schedule-editor{grid-template-columns:1fr 1fr}.knockout-grid{grid-template-columns:1fr}}
 .group-stat{font-size:9px;color:var(--pub-muted);white-space:nowrap;font-variant-numeric:tabular-nums}.group-stat strong{color:var(--pub-blue);font-size:12px}
+.match-detail-link{display:inline-block;margin-top:12px;color:#157b4a;font-weight:700;text-decoration:none}.mvp-candidates{margin:16px 0}.mvp-candidates input{accent-color:#16844f}.mvp-session-list{display:grid;gap:14px}.mvp-actions{display:flex;gap:10px;margin-top:12px}
+
+/* Public portal: clearer focus, forgiving touch targets, and a contained mobile menu. */
+.public-shell :is(a,button):focus-visible{outline:3px solid #37b6ff;outline-offset:3px;border-radius:4px}
+.public-shell .site-nav a{display:inline-flex;align-items:center;min-height:44px}
+.public-shell .mobile-menu{min-width:44px;min-height:44px;cursor:pointer}
+.public-shell .hero-buttons a{display:inline-flex;align-items:center;min-height:44px}
+@media(max-width:720px){
+  .public-shell .site-header{gap:10px}
+  .public-shell .header-actions{gap:7px}
+  .public-shell .site-nav{max-height:calc(100vh - 70px);overflow-y:auto;box-shadow:0 12px 20px #06182b1c}
+  .public-shell .site-nav.nav-open{display:flex}
+  .public-shell .site-nav a{width:100%;padding:0 4px;border-bottom:1px solid var(--pub-line)}
+  .public-shell .hero-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .public-shell .hero-meta span{font-size:clamp(16px,5vw,19px)}
+  .public-shell .hero-meta b{font-size:7px;line-height:1.4}
+  .public-shell .hero-copy h1{font-size:clamp(48px,13vw,59px)}
+}
+@media(prefers-reduced-motion:reduce){.public-shell *{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+
+/* =========================================================
+   KHAZAR LEAGUE — 2026 visual system refresh
+   Football operations platform / responsive / reduced motion
+   ========================================================= */
+.public-home .site-header{
+  height:78px;padding-inline:clamp(18px,5.4vw,88px);
+  background:rgba(255,255,255,.92);backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(207,222,235,.8);
+  box-shadow:0 8px 30px rgba(7,29,53,.035)
+}
+.public-home .site-brand img{width:43px;height:43px;border-radius:50%;object-fit:contain}
+.public-home .site-brand span{font-size:15px;letter-spacing:.13em}
+.public-home .site-nav{gap:clamp(12px,2vw,30px)}
+.public-home .site-nav a{font-size:11px;font-weight:750;color:#52677d;position:relative;padding:8px 0}
+.public-home .site-nav a:after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:#159ce8;transition:right .22s ease}
+.public-home .site-nav a:hover:after{right:0}
+.public-home .admin-link{border-radius:8px;background:#087fbd;padding:12px 17px;box-shadow:0 8px 20px rgba(8,127,189,.18)}
+.public-home .theme-toggle{border-radius:8px;font-size:10px}
+.public-home .league-hero{
+  min-height:620px;grid-template-columns:minmax(0,1.03fr) minmax(420px,.97fr);
+  gap:clamp(30px,5vw,80px);padding:78px clamp(24px,7.4vw,120px) 84px;
+  background:radial-gradient(ellipse at 78% 42%,rgba(21,156,232,.24),transparent 32%),linear-gradient(118deg,#06182b 0%,#082945 55%,#0b3d62 100%);
+}
+.public-home .league-hero:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.12;background-image:linear-gradient(rgba(127,198,238,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(127,198,238,.35) 1px,transparent 1px);background-size:54px 54px;mask-image:linear-gradient(90deg,transparent,#000 65%)}
+.public-home .league-hero:after{width:900px;height:900px;right:-360px;top:-250px;border-color:#72c6f21c;box-shadow:0 0 0 70px #72c6f208,0 0 0 140px #72c6f205}
+.public-home .hero-copy h1{font-size:clamp(58px,6.5vw,88px);line-height:.98;letter-spacing:-.055em;margin:24px 0 20px}
+.public-home .hero-copy p{font-size:14px;max-width:510px;color:#c0d1df}
+.public-home .hero-kicker{font-size:9px;letter-spacing:.19em}
+.public-home .primary-action,.public-home .secondary-action{border-radius:8px;min-height:48px;display:inline-flex;align-items:center}
+.public-home .primary-action{background:linear-gradient(110deg,#087fbd,#159ce8);box-shadow:0 12px 28px rgba(21,156,232,.25)}
+.public-home .hero-meta{gap:clamp(18px,3vw,42px);margin-top:48px}
+.public-home .hero-meta span{font-size:25px}
+.public-home .hero-art.hero-control-art{min-height:430px;display:flex;align-items:center;justify-content:center;isolation:isolate}
+.public-home .hero-orbit-glow{position:absolute;width:min(88%,520px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(34,166,231,.23),rgba(34,166,231,.04) 48%,transparent 70%);filter:blur(12px);z-index:-1;animation:kl-glow 7s ease-in-out infinite alternate}
+.public-home .hero-control-card{
+  position:relative;width:min(100%,510px);padding:25px 27px 20px;border:1px solid rgba(143,207,241,.28);
+  border-radius:18px;background:linear-gradient(145deg,rgba(14,47,73,.94),rgba(5,24,42,.96));
+  box-shadow:0 34px 90px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.08);
+  backdrop-filter:blur(16px);transform:perspective(1100px) rotateY(-5deg) rotateX(2deg);
+  animation:kl-card-float 7s ease-in-out infinite
+}
+.public-home .hero-control-top,.public-home .hero-control-bottom{display:flex;justify-content:space-between;gap:12px;align-items:center;color:#85a7c1;font-size:8px;font-weight:850;letter-spacing:.13em}
+.public-home .hero-control-top span{display:flex;align-items:center;gap:8px;color:#b5d4e8}
+.public-home .hero-control-top i{width:7px;height:7px;border-radius:50%;background:#48d49b;box-shadow:0 0 0 4px rgba(72,212,155,.12)}
+.public-home .hero-control-brand{display:flex;align-items:center;gap:13px;margin:29px 0 23px}
+.public-home .hero-control-brand img{width:49px;height:49px;object-fit:contain;border-radius:50%;background:#fff;padding:4px}
+.public-home .hero-control-brand div{display:grid;gap:4px}
+.public-home .hero-control-brand strong{font:700 20px Oswald,sans-serif;letter-spacing:.12em;color:#fff}
+.public-home .hero-control-brand small{font-size:8px;letter-spacing:.2em;color:#7fa7c4}
+.public-home .hero-control-divider{height:1px;background:linear-gradient(90deg,rgba(94,177,224,.4),rgba(94,177,224,.04));margin-bottom:19px}
+.public-home .hero-control-match-label{display:flex;justify-content:space-between;align-items:center;color:#8eacc3;font-size:8px;font-weight:900;letter-spacing:.16em}
+.public-home .hero-control-match-label b{color:#53c3ff;background:rgba(21,156,232,.12);border:1px solid rgba(21,156,232,.25);border-radius:99px;padding:6px 9px}
+.public-home .hero-control-fixture{display:grid;grid-template-columns:1fr 78px 1fr;gap:12px;align-items:center;padding:27px 0}
+.public-home .hero-control-fixture>div{display:flex;flex-direction:column;align-items:center;gap:11px;text-align:center;min-width:0}
+.public-home .hero-fixture-crest{width:56px;height:56px;display:grid;place-items:center;border:1px solid rgba(122,190,228,.3);border-radius:16px;background:linear-gradient(145deg,#164c70,#0c2b45);font:700 20px Oswald,sans-serif;color:#bde8ff;box-shadow:inset 0 1px rgba(255,255,255,.08)}
+.public-home .hero-control-fixture strong{font-size:10px;line-height:1.35;color:#edf7ff;max-width:150px}
+.public-home .hero-fixture-vs{font:700 23px Oswald,sans-serif;color:#fff;text-align:center}
+.public-home .hero-control-bottom{border-top:1px solid rgba(139,190,220,.16);padding-top:15px;font-size:7px}
+.public-home .hero-float-chip{position:absolute;display:flex;align-items:center;gap:10px;padding:10px 13px;border:1px solid rgba(143,207,241,.25);border-radius:10px;background:rgba(7,29,49,.9);box-shadow:0 12px 32px rgba(0,0,0,.2);backdrop-filter:blur(12px);animation:kl-chip-float 5s ease-in-out infinite}
+.public-home .hero-float-chip b{font:700 22px Oswald,sans-serif;color:#fff}
+.public-home .hero-float-chip span{font-size:7px;line-height:1.35;font-weight:900;letter-spacing:.13em;color:#8fb2cc;max-width:70px}
+.public-home .chip-one{left:-22px;top:13%}
+.public-home .chip-two{right:-22px;bottom:17%;animation-delay:-2.4s}
+.public-home .hero-stamp{bottom:-7px;right:12px;background:rgba(7,29,49,.7)}
+.public-home .hero-bottom{font-size:8px}
+.public-home .stats-strip{padding:25px clamp(24px,12vw,190px);box-shadow:0 10px 35px rgba(7,29,53,.035)}
+.public-home .stat-item strong{font-size:38px;letter-spacing:-.04em}
+.public-home .content-section,.public-home .editorial-section{padding:clamp(58px,7vw,92px) clamp(22px,7.4vw,120px)}
+.public-home .section-heading h2,.public-home .editorial-heading h2{font-size:clamp(34px,4.2vw,54px)}
+.public-home .group-card,.public-home .club-card,.public-home .news-card{border-radius:14px}
+.public-home .group-card{box-shadow:0 12px 34px rgba(7,29,53,.055)}
+.public-home .club-card{min-height:180px;padding:20px;box-shadow:0 6px 22px rgba(7,29,53,.035)}
+.public-home .club-card:hover{transform:translateY(-5px);border-color:#78c9f3;box-shadow:0 18px 38px rgba(7,67,107,.12)}
+.public-home .editorial-section{background:radial-gradient(ellipse at 90% 0%,rgba(21,156,232,.16),transparent 40%),#071d35}
+.public-home .news-card{transition:transform .24s ease,border-color .24s ease,box-shadow .24s ease}
+.public-home .news-card:hover{transform:translateY(-5px);border-color:rgba(87,190,243,.45)}
+.public-home .fan-callout{background:linear-gradient(120deg,#eaf4fc,#f6f9fc);padding:clamp(44px,6vw,72px) clamp(22px,7.4vw,120px)}
+.public-home.is-dark .fan-callout{background:linear-gradient(120deg,#0d2439,#102d47)}
+.public-home .site-footer{padding-inline:clamp(22px,7.4vw,120px)}
+/* Shared interaction language for public profiles, statistics, voting and admin workspaces. */
+.page-shell{animation:kl-page-enter .38s cubic-bezier(.2,.7,.25,1) both}
+.page-shell .panel,.page-shell .group-panel,.page-shell .knockout-stage{transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+.page-shell .panel:hover{border-color:#c4d9e8}
+.page-shell .page-heading{margin-bottom:3px}
+.page-shell .page-heading h1{letter-spacing:-.045em}
+.page-shell .panel-heading h2{letter-spacing:-.025em}
+.data-table tbody tr{transition:background-color .16s ease}
+.admin-layout .sidebar{transition:width .2s ease}
+.admin-layout .nav-link{position:relative;overflow:hidden}
+.admin-layout .nav-link:before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:#43b8f5;transform:scaleY(0);transition:transform .2s ease}
+.admin-layout .nav-link.active:before{transform:scaleY(1)}
+.admin-layout .header{box-shadow:0 8px 24px rgba(5,24,43,.13)}
+.admin-layout .content-area{padding-top:clamp(22px,3vw,42px)}
+.admin-layout .admin-workspace>.page-heading{box-shadow:0 8px 25px rgba(7,29,53,.035)}
+.admin-layout .admin-workspace .panel{transition:box-shadow .2s ease,border-color .2s ease}
+.admin-layout .admin-workspace .panel:hover{box-shadow:0 10px 28px rgba(7,29,53,.07);border-color:#c8dce9}
+@keyframes kl-glow{from{opacity:.55;transform:scale(.94)}to{opacity:1;transform:scale(1.06)}}
+@keyframes kl-card-float{0%,100%{transform:perspective(1100px) rotateY(-5deg) rotateX(2deg) translateY(0)}50%{transform:perspective(1100px) rotateY(-3deg) rotateX(1deg) translateY(-9px)}}
+@keyframes kl-chip-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes kl-page-enter{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1050px){
+ .public-home .league-hero{grid-template-columns:1fr minmax(340px,.85fr);padding-inline:5vw;gap:22px}
+ .public-home .hero-control-card{padding:22px}
+ .public-home .hero-float-chip.chip-one{left:-6px}
+ .public-home .hero-float-chip.chip-two{right:-6px}
+ .public-home .site-nav{gap:14px}
+ .public-home .site-nav a{font-size:10px}
+}
+@media(max-width:780px){
+ .public-home .site-header{height:70px;padding-inline:16px;gap:10px}
+ .public-home .site-brand{min-width:0}
+ .public-home .site-brand img{width:38px;height:38px}
+ .public-home .site-nav{display:none;position:absolute;left:12px;right:12px;top:70px;padding:14px;border:1px solid var(--pub-line);border-radius:13px;background:var(--pub-card);box-shadow:0 20px 45px rgba(7,29,53,.18);align-items:stretch;flex-direction:column;gap:3px}
+ .public-home .site-nav.nav-open{display:flex}
+ .public-home .site-nav a{padding:11px 9px;font-size:12px}
+ .public-home .header-actions{gap:7px}
+ .public-home .theme-toggle{padding:8px 9px;font-size:0}
+ .public-home .theme-toggle span{display:none}
+ .public-home .admin-link{font-size:10px;padding:10px}
+ .public-home .mobile-menu{display:block}
+ .public-home .league-hero{grid-template-columns:1fr;min-height:0;padding:64px 22px 68px;gap:24px}
+ .public-home .hero-copy h1{font-size:clamp(52px,12vw,76px);margin:20px 0 16px}
+ .public-home .hero-meta{margin-top:30px}
+ .public-home .hero-art.hero-control-art{min-height:330px;margin:5px 0 0}
+ .public-home .hero-control-card{width:min(100%,480px);transform:none;animation:none}
+ .public-home .hero-float-chip{display:none}
+ .public-home .hero-stamp{right:4px;bottom:-12px}
+ .public-home .hero-bottom{left:22px;right:22px;bottom:17px;font-size:7px}
+ .public-home .stats-strip{padding:20px 12px}
+ .public-home .stat-item strong{font-size:30px}
+ .public-home .stat-item span{font-size:7px;letter-spacing:.1em}
+ .public-home .content-section,.public-home .editorial-section{padding:52px 18px}
+ .public-home .section-heading h2,.public-home .editorial-heading h2{font-size:35px}
+ .public-home .club-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .public-home .fan-callout{grid-template-columns:1fr;gap:24px;padding:45px 20px}
+}
+@media(max-width:480px){
+ .public-home .site-brand span{font-size:12px}
+ .public-home .admin-link{padding:9px}
+ .public-home .league-hero{padding-inline:17px}
+ .public-home .hero-copy h1{font-size:49px}
+ .public-home .hero-copy p{font-size:12px}
+ .public-home .hero-buttons{flex-wrap:wrap}
+ .public-home .hero-buttons a{flex:1;justify-content:center;padding-inline:12px;font-size:10px}
+ .public-home .hero-meta{gap:19px}
+ .public-home .hero-meta span{font-size:20px}
+ .public-home .hero-art.hero-control-art{min-height:280px}
+ .public-home .hero-control-card{padding:17px 15px;border-radius:13px}
+ .public-home .hero-control-brand{margin:19px 0 15px}
+ .public-home .hero-control-brand strong{font-size:16px}
+ .public-home .hero-control-fixture{grid-template-columns:1fr 54px 1fr;gap:5px;padding:20px 0}
+ .public-home .hero-fixture-crest{width:45px;height:45px;border-radius:12px}
+ .public-home .hero-control-fixture strong{font-size:9px}
+ .public-home .hero-fixture-vs{font-size:18px}
+ .public-home .hero-control-top,.public-home .hero-control-bottom{font-size:6px}
+ .public-home .stats-strip{grid-template-columns:repeat(2,1fr);gap:14px}
+ .public-home .stat-item:nth-child(2){border:0}
+ .public-home .stat-item strong{font-size:27px}
+ .public-home .group-grid,.public-home .club-grid,.public-home .news-grid{grid-template-columns:1fr}
+ .public-home .news-1{grid-column:auto}
+ .public-home .section-heading,.public-home .editorial-heading{align-items:flex-start;flex-direction:column}
+ .public-home .section-heading h2,.public-home .editorial-heading h2{font-size:31px}
+ .public-home .match-teams{grid-template-columns:1fr 85px 1fr;gap:6px}
+ .public-home .match-team-logo,.public-home .match-team-fallback{width:58px;height:58px}
+ .public-home .match-score{font-size:27px}
+ .public-home .match-countdown{align-items:flex-start;flex-direction:column}
+ .public-home .match-countdown strong{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){
+ .public-home .hero-orbit-glow,.public-home .hero-control-card,.public-home .hero-float-chip,.page-shell{animation:none!important}
+ .public-home .hero-control-card{transform:none}
+ .page-shell,.page-shell *{scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+
+/* 2.0 public portal: midnight navy + glass */
+.public-shell{--pub-bg:#071321;--pub-card:rgba(13,29,48,.88);--pub-ink:#edf6ff;--pub-muted:#9ab1c6;--pub-line:rgba(133,181,211,.2);--pub-navy:#06172a;--pub-blue:#8bd5ff;--pub-electric:#36b8ff;background:var(--pub-bg);color:var(--pub-ink)}
+.public-shell .site-header{background:rgba(7,19,33,.84);border-bottom-color:rgba(130,177,208,.18);backdrop-filter:blur(22px)}
+.public-shell .league-hero{background:radial-gradient(ellipse at 80% 20%,rgba(32,144,205,.25),transparent 42%),linear-gradient(120deg,#06111f,#09233b 60%,#0c3655)}
+.public-shell .stats-strip,.public-shell .group-card,.public-shell .club-card,.public-shell .news-card,.public-shell .match-empty{background:rgba(13,29,48,.76);border-color:rgba(130,177,208,.2);backdrop-filter:blur(16px)}
+.public-shell .teams-section{background:#081827}.public-shell .fan-callout{background:linear-gradient(120deg,#0b2034,#102d47);color:#eaf5ff}.public-shell .fan-callout h2,.public-shell .fan-feature-list b{color:#edf6ff}
+.public-shell .group-card-head{background:linear-gradient(110deg,#0b2b47,#12476c)}.public-shell .group-card-foot{background:#091a2a}.public-shell .club-card:hover{border-color:rgba(91,197,255,.65);box-shadow:0 18px 48px rgba(0,0,0,.3)}
+.public-shell .news-card{background:linear-gradient(145deg,rgba(16,54,83,.92),rgba(9,29,48,.94))}.public-shell .news-1{background:linear-gradient(130deg,#0d4770,#0c2944)}
+.public-shell .hero-control-card{background:linear-gradient(145deg,rgba(12,38,61,.92),rgba(5,20,35,.96));border:1px solid rgba(117,194,235,.28);box-shadow:0 35px 90px rgba(0,0,0,.4);backdrop-filter:blur(22px)}
+.public-shell .primary-action{background:linear-gradient(110deg,#168fce,#38b9fa);box-shadow:0 10px 30px rgba(24,151,213,.25)}.public-shell .secondary-action{border-color:rgba(151,205,236,.35);background:rgba(255,255,255,.035)}
+.public-shell .theme-toggle{display:none!important}
+
+
+/* Unified premium public portal — no light theme */
+.public-shell{--pub-bg:#06111f;--pub-card:#0b1d30;--pub-ink:#f4f8fc;--pub-muted:#9bb0c3;--pub-line:rgba(130,184,222,.18);--pub-navy:#07182a;--pub-blue:#27a9f2;--pub-electric:#63d4f5;background:var(--pub-bg);color:var(--pub-ink)}
+.public-shell.is-dark{--pub-bg:#06111f;--pub-card:#0b1d30;--pub-ink:#f4f8fc;--pub-muted:#9bb0c3;--pub-line:rgba(130,184,222,.18);--pub-navy:#07182a;--pub-blue:#27a9f2;--pub-electric:#63d4f5}
+.site-header{background:rgba(6,17,31,.88);border-color:var(--pub-line);backdrop-filter:blur(18px)}
+.site-nav a{color:#b7c8d8}
+.admin-link{background:linear-gradient(135deg,#168ed6,#32b9f5);border-radius:11px;box-shadow:0 8px 24px #168ed633}
+.league-hero{background:radial-gradient(ellipse at 82% 30%,rgba(39,169,242,.2),transparent 36%),linear-gradient(115deg,#06111f 0%,#09223a 56%,#0a3554 100%)}
+.stats-strip,.content-section,.editorial-section,.site-footer{background:var(--pub-bg);color:var(--pub-ink)}
+.group-card,.club-card,.news-card,.feature-match-card{background:rgba(12,32,52,.82)!important;border-color:var(--pub-line)!important;color:var(--pub-ink)}
+.group-card-head{background:linear-gradient(110deg,#0d2942,#12496b)!important}
+.group-team-row{color:var(--pub-ink)}
+.group-team-row:hover,.club-card:hover,.news-card:hover{border-color:var(--kl-border-strong)!important}
+.primary-action{border-radius:11px;background:linear-gradient(135deg,#168ed6,#32b9f5)}
+.secondary-action{border-radius:11px;border-color:var(--pub-line)}
+.public-shell .section-heading h2,.public-shell .editorial-heading h2{color:var(--pub-ink)}
+.public-shell .section-heading p,.public-shell .editorial-heading p{color:var(--pub-muted)}
+
+
+/* Homepage: refreshed premium competition hub */
+.public-home .site-header{height:76px;padding-inline:clamp(18px,5vw,76px)}
+.public-home .site-brand img{width:44px;height:44px}
+.public-home .site-nav{gap:clamp(14px,2.4vw,32px)}
+.public-home .site-nav a{font-size:12px;letter-spacing:.01em}
+.public-home .league-hero{min-height:640px;padding:76px clamp(22px,7.5vw,118px) 82px;grid-template-columns:minmax(0,1fr) minmax(420px,.95fr);gap:clamp(24px,4vw,72px)}
+.public-home .hero-copy h1{font-size:clamp(56px,6.5vw,88px);line-height:.94;letter-spacing:-.045em}
+.public-home .hero-copy p{font-size:16px;max-width:520px;color:#c0d0de}
+.public-home .hero-kicker{padding:8px 12px;border:1px solid rgba(99,212,245,.18);border-radius:99px;background:rgba(39,169,242,.06);width:max-content;max-width:100%;font-size:9px}
+.public-home .hero-control-card{width:min(100%,540px);padding:28px;border-radius:24px;background:linear-gradient(145deg,rgba(13,39,62,.96),rgba(6,22,38,.98));border-color:rgba(99,212,245,.24);transform:perspective(1200px) rotateY(-3deg) rotateX(1deg)}
+.public-home .hero-control-brand strong{font-size:23px;letter-spacing:.09em}
+.public-home .hero-control-fixture{padding:32px 0}
+.public-home .hero-fixture-crest{width:62px;height:62px;border-radius:18px}
+.public-home .hero-fixture-vs{color:#63d4f5}
+.public-home .hero-float-chip{border-radius:13px;background:rgba(8,29,48,.92);border:1px solid rgba(99,212,245,.22);box-shadow:0 12px 32px rgba(0,0,0,.25);backdrop-filter:blur(14px)}
+.public-home .hero-meta{gap:clamp(22px,3vw,42px);margin-top:46px}
+.public-home .hero-meta span{font-size:29px}
+.public-home .hero-meta b{font-size:9px;color:#9bb0c3}
+.public-home .stats-strip{background:#081a2b;border-top:1px solid rgba(130,184,222,.12);border-bottom:1px solid rgba(130,184,222,.12)}
+.public-home .stat-item strong{font-size:38px;color:#63d4f5}
+.public-home .content-section,.public-home .editorial-section{padding-block:clamp(56px,7vw,88px)}
+.public-home .club-card{border-radius:16px;background:rgba(12,32,52,.82);border-color:rgba(130,184,222,.18)}
+.public-home .club-card:hover{border-color:rgba(99,212,245,.42);box-shadow:0 18px 40px rgba(0,0,0,.24)}
+.public-home .group-card,.public-home .news-card{border-radius:18px}
+.public-home .primary-action,.public-home .secondary-action{min-height:48px;padding:14px 20px;border-radius:12px;font-size:12px}
+@media(max-width:900px){.public-home .league-hero{grid-template-columns:1fr;gap:36px;padding-block:54px 70px}.public-home .hero-art{min-height:340px}.public-home .hero-control-card{transform:none}.public-home .hero-meta{margin-top:32px}}
+@media(max-width:560px){.public-home .league-hero{padding-inline:18px}.public-home .hero-copy h1{font-size:clamp(48px,14vw,68px)}.public-home .hero-art{min-height:300px}.public-home .hero-control-card{padding:18px}.public-home .hero-control-fixture{grid-template-columns:1fr 48px 1fr;gap:6px;padding:22px 0}.public-home .hero-fixture-crest{width:48px;height:48px}.public-home .hero-float-chip{display:none}.public-home .stats-strip{grid-template-columns:repeat(2,1fr);gap:18px;padding:22px}.public-home .stat-item:nth-child(2){border:0}}
+
+
+/* ==========================================================
+   KHAZAR LEAGUE — TYPOGRAPHY & AZERBAIJANI GLYPH OVERRIDES
+   Complete App.css replacement tail
+   Uses native Apple system fonts where available and
+   Segoe UI on Windows for reliable Azerbaijani characters.
+   ========================================================== */
+
+:root {
+  --kl-font-sans: "SF Pro Text", "SF Pro Display", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --kl-font-display: "SF Pro Display", "SF Pro Text", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-family: var(--kl-font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+  font-family: var(--kl-font-sans) !important;
+}
+
+body,
+button,
+input,
+select,
+textarea,
+option,
+label,
+a,
+p,
+span,
+small,
+strong,
+b,
+em,
+i,
+li,
+td,
+th,
+caption,
+figcaption,
+blockquote,
+article,
+section,
+nav,
+header,
+footer,
+main,
+aside,
+summary,
+details {
+  font-family: var(--kl-font-sans) !important;
+  font-synthesis: none;
+  font-kerning: normal;
+}
+
+h1, h2, h3, h4, h5, h6,
+.page-heading,
+.section-heading,
+.editorial-heading,
+.panel-heading {
+  font-family: var(--kl-font-display) !important;
+  font-synthesis: none;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  text-transform: none;
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+}
+
+/* Public portal brand and headings */
+.site-brand span,
+.footer-brand span,
+.hero-control-brand strong,
+.stat-item strong,
+.group-card-head strong,
+.match-score,
+.match-team-fallback,
+.hero-fixture-vs,
+.hero-float-chip b,
+.team-rank,
+.group-points,
+.club-card h3,
+.news-card h3,
+.section-heading h2,
+.editorial-heading h2,
+.fan-callout h2,
+.hero-copy h1 {
+  font-family: var(--kl-font-display) !important;
+  font-synthesis: none;
+  letter-spacing: -0.025em;
+}
+
+/* The hero headline was too condensed, too heavy and too large.
+   Keep a clear editorial hierarchy without the poster-like look. */
+.public-home .hero-copy h1,
+.public-shell .hero-copy h1,
+.hero-copy h1 {
+  max-width: 720px;
+  font-size: clamp(42px, 5.1vw, 68px) !important;
+  line-height: 1.04 !important;
+  font-weight: 750 !important;
+  letter-spacing: -0.045em !important;
+  text-transform: none !important;
+  margin: 22px 0 20px !important;
+  text-wrap: balance;
+}
+
+.public-home .section-heading h2,
+.public-home .editorial-heading h2,
+.public-shell .section-heading h2,
+.public-shell .editorial-heading h2,
+.section-heading h2,
+.editorial-heading h2 {
+  font-size: clamp(30px, 3.4vw, 46px) !important;
+  line-height: 1.12 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.035em !important;
+  text-transform: none !important;
+}
+
+.hero-copy h1 em,
+.section-heading h2 em,
+.editorial-heading h2 em,
+.fan-callout h2 em {
+  font-style: normal;
+  font-weight: 750;
+}
+
+/* Improve Azerbaijani diacritics and avoid overly tight tracking. */
+:lang(az),
+[lang="az"],
+.public-shell,
+.admin-layout,
+.page-shell {
+  font-family: var(--kl-font-sans) !important;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.hero-kicker,
+.section-kicker,
+.section-index,
+.hero-bottom,
+.hero-control-top,
+.hero-control-bottom,
+.hero-control-match-label,
+.hero-float-chip span,
+.stat-item span,
+.group-card-head span,
+.group-card-head small,
+.group-table-head,
+.group-card-foot,
+.news-category,
+.match-countdown,
+.site-brand small,
+.footer-brand small {
+  font-family: var(--kl-font-sans) !important;
+  letter-spacing: 0.08em;
+}
+
+/* Avoid condensed fonts inherited from legacy declarations. */
+.site-brand span,
+.footer-brand span,
+.hero-control-brand strong,
+.stat-item strong,
+.group-card-head strong,
+.match-score,
+.match-team-fallback,
+.hero-fixture-vs,
+.hero-float-chip b,
+.team-rank,
+.group-points,
+.club-card h3,
+.news-card h3,
+.page-heading h1,
+.page-heading h2,
+.page-heading h3,
+.admin-layout h1,
+.admin-layout h2,
+.admin-layout h3 {
+  font-stretch: normal;
+}
+
+/* Buttons, forms and tables share the same readable font metrics. */
+button,
+input,
+select,
+textarea,
+.primary-action,
+.secondary-action,
+.admin-link,
+.theme-toggle,
+.data-table,
+.data-table th,
+.data-table td {
+  font-family: var(--kl-font-sans) !important;
+  letter-spacing: normal;
+}
+
+button,
+.primary-action,
+.secondary-action,
+.admin-link {
+  font-weight: 650;
+}
+
+p,
+li,
+.group-team-row,
+.match-empty,
+.site-nav a,
+.site-footer,
+.news-card p {
+  line-height: 1.65;
+}
+
+/* Keep the dark-only portal consistent. */
+.public-shell,
+.public-shell.is-dark,
+.public-home,
+.public-home.is-dark {
+  color-scheme: dark;
+}
+
+/* Responsive headline scale */
+@media (max-width: 900px) {
+  .public-home .hero-copy h1,
+  .public-shell .hero-copy h1,
+  .hero-copy h1 {
+    font-size: clamp(40px, 7vw, 58px) !important;
+    line-height: 1.06 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .public-home .hero-copy h1,
+  .public-shell .hero-copy h1,
+  .hero-copy h1 {
+    font-size: clamp(36px, 10vw, 48px) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.035em !important;
+  }
+
+  .public-home .section-heading h2,
+  .public-home .editorial-heading h2,
+  .public-shell .section-heading h2,
+  .public-shell .editorial-heading h2,
+  .section-heading h2,
+  .editorial-heading h2 {
+    font-size: clamp(27px, 7.5vw, 34px) !important;
+  }
+}
+
+/* Accessibility: respect reduced-motion preference. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

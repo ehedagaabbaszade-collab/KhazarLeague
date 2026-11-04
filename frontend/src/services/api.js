@@ -165,6 +165,18 @@ export const publicApi = {
   getTournament: (tournamentId) => api.get(`/public/tournament/${tournamentId}`),
   getTeam: (teamId) => api.get(`/public/team/${teamId}`),
   getPlayer: (playerId) => api.get(`/public/player/${playerId}`),
+  getMatch: (matchId) => api.get(`/public/match/${matchId}`),
+  getVotingSessions: () => api.get('/public/voting', { withCredentials: true }),
+  getVotingSession: (id) => api.get(`/public/voting/${id}`),
+  castMvpVote: (id, player_id) => api.post(`/public/voting/${id}/votes`, { player_id }, { withCredentials: true }),
+  getStatistics: (tournamentId) => api.get('/public/statistics', { params: tournamentId ? { tournament_id: tournamentId } : {} }),
+  getNewsArticle: (id) => api.get(`/public/news/${id}`),
 };
 
 export default api;
+
+// Super Admin: validate and apply bulk player-position approval JSON.
+export const playerPositionImportApi = {
+  validate: (file) => { const form = new FormData(); form.append('file', file); return api.post('/admin/player-position-import', form, { headers: { 'Content-Type': 'multipart/form-data' } }); },
+  apply: (file) => { const form = new FormData(); form.append('file', file); return api.post('/admin/player-position-import?apply=true', form, { headers: { 'Content-Type': 'multipart/form-data' } }); },
+};

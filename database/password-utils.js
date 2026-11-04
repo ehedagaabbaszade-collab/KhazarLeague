@@ -45,7 +45,8 @@ function verifyPasswordSync(password, hash) {
     if (!saltHex || !keyHex) return false;
     const salt = Buffer.from(saltHex, 'hex');
     const derivedKey = crypto.pbkdf2Sync(password, salt, ITERATIONS, KEY_LENGTH, DIGEST);
-    return derivedKey.toString('hex') === keyHex;
+    const expected = Buffer.from(keyHex, 'hex');
+    return expected.length === derivedKey.length && crypto.timingSafeEqual(derivedKey, expected);
 }
 
 module.exports = { hashPassword, verifyPassword, hashPasswordSync, verifyPasswordSync };

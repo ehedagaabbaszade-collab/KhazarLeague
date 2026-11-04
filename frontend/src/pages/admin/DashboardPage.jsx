@@ -1,3 +1,5 @@
+import AnimatedCount from '../../components/AnimatedCount';
+import './AdminPages.css';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api, { tournamentApi } from '../../services/api';
@@ -16,6 +18,7 @@ export function DashboardPage() {
   if(loading)return <div className="loading-panel">Turnir məlumatları yüklənir...</div>;
   const {teams,players,matches,tournament,groups}=data;
   const completed=matches.filter(m=>m.match_status==='completed');
+  const positionsPending=players.filter(p=>p.position_status==='needs_admin_review').length;
   const upcoming=matches.filter(m=>m.match_status!=='completed');
   const stats=[
     ['Komandalar',teams.length,'16 komandalı turnir','/admin/teams','♧'],
@@ -23,10 +26,11 @@ export function DashboardPage() {
     ['Oyunlar',matches.length,'Qrup mərhələsi','/admin/matches','⚽'],
     ['Tamamlanan',completed.length,'Təsdiqlənmiş nəticələr','/admin/matches','✓']
   ];
-  return <section className="page-shell">
+  return <section className="page-shell admin-workspace kl-motion-enter">
     <div className="hero-panel"><div><span className="eyebrow">KHAZAR LEAGUE / 2026</span><h1>Turnirin idarəetmə mərkəzi</h1><p>{tournament?.name||'Khazar League 2026'} · 4 qrup · 8 pley-off iştirakçısı</p></div><div className="hero-mark">KL<span>26</span></div></div>
     {error&&<div className="notice error">{error}</div>}
-    <div className="stats-grid dark-stats">{stats.map(([label,value,sub,to,icon])=><Link to={to} className="stat-card dark-stat" key={label}><div className="stat-icon">{icon}</div><div><strong>{value}</strong><span>{label}</span><small>{sub}</small></div></Link>)}</div>
+    <div className="stats-grid dark-stats">{stats.map(([label,value,sub,to,icon])=><Link to={to} className="stat-card dark-stat" key={label}><div className="stat-icon">{icon}</div><div><strong><AnimatedCount value={value}/></strong><span>{label}</span><small>{sub}</small></div></Link>)}</div>
+    <Link to="/admin/players" className="position-review-banner"><span><b>{positionsPending}</b> futbolçunun konkret mövqeyi admin təsdiqini gözləyir</span><strong>Mövqeləri yoxla →</strong></Link>
     <div className="dashboard-grid">
       <div className="panel"><div className="panel-heading"><div><span className="eyebrow">QRUP MƏRHƏLƏSİ</span><h2>Qruplar</h2></div><Link to="/admin/standings">Cədvəllərə bax →</Link></div><div className="group-grid">{['A','B','C','D'].map(name=>{const g=groups.find(x=>x.name===name);const members=teams.filter(t=>t.group_id===g?.id);return <div className="group-tile" key={name}><b>QRUP {name}</b><span>{members.length}/4 komanda</span><small>{members.map(t=>t.name).join(' · ')||'Komandalar gözlənilir'}</small></div>})}</div></div>
       <div className="panel"><div className="panel-heading"><div><span className="eyebrow">NÖVBƏTİ ADDIM</span><h2>Turnir hazırlığı</h2></div></div><ul className="check-list"><li className={teams.length===16?'done':''}><span/>{teams.length}/16 komanda əlavə edilib</li><li className={matches.length===24?'done':''}><span/>{matches.length}/24 qrup oyunu yaradılıb</li><li className={players.length===128?'done':''}><span/>{players.length}/128 oyunçu məlumatı mövcuddur</li><li className={matches.some(m=>m.match_date)?'done':''}> <span/>Oyun tarixləri təyin edilib</li></ul><p className="muted-note">Məlumatı olmayan oyunçu, tarix və loqolar uydurulmur; admin panelindən əlavə edilə bilər.</p></div>

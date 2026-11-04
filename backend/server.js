@@ -9,8 +9,11 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
+const crypto = require('node:crypto');
 
 const { getDatabase, generateId } = require('../database/json-db');
+const { getLineupRules, validateLineup } = require('../database/lineup-formations');
+const { isVotingPolicy, hashAnonymousVoterToken, readCookie, serializeVoterCookie } = require('../database/voting-utils');
 const db = getDatabase();
 
 const app = express();
@@ -29,12 +32,34 @@ const documentUpload = multer({
 });
 const PORT = process.env.PORT || 3000;
 
+// Match officials may create events only through the match event endpoint.
+// Keep this rule separate from the general role permissions so it can be
+// checked consistently before a request reaches a write handler.
+function isMatchOfficialRequestAllowed(method, requestPath) {
+    const isMatchRoute = requestPath.startsWith('/matches');
+    const isEventCreate = method === 'POST' && /^\/matches\/[^/]+\/events$/.test(requestPath);
+    return isEventCreate || (['GET', 'PUT'].includes(method) && isMatchRoute);
+}
+
+function permissionKeyForRequest(method, requestPath, resource) {
+    if (/^\/matches\/[^/]+\/events$/.test(requestPath)) {
+        if (method === 'POST') return 'match.event.create';
+        if (method === 'PUT') return 'match.event.update';
+        if (method === 'DELETE') return 'match.event.delete';
+    }
+    const verb = method === 'GET' ? 'read' : method === 'POST' ? 'create' : method === 'PUT' ? 'update' : method === 'DELETE' ? 'delete' : 'update';
+    return `${resource}.${verb}`;
+}
+const PLAYER_UPLOAD_DIR = path.join(__dirname, '..', 'uploads', 'players');
+const playerPhotoUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 }, fileFilter: (_req,file,cb) => cb(['image/jpeg','image/png','image/webp'].includes(file.mimetype) ? null : new Error('Yalnız JPG, PNG və WEBP şəkilləri qəbul edilir'), ['image/jpeg','image/png','image/webp'].includes(file.mimetype)) });
+
 // Security middleware
 app.use(helmet({
     crossOriginResourcePolicy: { policy: 'cross-origin' }
 }));
 
-app.use(cors({ origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',').map(v => v.trim()) : '*' }));
+const corsOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',').map(v => v.trim()) : null;
+app.use(cors({ origin: corsOrigins || true, credentials: true }));
 
 // Body parsing
 app.use(express.json({ limit: '50mb' }));
@@ -48,6 +73,7 @@ app.use('/uploads/teams', express.static(
 app.use('/uploads/media', express.static(
     path.join(__dirname, '..', 'uploads', 'media')
 ));
+app.use('/uploads/players', express.static(PLAYER_UPLOAD_DIR));
 
 // API rate limiting
 const limiter = rateLimit({
@@ -56,6 +82,13 @@ const limiter = rateLimit({
     standardHeaders: true,
     legacyHeaders: false,
     skip: (req) => req.path.startsWith('/public/')
+});
+const votingLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 300,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: 'Çoxsaylı səsvermə sorğusu göndərildi. Bir az sonra yenidən cəhd edin.' }
 });
 
 app.use('/api', limiter);
@@ -113,6 +146,7 @@ app.use('/api', (req, res, next) => {
     if (!req.currentUser || !req.currentUser.is_active) return res.status(401).json({ error: 'Account inactive' });
 
     const role = req.currentUser.role;
+    if (role !== 'super_admin') return res.status(403).json({ error: 'Platformanı yalnız Super Admin idarə edə bilər' });
     if (role === 'team_captain') {
         const ownTeam = req.currentUser.team_id;
         const isOwnTeamRead = req.method === 'GET' && (
@@ -136,7 +170,7 @@ app.use('/api', (req, res, next) => {
         );
         if (!isOwnProfile && !isOwnTeamRead && req.path !== '/auth/me') return res.status(403).json({ error: 'Bu əməliyyat üçün icazə yoxdur' });
     }
-    if (role === 'match_official' && (!['GET','PUT'].includes(req.method) || !(req.path.startsWith('/matches') || req.path.includes('/matches')))) {
+    if (role === 'match_official' && !isMatchOfficialRequestAllowed(req.method, req.path)) {
         return res.status(403).json({ error: 'Bu əməliyyat üçün icazə yoxdur' });
     }
     if (role === 'media_manager' && !['/announcements','/media-templates','/media-generations'].some(prefix => req.path.startsWith(prefix)) && req.path !== '/auth/me') {
@@ -165,9 +199,9 @@ app.use('/api', (req, res, next) => {
             else if (p.endsWith('/recalculate') && resource==='standings') permissionKey='standings.recalculate';
             else if (p.includes('/knockout')) permissionKey='tournament.update';
             else if (resource==='document' && req.method==='POST') permissionKey='document.generate';
+            else if (resource==='match' && /^\/matches\/[^/]+\/events$/.test(p)) permissionKey=permissionKeyForRequest(req.method, p, resource);
             else {
-                const verb=req.method==='GET'?'read':req.method==='POST'?'create':req.method==='PUT'?'update':req.method==='DELETE'?'delete':'update';
-                permissionKey=`${resource}.${verb}`;
+                permissionKey=permissionKeyForRequest(req.method, p, resource);
             }
             const granted=(db.db.user_permissions||[]).some(x=>x.user_id===req.currentUser.id&&x.permission_key===permissionKey);
             if (!granted) return res.status(403).json({error:`İcazə yoxdur: ${permissionKey}`});
@@ -177,8 +211,19 @@ app.use('/api', (req, res, next) => {
 });
 
 // Health check
+app.get('/api/backups', async (req, res) => {
+    if (req.currentUser?.role !== 'super_admin') return res.status(403).json({ error: 'Yalnız Super Admin' });
+    try { res.json(await db.listRemoteBackups(50)); }
+    catch (error) { res.status(503).json({ error: 'Backup siyahısı yüklənmədi', details: error.message }); }
+});
+app.post('/api/backups/:backupId/restore', async (req, res) => {
+    if (req.currentUser?.role !== 'super_admin') return res.status(403).json({ error: 'Yalnız Super Admin' });
+    try { await db.restoreRemoteBackup(req.params.backupId); res.json({ ok: true, message: 'Backup bərpa edildi. Cari vəziyyət əvvəlcə ayrıca backup kimi saxlanıldı.' }); }
+    catch (error) { res.status(503).json({ error: 'Backup bərpa edilmədi', details: error.message }); }
+});
+
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString(), mode: 'json', organizations: db.db.organizations.length });
+    res.json({ status: 'ok', timestamp: new Date().toISOString(), mode: process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY ? 'supabase' : 'local-json', organizations: db.db.organizations.length });
 });
 
 // Organizations
@@ -230,6 +275,8 @@ app.post('/api/tournaments', (req, res) => {
             num_groups: num_groups !== undefined ? num_groups : 4,
             teams_per_group: teams_per_group !== undefined ? teams_per_group : 4,
             qualification_per_group: qualification_per_group !== undefined ? qualification_per_group : 2,
+            players_on_pitch: Number(req.body.players_on_pitch ?? 6),
+            substitutes_per_team: Number(req.body.substitutes_per_team ?? 2),
             points_win: points_win !== undefined ? points_win : 3,
             points_draw: points_draw !== undefined ? points_draw : 1,
             points_loss: points_loss !== undefined ? points_loss : 0,
@@ -242,6 +289,8 @@ app.post('/api/tournaments', (req, res) => {
             updated_at: now
         };
 
+        const lineupRules = getLineupRules(newTournament);
+        if (![6, 11].includes(lineupRules.playersOnPitch) || !Number.isInteger(lineupRules.substitutes) || lineupRules.substitutes < 0 || lineupRules.substitutes > 11) return res.status(400).json({ error: 'Meydan oyunçusu sayı 6 və ya 11, ehtiyat sayı isə 0–11 aralığında olmalıdır.' });
         db.table('tournaments').insert(newTournament);
         console.log('Created tournament:', tournamentId);
         res.status(201).json(newTournament);
@@ -267,6 +316,8 @@ app.put('/api/tournaments/:id', (req, res) => {
             num_groups: num_groups !== undefined ? num_groups : tournament.num_groups,
             teams_per_group: teams_per_group !== undefined ? teams_per_group : tournament.teams_per_group,
             qualification_per_group: qualification_per_group !== undefined ? qualification_per_group : tournament.qualification_per_group,
+            players_on_pitch: req.body.players_on_pitch !== undefined ? Number(req.body.players_on_pitch) : (tournament.players_on_pitch ?? 6),
+            substitutes_per_team: req.body.substitutes_per_team !== undefined ? Number(req.body.substitutes_per_team) : (tournament.substitutes_per_team ?? 2),
             points_win: points_win !== undefined ? points_win : tournament.points_win,
             points_draw: points_draw !== undefined ? points_draw : tournament.points_draw,
             points_loss: points_loss !== undefined ? points_loss : tournament.points_loss,
@@ -278,6 +329,8 @@ app.put('/api/tournaments/:id', (req, res) => {
             updated_at: new Date().toISOString()
         };
 
+        const lineupRules = getLineupRules(updated);
+        if (![6, 11].includes(lineupRules.playersOnPitch) || !Number.isInteger(lineupRules.substitutes) || lineupRules.substitutes < 0 || lineupRules.substitutes > 11) return res.status(400).json({ error: 'Meydan oyunçusu sayı 6 və ya 11, ehtiyat sayı isə 0–11 aralığında olmalıdır.' });
         db.table('tournaments').update(id, updated);
         console.log('Updated tournament:', id);
         res.json(updated);
@@ -520,9 +573,15 @@ app.put('/api/players/:id', (req, res) => {
     if (req.currentUser?.role === 'team_captain' && player.team_id !== req.currentUser.team_id) return res.status(403).json({ error: 'Yalnız öz komandanızın oyunçularını redaktə edə bilərsiniz' });
     const allowed = req.currentUser?.role === 'team_captain'
         ? ['first_name','last_name','jersey_number','position','course']
-        : ['first_name','last_name','team_id','jersey_number','position','preferred_foot','date_of_birth','nationality','student_id','phone','course','registration_status','status','is_captain'];
+         : ['first_name','last_name','team_id','jersey_number','position','position_code','position_label_az','position_status','secondary_positions','preferred_foot','date_of_birth','nationality','student_id','phone','course','registration_status','status','is_captain'];
     const updates = {};
     allowed.forEach(key => { if (req.body[key] !== undefined) updates[key] = req.body[key]; });
+    const positionLabels = {GK:'Qapıçı',CB:'Mərkəz müdafiəçisi',RB:'Sağ cinah müdafiəçisi',LB:'Sol cinah müdafiəçisi',RWB:'Sağ cinah hücumameyilli müdafiəçi',LWB:'Sol cinah hücumameyilli müdafiəçi',CDM:'Müdafiəyönümlü yarımmüdafiəçi',CM:'Mərkəz yarımmüdafiəçisi',CAM:'Hücumameyilli yarımmüdafiəçi',RM:'Sağ yarımmüdafiəçi',LM:'Sol yarımmüdafiəçi',RW:'Sağ cinah hücumçusu',LW:'Sol cinah hücumçusu',CF:'Mərkəz hücumçusu',ST:'Hücumçu'};
+    if (updates.position_code && positionLabels[updates.position_code]) {
+        updates.position = positionLabels[updates.position_code];
+        updates.position_label_az = positionLabels[updates.position_code];
+        updates.position_status = 'confirmed_admin';
+    }
     if (updates.first_name !== undefined || updates.last_name !== undefined) updates.full_name = `${updates.first_name ?? player.first_name} ${updates.last_name ?? player.last_name}`.trim();
     db.table('players').update(req.params.id, updates);
     res.json(db.findById('players', req.params.id));
@@ -648,6 +707,7 @@ app.put('/api/matches/:id', (req, res) => {
     }
     const allowed = ['match_date','kickoff_time','venue','home_score','away_score','match_status','home_penalties','away_penalties','round_name','round_number'];
     const updates = {};
+    if (req.body.match_status === 'live' || req.body.match_status === 'in_progress') return res.status(400).json({ error: 'Canlı matç statusu istifadə edilmir. Nəticə oyun bitdikdən sonra daxil edilməlidir.' });
     allowed.forEach(key => { if (req.body[key] !== undefined) updates[key] = req.body[key]; });
     if (updates.match_status === 'completed') {
         const homeScore=Number(updates.home_score ?? match.home_score), awayScore=Number(updates.away_score ?? match.away_score);
@@ -690,8 +750,6 @@ app.put('/api/matches/:id', (req, res) => {
     const awayTeam = db.findById('teams', updatedMatch.away_team_id);
     if (updates.match_status === 'completed' && match.match_status !== 'completed') {
         sendLeaguePush({ title: 'Matç başa çatdı', body: `${homeTeam?.name || 'Ev sahibi'} ${updatedMatch.home_score}:${updatedMatch.away_score} ${awayTeam?.name || 'Qonaq'}`, url: '/', tag: `finished-${updatedMatch.id}`, type: 'match' }).catch(console.error);
-    } else if (updates.match_status === 'live' && match.match_status !== 'live') {
-        sendLeaguePush({ title: 'Matç başladı', body: `${homeTeam?.name || 'Ev sahibi'} – ${awayTeam?.name || 'Qonaq'}`, url: '/', tag: `started-${updatedMatch.id}`, type: 'match' }).catch(console.error);
     }
     res.json(updatedMatch);
 });
@@ -765,9 +823,16 @@ app.post('/api/matches/:matchId/events', (req, res) => {
     try {
         const { match_id } = req.params;
         const { event_type, team_id, player_id, assist_player_id, minute, period, description } = req.body;
-        if (!event_type || !team_id || !minute) {
-            return res.status(400).json({ error: 'event_type, team_id, and minute required' });
-        }
+        const match=db.findById('matches',match_id);
+        if(!match)return res.status(404).json({error:'Matç tapılmadı'});
+        const allowedEvents=['goal','penalty_scored','own_goal','yellow_card','red_card','substitution','penalty_missed'];
+        if(!allowedEvents.includes(event_type)||![match.home_team_id,match.away_team_id].includes(team_id)||!Number.isInteger(Number(minute))||Number(minute)<1||Number(minute)>120)return res.status(400).json({error:'Matç hadisəsinin növü, komandası və dəqiqəsi düzgün deyil'});
+        const eventPlayer=player_id?db.findById('players',player_id):null;
+        const assistPlayer=assist_player_id?db.findById('players',assist_player_id):null;
+        if(player_id&&eventPlayer?.team_id!==team_id)return res.status(400).json({error:'Hadisə oyunçusu seçilmiş komandada qeydiyyatda deyil'});
+        if(assist_player_id&&(!assistPlayer||assistPlayer.team_id!==team_id||assistPlayer.id===player_id))return res.status(400).json({error:'Assist edən oyunçu düzgün seçilməyib'});
+        const idempotencyKey=req.get('Idempotency-Key');
+        if(idempotencyKey){const existing=(db.db.match_events||[]).find(e=>e.match_id===match_id&&e.idempotency_key===idempotencyKey);if(existing)return res.json(existing);}
 
         const newEvent = {
             id: generateId(),
@@ -776,18 +841,21 @@ app.post('/api/matches/:matchId/events', (req, res) => {
             player_id: player_id || null,
             assist_player_id: assist_player_id || null,
             event_type,
-            minute,
+            minute: Number(minute),
             added_time: 0,
             period: period || 'first_half',
             description: description || '',
             is_confirmed: 1,
-            confirmed_by: null,
+            confirmed_by: req.currentUser?.id || null,
+            idempotency_key: idempotencyKey || null,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         };
 
         db.table('match_events').insert(newEvent);
         db.dirty = true;
+        db.table('audit_logs').insert({id:generateId(),user_id:req.currentUser?.id||null,action:'match.event.recorded',resource_type:'match',resource_id:match.id,details:JSON.stringify({event_type,team_id,player_id:player_id||null,minute:Number(minute)}),created_at:new Date().toISOString()});
+        db.save();
         if (['goal','penalty_scored','own_goal'].includes(String(event_type).toLowerCase())) {
             const match = db.findById('matches', match_id);
             const team = db.findById('teams', team_id);
@@ -1172,6 +1240,24 @@ app.get('/api/players/:id', (req, res) => {
     else res.status(404).json({ error: 'Player not found' });
 });
 
+app.put('/api/players/:id/photo', playerPhotoUpload.single('photo'), async (req,res) => {
+    const player=db.findById('players',req.params.id);
+    if(!player)return res.status(404).json({error:'Oyunçu tapılmadı'});
+    if(req.currentUser?.role!=='super_admin'&&!(db.db.user_permissions||[]).some(p=>p.user_id===req.currentUser?.id&&p.permission_key==='player.update'))return res.status(403).json({error:'Oyunçu şəklini yeniləmək üçün icazə yoxdur'});
+    if(!req.file)return res.status(400).json({error:'Şəkil faylı seçilməyib'});
+    try{
+        const sharp=require('sharp');
+        const meta=await sharp(req.file.buffer).metadata();
+        if(!['jpeg','png','webp'].includes(meta.format))return res.status(400).json({error:'Faylın şəkil formatı dəstəklənmir'});
+        fs.mkdirSync(PLAYER_UPLOAD_DIR,{recursive:true});
+        const filename=`${generateId()}.webp`;
+        await sharp(req.file.buffer).rotate().resize(900,900,{fit:'inside',withoutEnlargement:true}).webp({quality:84}).toFile(path.join(PLAYER_UPLOAD_DIR,filename));
+        player.photo_path=`/uploads/players/${filename}`;player.updated_at=new Date().toISOString();db.dirty=true;db.save();
+        db.table('audit_logs').insert({id:generateId(),user_id:req.currentUser?.id||null,action:'player.photo.updated',resource_type:'player',resource_id:player.id,details:JSON.stringify({format:'webp'}),created_at:new Date().toISOString()});db.save();
+        res.json({id:player.id,photo_path:player.photo_path});
+    }catch(error){console.error('Player photo upload failed:',error.message);res.status(400).json({error:'Şəkil emal edilə bilmədi'});}
+});
+
 // Match Events
 app.get('/api/matches/:matchId/events', (req, res) => {
     const events = (db.db.match_events || []).filter(e => e.match_id === req.params.matchId);
@@ -1182,6 +1268,37 @@ app.get('/api/match-events/:id', (req, res) => {
     const event = db.findById('match_events', req.params.id);
     if (event) res.json(event);
     else res.status(404).json({ error: 'Match event not found' });
+});
+
+// A match may store one row per selected player. Public responses omit private player fields.
+app.get('/api/matches/:matchId/lineups', (req, res) => {
+    const match = db.findById('matches', req.params.matchId);
+    if (!match) return res.status(404).json({ error: 'Matç tapılmadı' });
+    const lineups = (db.db.match_lineups || []).filter(row => row.match_id === match.id);
+    res.json(lineups);
+});
+
+app.put('/api/matches/:matchId/lineups', (req, res) => {
+    const match = db.findById('matches', req.params.matchId);
+    if (!match) return res.status(404).json({ error: 'Matç tapılmadı' });
+    if (!['super_admin', 'tournament_admin', 'match_official'].includes(req.currentUser?.role)) return res.status(403).json({ error: 'Heyəti dəyişmək üçün icazə yoxdur' });
+    const { team_id, formation, players } = req.body || {};
+    if (![match.home_team_id, match.away_team_id].includes(team_id)) return res.status(400).json({ error: 'Komanda bu matçda iştirak etmir' });
+    const rosterIds = new Set((db.db.players || []).filter(p => p.team_id === team_id).map(p => p.id));
+    const tournament = db.findById('tournaments', match.tournament_id) || {};
+    const validationError = validateLineup({ tournament, formation, players, rosterPlayerIds: rosterIds });
+    if (validationError) return res.status(400).json({ error: validationError });
+    const playerIds = players.map(p => p.player_id);
+    const cleanPlayers = players.map(p => {
+        const x = Number(p.x), y = Number(p.y);
+        return { id: generateId(), match_id: match.id, team_id, player_id: p.player_id, is_starter: p.is_starter ? 1 : 0, position: p.position || null, jersey_number: (db.db.players || []).find(player => player.id === p.player_id)?.jersey_number ?? null, x: Number.isFinite(x) ? Math.max(0, Math.min(100, x)) : null, y: Number.isFinite(y) ? Math.max(0, Math.min(100, y)) : null, formation, updated_at: new Date().toISOString() };
+    });
+    db.db.match_lineups = (db.db.match_lineups || []).filter(row => row.match_id !== match.id || row.team_id !== team_id).concat(cleanPlayers);
+    db.dirty = true;
+    db.save();
+    db.table('audit_logs').insert({ id: generateId(), user_id: req.currentUser.id, action: 'match.lineup.saved', resource_type: 'match', resource_id: match.id, details: JSON.stringify({ team_id, formation, players: playerIds.length }), created_at: new Date().toISOString() });
+    db.save();
+    res.json(cleanPlayers);
 });
 
 // Matches - Full CRUD
@@ -1350,17 +1467,128 @@ app.get('/api/users',(req,res)=>{
     if(req.currentUser?.role!=='super_admin')return res.status(403).json({error:'Yalnız Super Admin'});
     res.json((db.db.users||[]).map(({password_hash,...u})=>u));
 });
+app.get('/api/audit-logs',(req,res)=>{
+    if(req.currentUser?.role!=='super_admin')return res.status(403).json({error:'Audit jurnalına baxmaq üçün Super Admin icazəsi lazımdır'});
+    const page=Math.max(1,Number.parseInt(req.query.page,10)||1),limit=Math.min(100,Math.max(1,Number.parseInt(req.query.limit,10)||25));
+    const action=String(req.query.action||'').toLowerCase();
+    const all=(db.db.audit_logs||[]).filter(row=>!action||String(row.action||'').toLowerCase().includes(action)).sort((a,b)=>String(b.created_at||'').localeCompare(String(a.created_at||'')));
+    const users=new Map((db.db.users||[]).map(user=>[user.id,user.full_name]));
+    res.json({items:all.slice((page-1)*limit,page*limit).map(row=>({id:row.id,user_id:row.user_id||null,user_name:users.get(row.user_id)||'Sistem',action:row.action,resource_type:row.resource_type||row.entity_type||null,resource_id:row.resource_id||row.entity_id||null,details:row.details||row.new_values||null,created_at:row.created_at})),total:all.length,page,limit,pages:Math.max(1,Math.ceil(all.length/limit))});
+});
 app.post('/api/users',(req,res)=>{
     if(req.currentUser?.role!=='super_admin')return res.status(403).json({error:'Yalnız Super Admin'});
     const {email,password,full_name,role,team_id,player_id}=req.body;
-    if(!email||!password||!full_name||!['super_admin','tournament_admin','team_captain','player','match_official','media_manager'].includes(role))
+    if(!email||!password||!full_name||role !== 'super_admin')
         return res.status(400).json({error:'Ad, e-poçt, şifrə və düzgün rol daxil edin'});
+    if((db.db.users||[]).some(u=>u.role==='super_admin' && u.is_active))return res.status(409).json({error:'Yalnız bir Super Admin hesabı nəzərdə tutulub'});
     if((db.db.users||[]).some(u=>u.email.toLowerCase()===String(email).toLowerCase()))return res.status(409).json({error:'Bu e-poçt artıq istifadə olunur'});
-    if((role==='team_captain'&&!team_id)||(role==='player'&&!player_id))return res.status(400).json({error:'Kapitan üçün komanda, oyunçu üçün oyunçu ID-si tələb olunur'});
+
     const {hashPasswordSync}=require('../database/password-utils');
     const user={id:generateId(),organization_id:req.currentUser.organization_id,email:String(email).trim().toLowerCase(),password_hash:hashPasswordSync(password),
         full_name,role,team_id:team_id||null,player_id:player_id||null,is_active:1,is_verified:1,created_at:new Date().toISOString(),updated_at:new Date().toISOString()};
     db.table('users').insert(user);const {password_hash,...safe}=user;res.status(201).json(safe);
+});
+
+// MVP voting is limited to signed-in accounts: the backend enforces one vote per account.
+app.get('/api/voting/sessions', (req, res) => {
+    if (!['super_admin','tournament_admin'].includes(req.currentUser?.role)) return res.status(403).json({ error: 'Səsvermələri idarə etmək üçün icazə yoxdur' });
+    const rows=(db.db.voting_sessions||[]).map(s=>{
+        const counts=(db.db.votes||[]).filter(v=>v.session_id===s.id).reduce((a,v)=>(a[v.player_id]=(a[v.player_id]||0)+1,a),{});
+        const results=s.eligible_player_ids.map(id=>{const p=db.findById('players',id);return p?{player:{id:p.id,full_name:p.full_name,team_id:p.team_id},votes:counts[id]||0}:null}).filter(Boolean).sort((a,b)=>b.votes-a.votes);
+        return {...s,results,total_votes:Object.values(counts).reduce((a,b)=>a+b,0)};
+    });
+    res.json(rows);
+});
+app.post('/api/voting/sessions', (req, res) => {
+    if (!['super_admin','tournament_admin'].includes(req.currentUser?.role)) return res.status(403).json({ error: 'Səsvermə yaratmaq üçün icazə yoxdur' });
+    const { match_id, eligible_player_ids, start_at, end_at, status = 'draft', voting_policy = 'authenticated' } = req.body || {};
+    const match = db.findById('matches', match_id);
+    const eligible = Array.isArray(eligible_player_ids) ? [...new Set(eligible_player_ids)] : [];
+    if (!match || eligible.length < 2 || !['draft','open'].includes(status) || !isVotingPolicy(voting_policy) || !start_at || !end_at || Number.isNaN(new Date(start_at).getTime()) || Number.isNaN(new Date(end_at).getTime()) || new Date(end_at) <= new Date(start_at)) return res.status(400).json({ error: 'Mat\u00e7, namiz\u0259dl\u0259r, s\u0259sverm\u0259 siyas\u0259ti v\u0259 d\u00fczg\u00fcn vaxt interval\u0131 t\u0259l\u0259b olunur' });
+    const allowedTeams = [match.home_team_id, match.away_team_id];
+    if (eligible.some(id => { const player = db.findById('players', id); return !player || !allowedTeams.includes(player.team_id); })) return res.status(400).json({ error: 'Namizədlər yalnız matçda iştirak edən komandalardan seçilə bilər' });
+    db.db.voting_sessions ||= [];
+    if (db.db.voting_sessions.some(s => s.match_id === match.id && s.status !== 'closed')) return res.status(409).json({ error: 'Bu matç üçün aktiv səsvermə artıq mövcuddur' });
+    const session = { id: generateId(), match_id: match.id, eligible_player_ids: eligible, start_at, end_at, status, voting_policy, created_by: req.currentUser.id, created_at: new Date().toISOString() };
+    db.db.voting_sessions.push(session); db.dirty = true; db.save();
+    db.table('audit_logs').insert({ id: generateId(), user_id: req.currentUser.id, action: 'mvp.voting.created', resource_type: 'match', resource_id: match.id, details: JSON.stringify({ session_id: session.id, candidates: eligible.length }), created_at: new Date().toISOString() }); db.save();
+    res.status(201).json(session);
+});
+app.put('/api/voting/sessions/:id', (req, res) => {
+    if (!['super_admin','tournament_admin'].includes(req.currentUser?.role)) return res.status(403).json({ error: 'Səsverməni idarə etmək üçün icazə yoxdur' });
+    const session = (db.db.voting_sessions || []).find(s => s.id === req.params.id);
+    if (!session) return res.status(404).json({ error: 'Səsvermə tapılmadı' });
+    const status = req.body?.status;
+    if (!['draft','open','closed'].includes(status)) return res.status(400).json({ error: 'Səsvermə statusu düzgün deyil' });
+    session.status = status; session.updated_at = new Date().toISOString(); db.dirty = true; db.save();
+    if (status === 'closed') {
+        const counts=(db.db.votes||[]).filter(v=>v.session_id===session.id).reduce((a,v)=>(a[v.player_id]=(a[v.player_id]||0)+1,a),{});
+        const ranked=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+        const match=db.findById('matches',session.match_id);
+        if(match){match.mvp_player_id=ranked.length&&ranked[0][1]>(ranked[1]?.[1]||0)?ranked[0][0]:null;match.updated_at=new Date().toISOString();db.dirty=true;db.save();}
+    }
+    db.table('audit_logs').insert({ id: generateId(), user_id: req.currentUser.id, action: `mvp.voting.${status}`, resource_type: 'match', resource_id: session.match_id, details: JSON.stringify({ session_id: session.id }), created_at: new Date().toISOString() }); db.save();
+    res.json(session);
+});
+app.get('/api/public/voting/:id', (req, res) => {
+    const session = (db.db.voting_sessions || []).find(s => s.id === req.params.id);
+    if (!session) return res.status(404).json({ error: 'Səsvermə tapılmadı' });
+    const counts = (db.db.votes || []).filter(v => v.session_id === session.id).reduce((a,v)=>(a[v.player_id]=(a[v.player_id]||0)+1,a),{});
+    const results = session.eligible_player_ids.map(id => { const p=db.findById('players',id);return p?{player:{id:p.id,full_name:p.full_name,team_id:p.team_id,jersey_number:p.jersey_number},votes:counts[id]||0}:null; }).filter(Boolean);
+    const open = session.status === 'open' && Date.now() >= new Date(session.start_at).getTime() && Date.now() <= new Date(session.end_at).getTime();
+    const match = db.findById('matches', session.match_id);
+    res.json({ id:session.id, match:match?{id:match.id,home_team_id:match.home_team_id,away_team_id:match.away_team_id}:null, status:session.status, voting_policy:session.voting_policy||'authenticated', starts_at:session.start_at, ends_at:session.end_at, open, results:session.status==='closed'?results:[], total_votes:Object.values(counts).reduce((a,b)=>a+b,0) });
+});
+app.get('/api/public/voting', (req, res) => {
+    const sessionsPublic = (db.db.voting_sessions || []).filter(s => s.status !== 'draft').map(s => {
+        const counts=(db.db.votes||[]).filter(v=>v.session_id===s.id).reduce((a,v)=>(a[v.player_id]=(a[v.player_id]||0)+1,a),{});
+        const results=s.status==='closed'?s.eligible_player_ids.map(id=>{const p=db.findById('players',id);return p?{player:{id:p.id,full_name:p.full_name,team_id:p.team_id},votes:counts[id]||0}:null}).filter(Boolean).sort((a,b)=>b.votes-a.votes):[];
+        const candidates=s.eligible_player_ids.map(id=>{const p=db.findById('players',id);return p?{id:p.id,full_name:p.full_name,team_id:p.team_id,jersey_number:p.jersey_number}:null}).filter(Boolean);
+        const open=s.status==='open'&&Date.now()>=new Date(s.start_at).getTime()&&Date.now()<=new Date(s.end_at).getTime();
+        if(open&&(s.voting_policy||'authenticated')==='public'){
+            const cookieName='kl_vote_'+s.id.replace(/[^a-zA-Z0-9_-]/g,'');
+            const token=readCookie(req.headers.cookie,cookieName);
+            if(!token||!/^[A-Za-z0-9_-]{40,64}$/.test(token)){
+                const freshToken=crypto.randomBytes(32).toString('base64url');
+                const cookiePath='/api/public/voting/'+s.id+'/votes';
+                res.append('Set-Cookie',serializeVoterCookie(cookieName,freshToken,cookiePath,{secure:process.env.NODE_ENV==='production',sameSite:process.env.NODE_ENV==='production'?'None':'Lax'}));
+            }
+        }
+        return {id:s.id,match_id:s.match_id,status:s.status,voting_policy:s.voting_policy||'authenticated',starts_at:s.start_at,ends_at:s.end_at,open,total_votes:Object.values(counts).reduce((a,b)=>a+b,0),candidates,results};
+    });
+    res.json(sessionsPublic);
+});
+app.post('/api/public/voting/:id/votes', votingLimiter, (req, res) => {
+    const session = (db.db.voting_sessions || []).find(s => s.id === req.params.id);
+    if (!session) return res.status(404).json({ error: 'S\u0259sverm\u0259 tap\u0131lmad\u0131' });
+    if (session.status !== 'open' || Date.now() < new Date(session.start_at).getTime() || Date.now() > new Date(session.end_at).getTime()) return res.status(409).json({ error: 'S\u0259sverm\u0259 haz\u0131rda a\u00e7\u0131q deyil' });
+    const { player_id } = req.body || {};
+    if (!(session.eligible_player_ids || []).includes(player_id)) return res.status(400).json({ error: 'Bu oyun\u00e7u s\u0259sverm\u0259 namiz\u0259di deyil' });
+
+    const policy = session.voting_policy || 'authenticated';
+    let voterId = null, voterHash = null, voterCookie = null;
+    if (policy === 'authenticated') {
+        const token = (req.headers.authorization || '').startsWith('Bearer ') ? req.headers.authorization.slice(7) : '';
+        const authSession = sessions[token];
+        const voter = authSession && new Date(authSession.expiresAt) >= new Date() ? db.findById('users', authSession.userId) : null;
+        if (!voter?.is_active) return res.status(401).json({ error: 'S\u0259s verm\u0259k \u00fc\u00e7\u00fcn hesab\u0131n\u0131za daxil olun' });
+        voterId = voter.id;
+    } else if (policy === 'public') {
+        const cookieName = 'kl_vote_' + session.id.replace(/[^a-zA-Z0-9_-]/g, '');
+        const token = readCookie(req.headers.cookie, cookieName);
+        if (!token || !/^[A-Za-z0-9_-]{40,64}$/.test(token)) return res.status(428).json({ error: 'S\u0259sverm\u0259 s\u0259hif\u0259sini yenil\u0259yin, sonra yenid\u0259n s\u0259s verin.' });
+        voterHash = hashAnonymousVoterToken(token);
+    } else {
+        return res.status(400).json({ error: 'S\u0259sverm\u0259 siyas\u0259ti d\u00fczg\u00fcn deyil' });
+    }
+
+    db.db.votes ||= [];
+    const alreadyVoted = db.db.votes.some(v => v.session_id === session.id && (policy === 'authenticated' ? v.voter_id === voterId : v.voter_hash === voterHash));
+    if (alreadyVoted) return res.status(409).json({ error: 'Bu s\u0259sverm\u0259d\u0259 art\u0131q i\u015ftirak etmisiniz' });
+    db.db.votes.push({ id: generateId(), session_id: session.id, player_id, voter_id: voterId, voter_hash: voterHash, created_at: new Date().toISOString() });
+    db.dirty = true; db.save();
+    if (voterCookie) res.append('Set-Cookie', voterCookie);
+    res.status(201).json({ ok: true });
 });
 
 // Authentication
@@ -1384,12 +1612,21 @@ app.post('/api/auth/login', (req, res) => {
         }
 
         const allUsers = db.db.users || [];
-        const user = allUsers.find(u => u.email === email);
+        const normalizedEmail=String(email).trim().toLowerCase();
+        const user = allUsers.find(u => String(u.email||'').trim().toLowerCase() === normalizedEmail);
         if (!user) return res.status(401).json({ error: 'Invalid credentials' });
+        if(!user.is_active)return res.status(401).json({error:'Invalid credentials'});
+        if(user.locked_until&&new Date(user.locked_until)>new Date())return res.status(429).json({error:'Həddindən artıq uğursuz giriş cəhdi. Bir qədər sonra yenidən yoxlayın.'});
 
         const { verifyPasswordSync } = require('../database/password-utils');
         const isValid = verifyPasswordSync(password, user.password_hash);
-        if (!isValid) return res.status(401).json({ error: 'Invalid credentials' });
+        if (!isValid) {
+            user.failed_login_attempts=(Number(user.failed_login_attempts)||0)+1;
+            if(user.failed_login_attempts>=5){user.locked_until=new Date(Date.now()+15*60*1000).toISOString();user.failed_login_attempts=0;}
+            db.dirty=true;db.save();
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+        user.failed_login_attempts=0;user.locked_until=null;user.last_login=new Date().toISOString();db.dirty=true;db.save();
 
         const sessionId = generateId();
         sessions[sessionId] = {
@@ -1473,29 +1710,149 @@ app.get('/api/public/tournament/:tournamentId', (req, res) => {
     res.json({ tournament, groups: groupSummaries });
 });
 
-app.get('/api/public/team/:teamId', (req, res) => {
-    const team = db.findOne('teams', { id: req.params.teamId });
-    if (!team) return res.status(404).json({ error: 'Team not found' });
-
-    const teamPlayers = (db.db.players || []).filter(p => p.team_id === team.id && p.registration_status === 'approved');
-    const teamStandings = (db.db.group_standings || []).find(s => s.team_id === team.id);
-
-    const publicTeam = { id:team.id, name:team.name, short_name:team.short_name, logo_path:team.logo_path, group_id:team.group_id, registration_status:team.registration_status };
-    res.json({ team:publicTeam, players: teamPlayers.length, standings: teamStandings || null });
+app.get('/api/public/team/:teamId', (req, res, next) => {
+    return next();
 });
 
-app.get('/api/public/player/:playerId', (req, res) => {
-    const player = db.findOne('players', { id: req.params.playerId });
-    if (!player) return res.status(404).json({ error: 'Player not found' });
+app.get('/api/public/player/:playerId', (req, res, next) => {
+    return next();
+});
 
-    res.json({
-        id: player.id,
-        first_name: player.first_name,
-        last_name: player.last_name,
-        jersey_number: player.jersey_number,
-        position: player.position,
-        team_id: player.team_id
+app.get('/api/public/match/:matchId', (req, res) => {
+    const match = db.findById('matches', req.params.matchId);
+    if (!match) return res.status(404).json({ error: 'Matç tapılmadı' });
+    const events = (db.db.match_events || []).filter(event => event.match_id === match.id).map(event => {
+        const { phone, student_id, ...player } = db.findById('players', event.player_id) || {};
+        const { phone: _ap, student_id: _as, ...assist } = db.findById('players', event.assist_player_id) || {};
+        return { ...event, player: player.id ? player : null, assist_player: assist.id ? assist : null };
     });
+    const lineups = (db.db.match_lineups || []).filter(row => row.match_id === match.id).map(row => {
+        const player = db.findById('players', row.player_id);
+        return { ...row, player: player ? { id: player.id, full_name: player.full_name, jersey_number: player.jersey_number, position: player.position, photo_path: player.photo_path || null } : null };
+    });
+    const home = db.findById('teams', match.home_team_id), away = db.findById('teams', match.away_team_id);
+    const mvpPlayer=match.mvp_player_id?db.findById('players',match.mvp_player_id):null;
+    res.json({ match, teams: { home: home && { id: home.id, name: home.name, logo_path: home.logo_path }, away: away && { id: away.id, name: away.name, logo_path: away.logo_path } }, events, lineups, report: match.match_report || null, mvp: mvpPlayer?{id:mvpPlayer.id,full_name:mvpPlayer.full_name,team_id:mvpPlayer.team_id,jersey_number:mvpPlayer.jersey_number}:null });
+});
+
+app.get('/api/public/statistics', (req, res) => {
+    const tournamentId=req.query.tournament_id||null;
+    const matches=(db.db.matches||[]).filter(m=>!tournamentId||m.tournament_id===tournamentId);
+    const matchIds=new Set(matches.map(m=>m.id));
+    const completed=matches.filter(m=>m.match_status==='completed'&&m.home_score!=null&&m.away_score!=null);
+    const events=(db.db.match_events||[]).filter(e=>matchIds.has(e.match_id));
+    const lineups=(db.db.match_lineups||[]).filter(l=>matchIds.has(l.match_id));
+    const players=(db.db.players||[]).filter(p=>!tournamentId||p.tournament_id===tournamentId||matches.some(m=>m.home_team_id===p.team_id||m.away_team_id===p.team_id));
+    const playerStats=players.map(p=>{
+        const ownEvents=events.filter(e=>e.player_id===p.id);
+        const appearances=new Set(lineups.filter(l=>l.player_id===p.id).map(l=>l.match_id)).size;
+        return {player:{id:p.id,full_name:p.full_name,team_id:p.team_id,team_name:db.findById('teams',p.team_id)?.name||'',jersey_number:p.jersey_number,position:p.position,photo_path:p.photo_path||null},goals:ownEvents.filter(e=>['goal','penalty_scored','penalty_goal'].includes(e.event_type)).length,assists:events.filter(e=>e.assist_player_id===p.id).length,appearances,yellow_cards:ownEvents.filter(e=>e.event_type==='yellow_card').length,red_cards:ownEvents.filter(e=>e.event_type==='red_card').length,mvp_awards:(db.db.awards||[]).filter(a=>a.player_id===p.id&&/mvp|player.of.match/i.test(a.award_type||a.category||'')).length+matches.filter(m=>m.mvp_player_id===p.id).length};
+    });
+    const rank=(key)=>[...playerStats].sort((a,b)=>b[key]-a[key]||a.player.full_name.localeCompare(b.player.full_name,'az')).slice(0,20);
+    const goalkeepers=playerStats.filter(p=>/qapıçı/i.test(p.player.position||'')).map(p=>{const keeperMatches=new Set(lineups.filter(l=>l.player_id===p.player.id).map(l=>l.match_id));const conceded=completed.filter(m=>keeperMatches.has(m.id)).reduce((sum,m)=>sum+(m.home_team_id===p.player.team_id?Number(m.away_score):Number(m.home_score)),0);const cleanSheets=completed.filter(m=>keeperMatches.has(m.id)&&(m.home_team_id===p.player.team_id?m.away_score:m.home_score)===0).length;return {...p,goals_conceded:conceded,clean_sheets:cleanSheets};}).sort((a,b)=>b.clean_sheets-a.clean_sheets||a.goals_conceded-b.goals_conceded);
+    const teams=(db.db.teams||[]).filter(t=>!tournamentId||t.tournament_id===tournamentId).map(team=>{
+        const played=completed.filter(m=>m.home_team_id===team.id||m.away_team_id===team.id);
+        const stats=played.reduce((s,m)=>{const home=m.home_team_id===team.id,gf=Number(home?m.home_score:m.away_score),ga=Number(home?m.away_score:m.home_score);s.played++;s.goals_for+=gf;s.goals_against+=ga;if(gf>ga)s.wins++;else if(gf===ga)s.draws++;else s.losses++;return s;},{played:0,wins:0,draws:0,losses:0,goals_for:0,goals_against:0});
+        const form=played.slice().sort((a,b)=>String(b.match_date||b.updated_at||'').localeCompare(String(a.match_date||a.updated_at||''))).slice(0,5).map(m=>{const home=m.home_team_id===team.id,gf=Number(home?m.home_score:m.away_score),ga=Number(home?m.away_score:m.home_score);return gf>ga?'Q':gf===ga?'H':'M';});
+        return {team:{id:team.id,name:team.name,logo_path:team.logo_path},...stats,goal_difference:stats.goals_for-stats.goals_against,form};
+    });
+    res.json({generated_from:'official_records',match_count:matches.length,completed_match_count:completed.length,players:{top_scorers:rank('goals'),top_assists:rank('assists'),most_appearances:rank('appearances'),most_mvp_awards:rank('mvp_awards'),most_yellow_cards:rank('yellow_cards'),most_red_cards:rank('red_cards')},goalkeepers,teams});
+});
+app.get('/api/public/news/:id',(req,res)=>{
+    const article=(db.db.announcements||[]).find(item=>item.id===req.params.id&&item.is_published===1);
+    if(!article)return res.status(404).json({error:'Dərc olunmuş xəbər tapılmadı'});
+    res.json({id:article.id,title:article.title,summary:article.summary||null,content:article.content||'',type:article.type||'Xəbər',image_path:article.image_path||null,published_at:article.published_at||article.created_at,author_name:article.author_name||null});
+});
+
+app.get('/api/public/team/:teamId', (req, res, next) => {
+    const team = db.findById('teams', req.params.teamId);
+    if (!team) return next();
+    const roster = (db.db.players || []).filter(p => p.team_id === team.id).map(p => ({ id: p.id, first_name: p.first_name, last_name: p.last_name, full_name: p.full_name, jersey_number: p.jersey_number, position: p.position, nationality: p.nationality, preferred_foot: p.preferred_foot, photo_path: p.photo_path || null, is_captain: p.is_captain === 1 }));
+    const matches = (db.db.matches || []).filter(m => m.home_team_id === team.id || m.away_team_id === team.id).sort((a,b) => String(b.match_date || '').localeCompare(String(a.match_date || '')));
+    const completed = matches.filter(m => m.match_status === 'completed' && m.home_score != null && m.away_score != null);
+    const stats = completed.reduce((s,m) => { const home=m.home_team_id===team.id, gf=Number(home?m.home_score:m.away_score), ga=Number(home?m.away_score:m.home_score); s.played++;s.goals_for+=gf;s.goals_against+=ga;if(gf>ga)s.won++;else if(gf===ga)s.drawn++;else s.lost++;return s; }, {played:0,won:0,drawn:0,lost:0,goals_for:0,goals_against:0});
+    const publicTeam = { id: team.id, name: team.name, short_name: team.short_name, logo_path: team.logo_path, group_id: team.group_id, captain_name: team.captain_name || null };
+    return res.json({ team: publicTeam, players: roster, matches, stats });
+});
+
+app.get('/api/public/player/:playerId', (req, res, next) => {
+    const player = db.findById('players', req.params.playerId);
+    if (!player) return next();
+    const events = (db.db.match_events || []).filter(e => e.player_id === player.id);
+    const matches = (db.db.matches || []).filter(m => (m.home_team_id === player.team_id || m.away_team_id === player.team_id) && (db.db.match_lineups || []).some(l => l.match_id === m.id && l.player_id === player.id));
+    const team = db.findById('teams', player.team_id);
+    res.json({ player: { id: player.id, first_name: player.first_name, last_name: player.last_name, full_name: player.full_name, jersey_number: player.jersey_number, position: player.position, nationality: player.nationality, preferred_foot: player.preferred_foot || null, photo_path: player.photo_path || null, is_captain: player.is_captain === 1 }, team: team && { id: team.id, name: team.name, logo_path: team.logo_path }, stats: { appearances: new Set(matches.map(m => m.id)).size, goals: events.filter(e => ['goal','penalty_goal'].includes(e.event_type)).length, assists: (db.db.match_events || []).filter(e => e.assist_player_id === player.id).length, yellow_cards: events.filter(e => e.event_type === 'yellow_card').length, red_cards: events.filter(e => e.event_type === 'red_card').length, mvp_awards: (db.db.awards || []).filter(a => a.player_id === player.id && /mvp|player.of.match/i.test(a.award_type || a.category || '')).length+(db.db.matches||[]).filter(m=>m.mvp_player_id===player.id).length }, matches });
+});
+
+
+// Bulk player-position approval import (Super Admin only; guarded by /api auth middleware).
+const positionImportUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 2 * 1024 * 1024 }, fileFilter: (_req, file, cb) => cb(file.mimetype === 'application/json' || /\.json$/i.test(file.originalname) ? null : new Error('Yalnız JSON faylı qəbul edilir'), file.mimetype === 'application/json' || /\.json$/i.test(file.originalname)) });
+function normalizePositionImportText(value) {
+    return String(value || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('az').replace(/[^a-z0-9]/g, '');
+}
+app.post('/api/admin/player-position-import', positionImportUpload.single('file'), async (req, res) => {
+    try {
+        if (req.currentUser?.role !== 'super_admin') return res.status(403).json({ error: 'Yalnız Super Admin bu əməliyyatı edə bilər.' });
+        if (!req.file) return res.status(400).json({ error: 'JSON faylı seçilməyib.' });
+        let payload;
+        try { payload = JSON.parse(req.file.buffer.toString('utf8').replace(/^\uFEFF/, '')); }
+        catch (_) { return res.status(400).json({ error: 'JSON faylının formatı oxunmur.' }); }
+        if (payload.format !== 'khazar-league-position-approval-v1' || !Array.isArray(payload.players) || payload.players.length !== 128 || !Array.isArray(payload.teams) || payload.teams.length !== 16) {
+            return res.status(400).json({ error: 'Fayl formatı uyğun deyil. 16 komanda və 128 oyunçu tələb olunur.' });
+        }
+        const norm = normalizePositionImportText;
+        const teamAliases = new Map([['turizimfk','turizmfk'],['khazareaglesfc','khazareagles'],['khazarstormfc','khazarstorm'],['zenithmfc','zenithfc'],['haropmfc','haropmfk']]);
+        const canonical = value => teamAliases.get(norm(value)) || norm(value);
+        const teamMap = new Map((db.db.teams || []).map(team => [canonical(team.name), team]));
+        const playerMap = new Map((db.db.players || []).map(player => [`${player.team_id}|${norm(player.full_name || `${player.first_name || ''} ${player.last_name || ''}`)}`, player]));
+        const allowedPositions = new Set(['GK','CB','RB','LB','RWB','LWB','CDM','CM','CAM','RM','LM','RW','LW','CF','ST']);
+        const seen = new Set();
+        const updates = [];
+        const errors = [];
+        for (const item of payload.players) {
+            const team = teamMap.get(canonical(item.team));
+            if (!team) { errors.push(`Komanda tapılmadı: ${item.team}`); continue; }
+            const player = playerMap.get(`${team.id}|${norm(item.name)}`);
+            if (!player) { errors.push(`Oyunçu tapılmadı: ${item.team} — ${item.name}`); continue; }
+            if (seen.has(player.id)) { errors.push(`Təkrar oyunçu: ${item.team} — ${item.name}`); continue; }
+            seen.add(player.id);
+            if (!allowedPositions.has(item.primaryPosition)) { errors.push(`Yanlış mövqe kodu: ${item.name} — ${item.primaryPosition}`); continue; }
+            updates.push({ player, item });
+        }
+        if (errors.length || updates.length !== 128 || seen.size !== 128) {
+            return res.status(422).json({ error: 'Yoxlama uğursuz oldu. Heç bir məlumat dəyişdirilmədi.', matched: updates.length, expected: 128, errors: errors.slice(0, 30), errorCount: errors.length });
+        }
+        const summary = {
+            teams: 16, players: updates.length,
+            positionCounts: updates.reduce((acc, { item }) => { acc[item.primaryPosition] = (acc[item.primaryPosition] || 0) + 1; return acc; }, {}),
+            provisional: updates.filter(({ item }) => item.provisional === true).length
+        };
+        if (req.query.apply !== 'true') return res.json({ dryRun: true, summary, message: '128 oyunçunun hamısı mövcud komanda və oyunçularla uyğunlaşdırıldı. Tətbiq etməzdən əvvəl nəticəni yoxlayın.' });
+
+        // Create a timestamped local backup before mutating the in-memory database.
+        const backupDir = path.join(__dirname, '..', 'backups');
+        fs.mkdirSync(backupDir, { recursive: true });
+        const backupName = `before-position-approval-${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
+        fs.writeFileSync(path.join(backupDir, backupName), JSON.stringify(db.db, null, 2), 'utf8');
+        const now = new Date().toISOString();
+        for (const { player, item } of updates) {
+            player.position_code = item.primaryPosition;
+            player.position_label_az = item.positionLabelAz || null;
+            player.position_status = item.positionStatus || 'approved';
+            player.secondary_positions = Array.isArray(item.secondaryPositions) ? item.secondaryPositions : [];
+            player.position_source = 'admin_bulk_approval_import';
+            player.position_review_note = item.provisional ? 'İlkin mövqe bölgüsü admin tərəfindən toplu şəkildə təsdiqlənib; zərurət olduqda sonradan dəyişdirilə bilər.' : null;
+            player.position = item.positionLabelAz || player.position || null;
+            player.updated_at = now;
+        }
+        db.dirty = true;
+        db.save();
+        if (db.remoteSave) await db.remoteSave;
+        res.json({ applied: true, summary, backup: backupName, message: '128 oyunçunun mövqeyi uğurla tətbiq edildi.' });
+    } catch (error) {
+        console.error('Player position import failed:', error);
+        res.status(500).json({ error: 'Mövqe importu zamanı server xətası baş verdi.' });
+    }
 });
 
 // Start server only after durable database state is loaded.
@@ -1516,6 +1873,9 @@ async function startServer() {
         process.exit(1);
     }
 }
-startServer();
+if (require.main === module) startServer();
 
+// Expose policy helpers on the Express app for isolated, database-free tests.
+app.isMatchOfficialRequestAllowed = isMatchOfficialRequestAllowed;
+app.permissionKeyForRequest = permissionKeyForRequest;
 module.exports = app;

@@ -1,0 +1,52 @@
+.admin-layout .admin-workspace{width:100%;max-width:1280px;margin-inline:auto;gap:20px}.admin-layout .admin-workspace>.page-heading{padding:22px clamp(18px,3vw,30px);border:1px solid #dce5ef;border-radius:16px;background:linear-gradient(120deg,#fff,#f6faff);box-shadow:0 5px 18px rgba(10,36,62,.035)}.admin-layout .admin-workspace>.page-heading h1{margin:5px 0;font-size:clamp(24px,3vw,34px);letter-spacing:-.035em}.admin-layout .admin-workspace>.page-heading p{max-width:70ch;line-height:1.55}.admin-layout .admin-workspace>.page-heading>.btn{flex:none}.admin-layout .admin-workspace>.panel,.admin-layout .admin-workspace>.group-panel,.admin-layout .admin-workspace>.knockout-stage{min-width:0}.admin-layout .admin-workspace .panel-heading{gap:14px}.admin-layout .admin-workspace .toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:12px;border:1px solid #dce5ef;border-radius:13px;background:#fff}.admin-layout .admin-workspace .toolbar input,.admin-layout .admin-workspace .toolbar select{flex:1 1 200px;min-width:0;min-height:42px;padding:9px 12px;border:1px solid #cdd9e5;border-radius:9px;background:#fff;color:#172f48}.admin-layout .admin-workspace .toolbar>span{margin-left:auto;padding:8px 11px;border-radius:9px;background:#edf5fa;color:#38546e;font-size:12px;font-weight:750;white-space:nowrap}.admin-layout .admin-workspace .table-panel{overflow:hidden}.admin-layout .admin-workspace .table-responsive{max-width:100%;overflow:auto;border:1px solid #e1e9f0;border-radius:11px}.admin-layout .admin-workspace .data-table{min-width:620px}.admin-layout .admin-workspace .data-table th{position:sticky;top:0;z-index:1;white-space:nowrap;font-size:10px;letter-spacing:.055em;text-transform:uppercase}.admin-layout .admin-workspace .data-table td{vertical-align:middle}.admin-layout .admin-workspace .data-table td code{display:block;max-width:360px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px}.admin-layout .admin-workspace .modal-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:14px 16px}.admin-layout .admin-workspace .modal-actions>span{min-width:58px;text-align:center;color:#52677d;font-size:12px;font-weight:750}.admin-layout .admin-workspace .group-panel{padding:0;overflow:hidden}.admin-layout .admin-workspace .group-panel>h2{margin:0;padding:17px 20px;background:#f3f7fb;color:#17334e}.admin-layout .admin-workspace .knockout-stage{padding:0;overflow:hidden}.admin-layout .admin-workspace .knockout-stage>.panel-heading{padding:17px 20px;border-bottom:1px solid #e3eaf1;background:#f7fafd}.admin-layout .admin-workspace .knockout-grid{padding:16px;gap:14px}.admin-layout .admin-workspace .knockout-match{min-width:0;padding:17px;border:1px solid #dce5ef;border-radius:13px;background:#fff;box-shadow:0 4px 14px rgba(10,36,62,.035)}.admin-layout .admin-workspace .knockout-meta{margin-bottom:12px;color:#60778d;font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}.admin-layout .admin-workspace .knockout-team{min-height:44px;border-bottom:1px solid #eef2f6}.admin-layout .admin-workspace .knockout-team:last-of-type{border:0}.admin-layout .admin-workspace .knockout-team b{overflow-wrap:anywhere}.admin-layout .admin-workspace .knockout-team strong{min-width:38px;height:34px;display:grid;place-items:center;border-radius:8px;background:#edf6fb;color:#087fbd;font-size:18px}.admin-layout .admin-workspace .knockout-edit{display:grid;grid-template-columns:repeat(4,minmax(64px,1fr));gap:8px;align-items:end;margin-top:14px}.admin-layout .admin-workspace .knockout-edit label{display:grid;gap:5px;color:#60758a;font-size:10px;font-weight:700}.admin-layout .admin-workspace .knockout-edit input{width:100%;min-height:40px;padding:7px;border:1px solid #cdd9e5;border-radius:8px}.admin-layout .admin-workspace .knockout-edit .btn{grid-column:1/-1}.admin-layout .admin-workspace .media-layout{align-items:start;gap:18px}.admin-layout .admin-workspace .media-controls,.admin-layout .admin-workspace .media-preview,.admin-layout .admin-workspace .media-archive{border-radius:15px}.admin-layout .admin-workspace .empty-state{border:1px dashed #cbd9e6;border-radius:15px;background:#f8fbfd}.admin-layout .admin-workspace .empty-state h3{color:#17334e}.admin-layout .admin-workspace .notice{border-radius:11px}
+@media(max-width:900px){.admin-layout .admin-workspace>.page-heading{align-items:flex-start;flex-direction:column}.admin-layout .admin-workspace>.page-heading>.btn{width:100%}}
+@media(max-width:640px){.admin-layout .admin-workspace{gap:15px}.admin-layout .admin-workspace>.page-heading{padding:18px}.admin-layout .admin-workspace>.page-heading h1{font-size:24px}.admin-layout .admin-workspace .toolbar{align-items:stretch}.admin-layout .admin-workspace .toolbar input,.admin-layout .admin-workspace .toolbar select{flex-basis:100%}.admin-layout .admin-workspace .toolbar>span{margin-left:0}.admin-layout .admin-workspace .panel-heading{align-items:flex-start;flex-direction:column}.admin-layout .admin-workspace .knockout-grid{padding:10px}.admin-layout .admin-workspace .knockout-edit{grid-template-columns:1fr 1fr}.admin-layout .admin-workspace .modal-actions{justify-content:space-between;padding:12px}.admin-layout .admin-workspace .modal-actions .btn{min-height:42px}}
+@media(prefers-reduced-motion:reduce){.admin-layout .admin-workspace *{scroll-behavior:auto}}
+
+/* Khazar League 2.0 admin resources — dark glass surfaces */
+.admin-layout .admin-workspace .page-heading h1{color:#edf6ff}.admin-layout .admin-workspace .page-heading p{color:#9ab1c6}.admin-layout .admin-workspace .panel,.admin-layout .admin-workspace .table-panel,.admin-layout .admin-workspace .group-panel,.admin-layout .admin-workspace .knockout-stage{background:rgba(13,29,48,.86)!important;border:1px solid rgba(130,177,208,.2)!important;color:#edf6ff!important;box-shadow:0 16px 40px rgba(0,0,0,.18)!important;backdrop-filter:blur(18px)}
+.admin-layout .admin-workspace h2,.admin-layout .admin-workspace h3,.admin-layout .admin-workspace label{color:#edf6ff}.admin-layout .admin-workspace .muted-note,.admin-layout .admin-workspace .field-hint,.admin-layout .admin-workspace .toolbar{color:#9ab1c6}.admin-layout .admin-workspace .data-table th{background:#10253b;color:#a9c0d5}.admin-layout .admin-workspace .data-table td{color:#eaf4fc;border-color:rgba(130,177,208,.15)}.admin-layout .admin-workspace .data-table tbody tr:hover{background:rgba(36,104,148,.15)}
+.admin-layout .admin-workspace .group-tile,.admin-layout .admin-workspace .archive-item,.admin-layout .admin-workspace .knockout-match{background:rgba(16,39,61,.82);border-color:rgba(130,177,208,.2);color:#edf6ff}.admin-layout .admin-workspace .modal-card{background:#0d1d30;color:#edf6ff;border-color:rgba(130,177,208,.25)}
+
+
+/* Khazar League 2.0 admin surfaces: dark, glass, high-contrast */
+.admin-layout .admin-workspace>.page-heading,
+.admin-layout .admin-workspace>.panel,
+.admin-layout .admin-workspace .panel,
+.admin-layout .admin-workspace .group-panel,
+.admin-layout .admin-workspace .knockout-stage,
+.admin-layout .admin-workspace .toolbar,
+.admin-layout .admin-workspace .table-responsive,
+.admin-layout .admin-workspace .knockout-match{
+  background:rgba(11,29,48,.88)!important;
+  color:#f4f8fc!important;
+  border-color:rgba(130,184,222,.17)!important;
+  box-shadow:0 14px 36px rgba(0,0,0,.16);
+  backdrop-filter:blur(14px);
+}
+.admin-layout .admin-workspace>.page-heading h1,
+.admin-layout .admin-workspace .panel-heading h2,
+.admin-layout .admin-workspace .group-panel>h2,
+.admin-layout .admin-workspace .knockout-stage>.panel-heading{color:#f4f8fc!important}
+.admin-layout .admin-workspace .panel-heading,
+.admin-layout .admin-workspace .group-panel>h2,
+.admin-layout .admin-workspace .knockout-stage>.panel-heading{background:rgba(39,169,242,.055)!important;border-color:rgba(130,184,222,.14)!important}
+.admin-layout .admin-workspace .toolbar>span{background:rgba(39,169,242,.1);color:#a9dfff}
+.admin-layout .admin-workspace .data-table th{background:#0d2942;color:#b8d2e4}
+.admin-layout .admin-workspace .data-table td{color:#e5eff7;border-bottom:1px solid rgba(130,184,222,.12)}
+.admin-layout .admin-workspace .data-table tbody tr:hover{background:rgba(39,169,242,.055)}
+.admin-layout .admin-workspace .field{color:#c5d7e5}
+.admin-layout .admin-workspace .modal-actions{border-top:1px solid var(--kl-border)}
+.admin-layout .admin-workspace .modal-actions>span{color:#9bb0c3}
+.admin-layout .admin-workspace .hero-panel{background:radial-gradient(circle at 85% 0%,rgba(39,169,242,.24),transparent 35%),linear-gradient(120deg,#0a1c2e,#0d3452);border:1px solid var(--kl-border);border-radius:20px}
+.admin-layout .admin-workspace .stat-card,.admin-layout .admin-workspace .group-tile{background:rgba(11,29,48,.9);border:1px solid var(--kl-border);color:#f4f8fc;border-radius:16px}
+.admin-layout .admin-workspace .stat-card small,.admin-layout .admin-workspace .group-tile small{color:#9bb0c3}
+.admin-layout .admin-workspace .stat-icon{background:rgba(39,169,242,.13);color:#63d4f5;border-radius:12px}
+.admin-layout .admin-workspace .eyebrow{color:#63d4f5}
+.admin-layout .admin-workspace .notice{border-radius:12px}
+@media(max-width:760px){.admin-layout .admin-workspace{padding-inline:14px}.admin-layout .admin-workspace>.page-heading{align-items:flex-start;flex-direction:column}.admin-layout .admin-workspace .heading-actions{width:100%;flex-wrap:wrap}}
+
+.position-review-banner{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 20px;border:1px solid rgba(243,189,89,.28);border-radius:14px;background:linear-gradient(100deg,rgba(243,189,89,.1),rgba(39,169,242,.05));color:#f4f8fc}
+.position-review-banner b{font:700 24px 'Barlow Condensed',sans-serif;color:#f3bd59;margin-right:8px}
+.position-review-banner strong{color:#63d4f5;font-size:12px;white-space:nowrap}
+@media(max-width:600px){.position-review-banner{align-items:flex-start;flex-direction:column}}

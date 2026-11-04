@@ -27,12 +27,11 @@
     "jsdom": "^24.0.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.9.10",
     "pdfkit": "^0.14.0",
     "pg": "^8.23.1",
-    "sharp": "^0.33.1",
+    "sharp": "^0.35.5",
     "socket.io": "^4.7.4",
-    "uuid": "^9.0.1",
+    "uuid": "^11.1.1",
     "web-push": "^3.6.7"
   },
   "engines": {
@@ -41,5 +40,8 @@
   "allowScripts": {
     "better-sqlite3@12.10.0": true,
     "sharp@0.33.5": true
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
   }
 }

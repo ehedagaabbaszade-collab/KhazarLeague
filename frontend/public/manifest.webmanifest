@@ -1,7 +1,7 @@
 {
-  "name": "Khazar League",
+  "name": "Khazar League — Rəsmi Futbol Platforması",
   "short_name": "Khazar",
-  "description": "Xəzər Universitetinin futbol liqası",
+  "description": "Turnirlər, komandalar, oyunçular və təsdiqlənmiş matç statistikası",
   "lang": "az",
   "start_url": "/",
   "display": "standalone",
