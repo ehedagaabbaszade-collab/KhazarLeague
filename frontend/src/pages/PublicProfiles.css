@@ -108,99 +108,29 @@
 .kl-3d-bench>b{font-size:10px;letter-spacing:.1em;color:#73dba7;margin-right:4px}
 .kl-3d-bench>span{padding:7px 10px;border-radius:8px;background:#123243;color:#d8e9e0;font-size:11px}
 @media(max-width:700px){.kl-3d-stage{height:340px}.kl-3d-pitch{width:94%;height:260px}.kl-3d-player{width:76px}.kl-3d-player>b{max-width:82px;font-size:8px}.kl-3d-player>span{width:28px;height:28px}}
-/* Mobile refinement — public tactical lineup / 3D pitch */
+
+/* Mobile layout fix v2 — selectors matched to actual JSX */
 @media (max-width: 600px) {
-  .kl-3d-lineup {
-    margin: 14px 0;
-    padding: 14px;
-    border-radius: 16px;
-  }
-
-  .kl-3d-head {
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .kl-3d-head h3 {
-    font-size: clamp(17px, 5vw, 20px);
-    line-height: 1.12;
-  }
-
-  .kl-3d-head > b {
-    flex: 0 0 auto;
-    max-width: 92px;
-    padding: 7px 9px;
-    font-size: 12px;
-    line-height: 1.15;
-    white-space: normal;
-    overflow-wrap: anywhere;
-    text-align: center;
-  }
-
-  .kl-3d-stage {
-    height: clamp(285px, 88vw, 360px);
-    padding: 8px 0;
-    perspective: 900px;
-  }
-
-  .kl-3d-pitch {
-    width: 96%;
-    height: clamp(190px, 58vw, 235px);
-    transform: rotateX(44deg);
-  }
-
-  .kl-3d-player {
-    width: 68px;
-    gap: 2px;
-    transform: translate(-50%, -50%) rotateX(-44deg) translateZ(18px);
-  }
-
-  .kl-3d-player > span {
-    width: 27px;
-    height: 27px;
-    font-size: 12px;
-    border-width: 2px;
-  }
-
-  .kl-3d-player > b {
-    box-sizing: border-box;
-    width: 76px;
-    max-width: 76px;
-    padding: 3px 4px;
-    font-size: 8px;
-    line-height: 1.12;
-    white-space: normal;
-    overflow-wrap: anywhere;
-    text-align: center;
-  }
-
-  .kl-3d-player > small {
-    max-width: 72px;
-    font-size: 7px;
-    line-height: 1.1;
-    text-align: center;
-  }
-
-  .kl-3d-bench {
-    gap: 7px;
-  }
-
-  .kl-3d-bench > b {
-    flex-basis: 100%;
-  }
-
-  .kl-3d-bench > span {
-    max-width: 100%;
-    font-size: 10px;
-    overflow-wrap: anywhere;
-  }
+  .kl-3d-lineup { padding: 14px; margin: 14px 0; }
+  .kl-3d-head { align-items: flex-start; gap: 8px; }
+  .kl-3d-head h3 { font-size: 17px; line-height: 1.15; }
+  .kl-3d-head > b { flex: 0 0 auto; max-width: 74px; padding: 7px 8px; font-size: 12px; line-height: 1.2; overflow-wrap: anywhere; text-align: center; }
+  .kl-3d-stage { height: clamp(260px, 76vw, 330px); padding: 8px 0; }
+  .kl-3d-pitch { width: 96%; height: clamp(180px, 53vw, 225px); }
+  .kl-3d-player { width: 58px; gap: 3px; }
+  .kl-3d-player > span { width: 27px; height: 27px; font-size: 12px; }
+  .kl-3d-player > b { width: 66px; max-width: 66px; box-sizing: border-box; padding: 3px 4px; font-size: 8px; line-height: 1.1; white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; }
+  .kl-3d-player > small { max-width: 64px; font-size: 7px; line-height: 1.1; overflow-wrap: anywhere; }
+  .kl-3d-bench { gap: 6px; }
+  .kl-3d-bench > b { flex-basis: 100%; }
+  .kl-3d-bench > span { max-width: 100%; padding: 6px 8px; font-size: 10px; overflow-wrap: anywhere; }
 }
-
 @media (max-width: 380px) {
   .kl-3d-lineup { padding: 11px; }
-  .kl-3d-stage { height: 285px; }
-  .kl-3d-pitch { width: 98%; height: 185px; }
-  .kl-3d-player { width: 60px; }
-  .kl-3d-player > b { width: 66px; max-width: 66px; font-size: 7px; }
-  .kl-3d-player > small { max-width: 62px; font-size: 6px; }
+  .kl-3d-stage { height: 255px; }
+  .kl-3d-pitch { width: 98%; height: 175px; }
+  .kl-3d-player { width: 52px; }
+  .kl-3d-player > span { width: 24px; height: 24px; font-size: 11px; }
+  .kl-3d-player > b { width: 58px; max-width: 58px; font-size: 7px; }
+  .kl-3d-player > small { max-width: 56px; font-size: 6px; }
 }
