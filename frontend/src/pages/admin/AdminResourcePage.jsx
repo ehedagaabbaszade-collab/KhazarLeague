@@ -180,13 +180,13 @@ const importOfficialSchedule = async () => {
     await load();
 
   } catch (err) {
-    setError(
+    const errorMessage =
       err.response?.data?.error ||
       err.message ||
-      'Rəsmi təqvim idxal edilə bilmədi.'
-    );
+      'Rəsmi təqvim idxal edilə bilmədi.';
 
     await load();
+    setError(errorMessage);
 
   } finally {
     setSaving(false);
