@@ -87,48 +87,112 @@ export function AdminResourcePage({ type }) {
     catch(err){setError(err.response?.data?.error||'Təqvim yaradıla bilmədi.');}
   };
 
-  const importOfficialSchedule = async () => {
-    if (!tournament?.id) { setError('Aktiv turnir tapılmadı.'); return; }
-    if (!window.confirm('PDF-dəki rəsmi 24 qrup oyununu idxal etmək istəyirsiniz? Mövcud nəticələr silinməyəcək, pley-off oyunlarına toxunulmayacaq.')) return;
-    setSaving(true); setError(''); setNotice('');
-    let created = 0, updated = 0, preserved = 0;
-    const normalizeTeam = value => String(value || '').trim().toLocaleLowerCase('az').replace(/\s+fc$/i, '');
-    try {
-      for (const fixture of OFFICIAL_MATCH_CALENDAR) {
-        const home = teams.find(t => normalizeTeam(t.name) === normalizeTeam(fixture.home_team));
-        const away = teams.find(t => normalizeTeam(t.name) === normalizeTeam(fixture.away_team));
-        if (!home || !away) throw new Error(`Komanda tapılmadı: ${fixture.home_team} / ${fixture.away_team}`);
-        const group = groups.find(g => String(g.name).toUpperCase() === fixture.group);
-        const groupId = group?.id || home.group_id || null;
-        if (!groupId) throw new Error(`${fixture.group} qrupu üçün ID tapılmadı.`);
-        const existing = rows.find(m => m.tournament_id === tournament.id &&
-          (m.stage === 'group' || !m.stage) &&
-          ((m.home_team_id === home.id && m.away_team_id === away.id) ||
-           (m.home_team_id === away.id && m.away_team_id === home.id)));
-        const payload = {
-          match_date: fixture.match_date, kickoff_time: fixture.kickoff_time,
-          group_id: groupId, group_name: fixture.group, round_name: fixture.round_name,
-          round_number: fixture.round_number, match_number: fixture.match_number, stage: 'group'
-        };
-        if (existing) {
-          if (existing.match_status === 'completed' || existing.result_locked) { preserved++; continue; }
-          await api.put(`/matches/${existing.id}`, payload);
-          updated++;
-        } else {
-          await api.post('/matches', {
-            ...payload, tournament_id: tournament.id, season_id: tournament.season_id || null,
-            home_team_id: home.id, away_team_id: away.id, venue: ''
-          });
-          created++;
-        }
+const importOfficialSchedule = async () => {
+  if (!tournament?.id) {
+    setError('Aktiv turnir tapılmadı.');
+    return;
+  }
+
+  if (!window.confirm(
+    'KL-010126-R1 PDF sənədinə əsasən 24 rəsmi qrup oyununun tarix və saatlarını yeniləmək istəyirsiniz? Mövcud hesablar, nəticələr və oyun statusları qorunacaq. Pley-off oyunlarına toxunulmayacaq.'
+  )) return;
+
+  setSaving(true);
+  setError('');
+  setNotice('');
+
+  let created = 0;
+  let updated = 0;
+
+  const normalizeTeam = value =>
+    String(value || '')
+      .trim()
+      .toLocaleLowerCase('az')
+      .replace(/\s+fc$/i, '');
+
+  try {
+    for (const fixture of OFFICIAL_MATCH_CALENDAR) {
+      const home = teams.find(
+        t => normalizeTeam(t.name) === normalizeTeam(fixture.home_team)
+      );
+
+      const away = teams.find(
+        t => normalizeTeam(t.name) === normalizeTeam(fixture.away_team)
+      );
+
+      if (!home || !away) {
+        throw new Error(
+          `Komanda tapılmadı: ${fixture.home_team} / ${fixture.away_team}`
+        );
       }
-      setNotice(`Rəsmi təqvim tətbiq edildi: ${created} yeni oyun, ${updated} yenilənmiş oyun, ${preserved} tamamlanmış oyun qorunub saxlanıldı.`);
-      await load();
-    } catch (err) {
-      setError(err.response?.data?.error || err.message || 'Rəsmi təqvim idxal edilə bilmədi.');
-      await load();
-    } finally { setSaving(false); }
-  };
+
+      const group = groups.find(
+        g => String(g.name).toUpperCase() === fixture.group
+      );
+
+      const groupId = group?.id || home.group_id || null;
+
+      if (!groupId) {
+        throw new Error(`${fixture.group} qrupu üçün ID tapılmadı.`);
+      }
+
+      const existing = rows.find(m =>
+        m.tournament_id === tournament.id &&
+        (m.stage === 'group' || !m.stage) &&
+        (
+          (m.home_team_id === home.id && m.away_team_id === away.id) ||
+          (m.home_team_id === away.id && m.away_team_id === home.id)
+        )
+      );
+
+      const payload = {
+        match_date: fixture.match_date,
+        kickoff_time: fixture.kickoff_time,
+        group_id: groupId,
+        group_name: fixture.group,
+        round_name: fixture.round_name,
+        round_number: fixture.round_number,
+        match_number: fixture.match_number,
+        stage: 'group',
+        reason: 'Rəsmi KL-010126-R1 PDF təqviminə uyğun tarix və saat yenilənməsi.'
+      };
+
+      if (existing) {
+        await api.put(`/matches/${existing.id}`, payload);
+        updated++;
+      } else {
+        await api.post('/matches', {
+          ...payload,
+          tournament_id: tournament.id,
+          season_id: tournament.season_id || null,
+          home_team_id: home.id,
+          away_team_id: away.id,
+          venue: ''
+        });
+        created++;
+      }
+    }
+
+    setNotice(
+      `Rəsmi təqvim tətbiq edildi: ${created} yeni oyun, ${updated} yenilənmiş oyun.`
+    );
+
+    await load();
+
+  } catch (err) {
+    setError(
+      err.response?.data?.error ||
+      err.message ||
+      'Rəsmi təqvim idxal edilə bilmədi.'
+    );
+
+    await load();
+
+  } finally {
+    setSaving(false);
+  }
+};
+
 
   const openCreate = () => { setEditRow(null);setForm(type === 'matches' && tournament ? {tournament_id:tournament.id, match_status:'scheduled'} : type === 'tournaments' ? {players_on_pitch:6,substitutes_per_team:2} : {}); setShowForm(true); };
   const openEdit = row => {setEditRow(row);const values={};cfg.fields.forEach(([key])=>{values[key]=row[key]??(type==='tournaments'&&key==='players_on_pitch'?6:type==='tournaments'&&key==='substitutes_per_team'?2:'');});setForm(values);setShowForm(true);};
