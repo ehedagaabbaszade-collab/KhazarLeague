@@ -21,6 +21,16 @@ Tam qərarlar: `docs/KHAZAR_LEAGUE_2_SPEC_AZ.md`.
 
 Mövcud başlanğıc məlumatları qorunur: 16 komanda, 128 oyunçu, 4 qrup, 24 ilkin matç və 16 komanda loqosu. İlkin mənbələr `data/`, `imports/` və `uploads/` qovluqlarındadır. `imports/lineup-reference.jpg` taktiki görünüş üçün dizayn istinadıdır. Mənbədə olmayan matç tarixi, stadion, hesab və statistika uydurulmur.
 
+
+## 2026/2027 rəsmi heyət və oyun təqvimi
+
+- `imports/oyunçular-source.txt` — heyətlər üçün verilmiş ilkin mənbə.
+- `imports/khazar_league_rosters_2026_az.json` — 16 komanda və 128 oyunçu üzrə strukturlaşdırılmış heyət məlumatı.
+- `imports/khazar-league-position-approval-v5-full-128.json` — 128 oyunçunun ingiliscə mövqe adları və standart kodları (GK, DF, MF, FW, LW, RW, CDM, CF).
+- `imports/official-match-calendar-2026-2027.json` — rəsmi PDF-dəki 24 qrup oyunu.
+- Admin → Oyun təqvimi bölməsində **Rəsmi 24 oyunu idxal et** düyməsi mövcud oyunları yeniləyir, çatışmayanları yaradır, tamamlanmış nəticələri və pley-off oyunlarını qoruyur.
+- Mövqe metadata yenilənməsi üçün `database/migrations/2026-11-05-player-position-metadata.sql` tətbiq edilməlidir; sonra Admin → Mövqələrin toplu təsdiqi bölməsindən mövqe JSON-u yoxlanıb tətbiq olunur.
+
 ## Platforma arxitekturası
 
 - GitHub — layihənin mənbə kodu və versiyalara nəzarət.

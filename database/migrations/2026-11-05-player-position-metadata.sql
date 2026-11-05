@@ -2,6 +2,7 @@
 -- Review and apply only in the intended Supabase environment after approval.
 ALTER TABLE players ADD COLUMN IF NOT EXISTS position_code TEXT;
 ALTER TABLE players ADD COLUMN IF NOT EXISTS position_label_az TEXT;
+ALTER TABLE players ADD COLUMN IF NOT EXISTS position_label_en TEXT;
 ALTER TABLE players ADD COLUMN IF NOT EXISTS position_status TEXT NOT NULL DEFAULT 'needs_admin_review';
 ALTER TABLE players ADD COLUMN IF NOT EXISTS secondary_positions JSONB NOT NULL DEFAULT '[]'::jsonb;
 ALTER TABLE players ADD COLUMN IF NOT EXISTS position_source TEXT;

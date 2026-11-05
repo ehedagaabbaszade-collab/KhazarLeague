@@ -1,0 +1,1160 @@
+sənə göndərəcəyim khazar league oyunçularını bizim oyunçu formatına görə mövqelərini də ingilscə exceldə yığ -
+Komanda adı:Los Caspios FC
+
+Oyunçu 1
+Ad: Bayram
+Soyad: Ağayev
+Mövqe: Müdafiə
+Forma nömrəsi: 22
+Doğum tarixi: 13.01.2007
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 2
+Ad: Ömər
+Soyad: Ramazanov
+Mövqe: Hücumçu
+Forma nömrəsi: 10
+Doğum tarixi: 09.11.2006
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 3
+Ad: Yusif
+Soyad: Əliyev
+Mövqe: Müdafiə
+Forma nömrəsi: 3
+Doğum tarixi: 28.03.2007
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 4
+Ad: Pənah
+Soyad: Pənahlı
+Mövqe: Müdafiə
+Forma nömrəsi: 13
+Doğum tarixi: 27.12.2006
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 5
+Ad: Elçin
+Soyad: Musayev
+Mövqe: Hücumçu
+Forma nömrəsi: 36
+Doğum tarixi: 04.03.2007
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 6
+Ad: Rauf
+Soyad: Məmmədli
+Mövqe: Qapıçı
+Forma nömrəsi: 23
+Doğum tarixi: 23.07.2007
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 7
+Ad: Əlmusa
+Soyad: Dəmirov
+Mövqe: Hücumçu
+Forma nömrəsi: 19
+Doğum tarixi: 22.10.2007
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 8
+Ad: Anar
+Soyad: Həsənov
+Mövqe: Yarımmüdafiə
+Forma nömrəsi: 8
+Doğum tarixi: 02.03.2007
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Hər ikisi
+
+Komanda adı: Ghost fc
+
+Oyunçu 1:
+Seyidəli
+Mircəfərli
+Qapıçı
+99
+11.05.2007
+Azərbaycan
+Sağ
+
+Oyunçu 2:
+Uğur
+Məmmədli
+Müdafiə
+21
+21.04.2008
+Azərbaycan
+Sol
+
+Oyunçu 3:
+Amin
+ismayılov
+Müdafiə
+22
+24.04.2008
+Azərbaycan
+Sağ
+
+Oyunçu 4:
+Ayxan 
+Məmmədli
+Yarımmüdafiə
+23
+01.03.2008
+Azərbaycan
+Sol
+
+Oyunçu 5:
+Əli
+Qarayev
+Yarımmüdafiə
+8
+01.11.2007
+Azərbaycan
+Sağ
+
+Oyunçu 6:
+Nihad
+Qəhrəmanlı
+Yarımmüdafiə
+7
+16.07.2008
+Azərbaycan
+Hər ikisi
+
+Oyunçu 7:
+Yunis
+Abbaslı
+Yarımmüdafiə
+45
+30.11.2008
+Azərbaycan
+Sağ
+
+Oyunçu 8:
+Furqan
+Məmmədov
+Hücumçu
+10
+06.11.2008
+Azərbaycan
+Sağ
+
+Komanda: Turizm Fk
+
+Oyunçu 1
+
+* Ad: Şiralı
+* Soyad: Əliyev
+* Mövqe: Gizli Forvet
+* Forma nömrəsi: 10 
+* Doğum tarixi: 13.05.2009
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 2
+
+* Ad: Elxan
+* Soyad: Bənnayev
+* Mövqe: Forvet
+* Forma nömrəsi: 7
+* Doğum tarixi: 22.11.2009
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: sağ
+
+Oyunçu 3
+
+* Ad: Cavid 
+* Soyad: Tarverdiyev
+* Mövqe: Qapıçı
+* Forma nömrəsi: 99
+* Doğum tarixi: 13.12.2009
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: sağ
+
+Oyunçu 4
+
+* Ad: Fazil 
+* Soyad: Məmmədov
+* Mövqe: Defansif Orta saha
+* Forma nömrəsi: 66
+* Doğum tarixi: 12.02.2007
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: sağ
+
+Oyunçu 5
+
+* Ad: Hüseyn
+* Soyad: Gülverdizadə
+* Mövqe: Müdafiəçi
+* Forma nömrəsi: 4
+* Doğum tarixi: 27.03.2009
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: sol
+
+Oyunçu 6
+
+* Ad: Arda 
+* Soyad: Allahverdiyev
+* Mövqe: Müdafiəçi
+* Forma nömrəsi: 3
+* Doğum tarixi: 30.01.2009
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: sağ
+
+Oyunçu 7
+
+* Ad: İbrahim
+* Soyad: Rezazade
+* Mövqe: Defansif Orta Saha 
+* Forma nömrəsi: 21
+* Doğum tarixi: 11.09.2009
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: sağ
+
+Oyunçu 8
+
+* Ad: Raul
+* Soyad: Mahmudlu
+* Mövqe: Orta Saha
+* Forma nömrəsi: 11
+* Doğum tarixi: 15.03.2010
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: sağ
+
+Komanda: Comita FC
+
+Oyunçu 1:
+- Ad: Abdulla
+- Soyad: Hüseynli 
+- ⁠Mövqe: Müdafiə 
+- ⁠Forma nömrəsi: 23
+- ⁠Doğum tarixi: 27.05.2007
+- ⁠Vətəndaşlıq: Azərbaycan
+- ⁠Üstünlük verdiyi ayaq: Sol
+
+Oyunçu 2:
+- Ad: Pərviz 
+- Soyad: Xalıqov 
+- ⁠Mövqe: Müdafiə 
+- ⁠Forma nömrəsi: 4
+- ⁠Doğum tarixi: 21.02.2007
+- ⁠Vətəndaşlıq: Azərbaycan
+- ⁠Üstünlük verdiyi ayaq: Sol
+
+Oyunçu 3:
+- Ad: Bayram
+- ⁠Soyad: Namazov
+- ⁠Mövqe: Müdafiəçi 
+- ⁠Forma nömrəsi: 5
+- ⁠Doğum tarixi: 07.09.2006
+- ⁠Vətəndaşlıq: Gürcüstan 
+- ⁠Üstünlük verdiyi ayaq: sağ
+
+Oyunçu 4:
+- Ad: Cavidan 
+- Soyad: Mustafayev 
+- ⁠Mövqe: Yarımmüdafiə
+- ⁠Forma nömrəsi: 10
+- ⁠Doğum tarixi: 19.03.2007
+- ⁠Vətəndaşlıq: Azərbaycan
+- ⁠Üstünlük verdiyi ayaq: Sağ 
+
+Oyunçu 5:
+- Ad: Mehman 
+- ⁠Soyad: Allahverdiyev 
+- ⁠Mövqe: Hücum 
+- ⁠Forma nömrəsi: 11
+- ⁠Doğum tarixi: 15.07.2007
+- ⁠Vətəndaşlıq: Azərbaycan
+- ⁠Üstünlük verdiyi ayaq: Sağ 
+
+Oyunçu 6:
+- Ad: Yaqub
+- Soyad: Yusifli 
+- ⁠Mövqe: GK
+- ⁠Forma nömrəsi: 13
+- ⁠Doğum tarixi: 03.11.2006
+- ⁠Vətəndaşlıq: Azərbaycan
+- ⁠Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 7:
+- Ad: Vilayət 
+- Soyad: ⁠Şəmiyev
+- ⁠Mövqe: Hucum
+- ⁠Forma nömrəsi: 9
+- ⁠Doğum tarixi: 02.11.2006
+- ⁠Vətəndaşlıq: Azərbaycan
+- ⁠Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 8:
+• Ad: Əbülfəz 
+• ⁠Soyad: Həsənov 
+• ⁠Mövqe: Hücum
+• ⁠Forma nömrəsi: 17
+• ⁠Doğum tarixi: 16.11.2006
+• ⁠Vətəndaşlıq: Azərbaycan
+• ⁠Üstunluk verdiyi ayaq: Sağ
+
+komanda: Khazar Force
+Oyunçu 1:  (kapitan)
+Həkimxan 
+Həsənxanlı
+Qapıçı
+25
+25.09.2008
+Azərbaycan
+sağ
+
+
+
+
+
+
+Oyunçu 2 :
+Vüsal
+Cəfərzadə
+Yarımmüdafiə
+8
+24.08.2008
+Azərbaycan
+Sağ
+
+Oyunçu 3
+Məhəmməd
+İbrahimov
+mudafiyə,
+sağ ayaq , 
+5 
+Azərbaycan
+07.05.2008
+
+Oyunçu 4:
+Məhəmməd
+Bağırsoy
+Müdafiə
+4
+27.05.2008
+Azərbaycan
+Hər ikisi
+
+Oyunçu 5 :
+1. Həsən
+2. Rəhimov
+3. Hucum
+4. 17
+5. 09.07.2008
+6. Azərbaycan
+7. Hər ikisi
+
+Oyunçu 6:
+Rəsul                                        
+Abbasov                                      
+Hücum                                          
+6                                              
+23.01.2008                                 
+Azerbaycan.                               
+Sağ
+
+Oyunçu 7 :
+Bilal
+Kazımov
+hücumçu
+7
+18.04.2008
+Azərbaycan
+Sağ
+
+Oyunçu 8 :
+Yunis
+Əhmədov
+yarımmüdafiyə
+10
+14.09.2008
+Azərbaycan
+Sağ
+
+Komanda: Khazar Eagles FC
+
+Oyunçu 1:
+- Ad: Adəm
+- Soyad: ⁠Əli
+- ⁠Mövqe: Qapıçı
+- ⁠Forma nömrəsi: 1
+- ⁠Doğum tarixi: 03.01.2009
+- ⁠Vətəndaşlıq: Azərbaycan
+- ⁠Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 2:
+- Ad: Rəvan
+- Soyad: ⁠Zeynalov
+- ⁠Mövqe: Müdafiə 
+- ⁠Forma nömrəsi: 4
+- ⁠Doğum tarixi: 22.08.2009
+- ⁠Vətəndaşlıq: Azərbaycan
+- ⁠Üstünlük verdiyi ayaq: Sol
+
+Oyunçu 3:
+- Ad: Ramal 
+- ⁠Soyad: Aslanov
+- ⁠Mövqe: Müdafiəçi 
+- ⁠Forma nömrəsi: 20
+- ⁠Doğum tarixi: 24.11.2009
+- ⁠Vətəndaşlıq: Azərbaycan
+- ⁠Üstünlük verdiyi ayaq: Hər ikisi
+
+Oyunçu 4:
+- Ad: Əli
+- Soyad: ⁠Huseynov
+- ⁠Mövqe: Müdafiəçi
+- ⁠Forma nömrəsi: 3
+- ⁠Doğum tarixi: 11.02.2009
+- ⁠Vətəndaşlıq: Azərbaycan
+- ⁠Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 5:
+- Ad: Fuad
+- ⁠Soyad: Məmmədov
+- ⁠Mövqe: Hücumçu
+- ⁠Forma nömrəsi: 7
+- ⁠Doğum tarixi: 22.07.2009
+- ⁠Vətəndaşlıq: Azərbaycan
+- ⁠Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 6:
+- Ad: Emin
+- Soyad: ⁠Ramazanli
+- ⁠Mövqe: Yarımmudafiə
+- ⁠Forma nömrəsi: 10
+- ⁠Doğum tarixi: 24.05.2009
+- ⁠Vətəndaşlıq: Azərbaycan
+- ⁠Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 7:
+- Ad: Orxan
+- Soyad: ⁠Yolçuyev
+- ⁠Mövqe: Yarımmudafiəçi
+- ⁠Forma nömrəsi: 8
+- ⁠Doğum tarixi: 15.01.2009
+- ⁠Vətəndaşlıq: Azərbaycan
+- ⁠Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 8:
+• Ad: Riad
+• ⁠Soyad: Mustafayev
+• ⁠Mövqe: Hücumçu
+• ⁠Forma nömrəsi: 77
+• ⁠Doğum tarixi: 24.10.2008
+• ⁠Vətəndaşlıq: Azərbaycan
+• ⁠Üstunluk verdiyi ayaq: Sağ
+
+Komanda adı: Real Munich
+ 
+
+Oyunçu 1:
+Ad: Aqşin
+Soyad: İbrahimli
+Mövqe: Qapı
+Forma nömrəsi: 1
+Doğum tarixi: 13.02.2008
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+
+
+Oyunçu 2:
+Ad: Pünhan
+Soyad: Rəsulov
+Mövqe: Müdafiə
+Forma Nömrəsi: 4
+Doğum tarixi: 04.08.2008
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sol
+
+
+Oyunçu 3:
+Ad: Vilayət
+Soyad: Babazadə
+Mövqe: Sol Cinah Hücumçusu
+Forma Nömrəsi: 9
+Doğum tarixi: 09.03.2008
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: hər ikisi
+
+
+Oyunçu 4:
+Ad: Tərlan
+Soyad: Kərimov
+Mövqe: Müdafiə
+Forma Nömrəsi: 27
+Doğum tarixi: 14.06.2007
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: sağ
+
+
+Oyunçu 5:
+Ad: Mahir
+Soyad: Mehdiyev
+Mövqe: Yarımmüdafiə
+Forma Nömrəsi: 17
+Doğum tarixi: 09.01.2008
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: hər ikisi
+
+
+Oyunçu 6:
+Ad: Qurban
+Soyad: Mirzəyev
+Mövqe: Yarımmüdafiə
+Forma Nömrəsi: 10
+Doğum tarixi: 01.12.2009
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: sağ
+
+
+Oyunçu 7:
+Ad: Murad
+Soyad: Fərəcov
+Mövqe: Yarımmüdafiə
+Forma nömrəsi:11
+Doğum tarixi: 22.11.2006
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: sol
+
+
+Oyunçu 8:
+Ad: Samir
+Soyad: Eyyubov
+Mövqe: Müdafiə
+Forma nömrəsi: 30
+Doğum tarixi: 02.02.2007
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: sağ
+
+
+Komanda adı:Khazar Storm FC
+
+Oyunçu 1
+Ad: İslam
+Soyad: Fətullazadə
+Mövqe: Yarımmüdafiə
+Forma nömrəsi: 7
+Doğum tarixi: 14.07.2009
+Vətəndaşlıq:  Azərbaycan
+Üstünlük verdiyi: Sağ
+
+Oyunçu 2
+Ad: Kənan
+Soyad: Musayev
+Mövqe: Müdafiə
+Forma nömrəsi: 4
+Doğum tarixi: 18.09.2009
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi: Sağ
+
+Oyunçu 3
+Ad: Rəvan
+Soyad: Əliyev
+Mövqe: Hücumçu
+Forma nömrəsi: 11
+Doğum tarixi: 14.06.2009
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi: Sağ
+
+Oyunçu 4
+Ad: Faiq
+Soyad: Adıgözəlov
+Mövqe: Müdafiə
+Forma nömrəsi: 6
+Doğum tarixi: 06.11.2008
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi: Sağ
+
+Oyunçu 5
+Ad: Mirzə
+Soyad: Hacızadə
+Mövqe: Yarımmüdafiə
+Forma nömrəsi: 10
+Doğum tarixi: 15.04.2009
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi: Sağ
+
+Oyunçu 6
+Ad: Röyal
+Soyad: Quliyev 
+Mövqe: Qapıçı
+Forma nömrəsi: 1
+Doğum tarixi:19.12.2008
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi: Sağ
+
+Oyunçu 7
+Ad:Yaqub
+Soyad:Yaqubov
+Mövqe: Yarımmüdafiə
+Forma nömrəsi: 8
+Doğum tarixi: 09.07.2009
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi: Sağ
+
+Oyunçu 8
+Ad: Osama
+Soyad: Almousli
+Mövqe: Müdafiə
+Forma nömrəsi: 3
+Doğum tarixi: 07.05.2008
+Vətəndaşlıq: Türkiyə
+Üstünlük verdiyi: Sağ
+
+Komanda adı: Caspian FC
+Oyunçu 1:
+Ad: Əli
+Soyad: Əzimli
+Mövqe: Hücumçu
+Forma nömrəsi: 7
+Doğum tarixi: 05.04.2009
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+Oyunçu 2:
+Ad: Nicat
+Soyad: Məmmədmirzəyev
+Mövqe: Qapıçı
+Forma nömrəsi: 1
+Doğum tarixi: 16.03.2009
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+Oyunçu 3:
+Ad: Rinat
+Soyad: Denzizade
+Mövqe: Sol Hücumçu
+Forma nömrəsi: 10
+Doğum tarixi: 05.04.2009
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+Oyunçu 4:
+Ad: Vüsal
+Soyad: Əmkişiyev
+Mövqe: Yarımmüdafiəçi
+Forma nömrəsi: 11
+Doğum tarixi: 28.09.2009
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+Oyunçu 5:
+Ad: Əkbər
+Soyad: Məmmədov
+Mövqe: Müdafiəçi
+Forma nömrəsi: 5
+Doğum tarixi: 26.05.2009
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sol
+Oyunçu 6:
+Ad: Bilal
+Soyad: Musalı
+Mövqe: Müdafiəçi
+Forma nömrəsi: 4
+Doğum tarixi: 07.02.2009
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+Oyunçu 7:
+Ad: Rauf
+Soyad: Məhəmmədov
+Mövqe: Müdafiəçi
+Forma nömrəsi: 27
+Doğum tarixi: 28.06.2008
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+Oyunçu 8:
+Ad: Bəkir
+Soyad: Qasımlı
+Mövqe: Sağ Hücumçu
+Forma nömrəsi: 17
+Doğum tarixi: 29.11.2008
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sol
+
+Komanda: Zenith MFC
+
+Oyunçu 1
+
+* Ad: Sahib
+* Soyad: Kərimli
+* Mövqey: Yarımmüdafiə
+* Forma nömrəsi: 10
+* Doğum tarixi: 05.09.2006
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 2
+
+* Ad: Ozal
+* Soyad: Kərimzadə
+* Mövqey: Müdafiə
+* Forma nömrəsi: 4
+* Doğum tarixi: 24.04.2006
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Hər ikisi
+
+
+Oyunçu 3
+
+* Ad: Murad
+* Soyad: İsmayılov
+* Mövqey: Qapıcı
+* Forma nömrəsi: 1
+* Doğum tarixi: 27.12.2005
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 4
+
+* Ad: Məhəmməd
+* Soyad: Məmmədov
+* Mövqey: Müdafiə
+* Forma nömrəsi: 5
+* Doğum tarixi: 22.11.2005
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 5
+
+* Ad: Zamiq
+* Soyad: Quliyev
+* Mövqey: Hücum
+* Forma nömrəsi: 9
+* Doğum tarixi: 17.04.2006
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 6
+
+* Ad: Nazim 
+* Soyad: Qəribov
+* Mövqey: Hücum
+* Forma nömrəsi: 28
+* Doğum tarixi: 31.10.2006
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 7
+
+* Ad: Nurlan
+* Soyad: Osmanlı
+* Mövqey: Hücum
+* Forma nömrəsi: 7
+* Doğum tarixi: 13.04.2006
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Hər ikisi
+
+Oyunçu 8
+
+* Ad: Rövşən
+* Soyad: Məmmədli
+* Mövqey: Yarımmüdafiə
+* Forma nömrəsi: 17
+* Doğum tarixi: 13.06.2006
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Kamanda adi:Harop MFK
+
+Oyuncu 1
+Ad:Elcan
+Soyad:Hüseynov
+Movqe:Qapıçı
+Nomre:64 
+Dogum tarixi: 27.12.2004
+Vetandasliq:Azərbaycan
+Ustunluy verdiyi ayaq:Sağ
+
+Oyuncu 2
+Ad:Ramazan
+Soyad:Əliyev
+Movqe:Hucum,orta,Mudafie
+Nomre:7
+Dogum tarixi:14.10.2004
+Vetandasliq:Azarbaycan
+Ustunluy verdiyi ayaq:Sağ
+
+Oyuncu 3
+Ad:Elnur 
+Soyad:Miriyev
+Movqe:Yarimudafie
+Nomre:8
+Dogum tarixi:16.01.2005
+Vetandasliq:Azarbaycan
+Istifade etdiyi Ayaq: sağ
+
+Oyuncu 4
+Ad:Emin
+Soyad:Hacıyev
+Movqe:Mudafie
+Nomre:4
+Dogum tarixi:02.05.2004
+Vetendasliq:Azarbaycan
+Istifade etdiyu ayaq:Sol ayaq
+
+Oyuncu 5
+Ad:Qulam
+Soyad:Ağasıyev
+Movqe:Hucum
+Nomre:19
+Dogum tarixi:29.10.2005
+Vetendasliq:Azarbaycan
+Ustunluy verdiyi ayaq:Sağ
+
+Oyuncu 6
+Ad:Amin
+Soyad:Fətəliyev
+Movqe:Müdafiə
+Nomre:17
+Dogum tarixi:10.10.2005
+Ustunluy verdiyu ayaq:Sağ
+
+Oyuncu 7
+Ad:Yunus 
+Soyad:Cumazade
+Movqe:Yarimudafie
+Nomre:10
+Dogum tarixi:11.10.2004
+Vetandasliq:Azarbaycan
+Ustunluy verdiyi ayaq:Sağ ayaq
+
+
+Oyuncu 8
+Ad:Elmir
+Soyad:Ağayev
+Movqe:Hucum
+Nomre:99
+Dogum tarixi:17.08.2004
+Vetendasliq:Azarbaycan
+Ustunluy verdiyi ayaq:Sag ayaq
+
+Komanda: Khazar Vortex
+
+Oyunçu 1
+
+* Ad: Famil
+* Soyad: Abbasov
+* Mövqey: Müdafiə
+* Forma nömrəsi: 3
+* Doğum tarixi: 19.08.2007
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: hər ikisi
+
+Oyunçu 2
+
+* Ad: Tuncay
+* Soyad: Əliyev
+* Mövqey: Hücumçu
+* Forma nömrəsi: 9
+* Doğum tarixi: 02.08.2007
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Hər ikisi
+
+
+Oyunçu 3
+
+* Ad: Telman
+* Soyad: Mamedov
+* Mövqey: Yarım müdafiə
+* Forma nömrəsi: 7
+* Doğum tarixi: 03.04.2005
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 4
+
+* Ad: Şakir
+* Soyad: Əzizov
+* Mövqey: Yarım müdafiə
+* Forma nömrəsi: 10
+* Doğum tarixi: 28.02.2008
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Hər ikisi
+
+Oyunçu 5
+
+* Ad: Tərlan
+* Soyad: Danyalov
+* Mövqey: Hücum
+* Forma nömrəsi: 8
+* Doğum tarixi: 19.08.2006
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 6
+
+* Ad: Fərid
+* Soyad: İslamov
+* Mövqey: Hücum
+* Forma nömrəsi: 11
+* Doğum tarixi:03.12.2007
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Hər ikisi
+
+Oyunçu 7
+
+* Ad: Ayət
+* Soyad: Qarayev
+* Mövqey: Qapıçı
+* Forma nömrəsi: 5
+* Doğum tarixi: 03.01.2007
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: sol
+
+Oyunçu 8
+
+* Ad: Rəvan
+* Soyad: Əsgərov
+* Mövqey: Müdafiə
+* Forma nömrəsi: 4
+* Doğum tarixi: 24.08.2007
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Komanda: Khazar Fire
+
+Oyunçu 1
+
+* Ad: Həzrət
+* Soyad: Pərvanayev
+* Mövqe: Left Winger
+* Forma nömrəsi: 8
+* Doğum tarixi: 11.09.2007
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sol
+
+Oyunçu 2
+
+* Ad: Nurlan
+* Soyad:Məmmədli
+* Mövqe: Right Winger
+* Forma nömrəsi: 11
+* Doğum tarixi: 29.12.2007
+* Vətəndaşlıq:Azərbaycan
+* Üstünlük verdiyi ayaq:Sol
+
+Oyunçu 3
+
+* Ad:İlhan
+* Soyad: Hacızadə
+* Mövqe: Left Winger
+* Forma nömrəsi: 9
+* Doğum tarixi:16.04.2007 
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 4
+* Ad: Aqşin
+* Soyad: Cəfərzadə
+* Mövqe: Midfielder
+* Forma nömrəsi: 7
+* Doğum tarixi: 24.10.2008
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 5
+
+* Ad: Rəşid
+* Soyad: İsgəndərov
+* Mövqe: Defender
+* Forma nömrəsi: 3
+* Doğum tarixi: 09.08.2008
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 6
+
+* Ad: Mehmet
+* Soyad: Tülek
+* Mövqe: Right Winger
+* Forma nömrəsi: 10
+* Doğum tarixi: 22.08.2006
+* Vətəndaşlıq: Türkiyə
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 7
+
+* Ad: Əli
+* Soyad: Muxtarlı
+* Mövqe: Defender
+* Forma nömrəsi: 4
+* Doğum tarixi: 25.04.2008
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 8
+
+* Ad: Ünal
+* Soyad: Məhərrəmli
+* Mövqe: Goalkeeper
+* Forma nömrəsi: 99
+* Doğum tarixi: 26.04.2007
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Komanda ; Khazar United 
+
+Ad: Ağa (Capitan)
+Soyad: Ağazadə 
+Mövqe: yarım müdafiə 
+Forma nömrəsi 20
+Doğum tarixi: 05072009
+Vətəndaşliq: Azərbaycan 
+Üstünlük verdiyi ayaq : hər ikisi
+
+
+Ad Rəsul 
+Soyad Səfərli
+Mövqe yarım müdafiə 
+Forma nöm 17
+Doğum tarixi 07.01.2009
+Vətəndaşlıq Azərbaycan 
+Üstünlük verdiyi ayaq sol
+
+
+
+
+* Ad: Qabil
+* Soyad: Əhmədov
+* Mövqe: forvet 
+* Forma nömrəsi: 10
+* Doğum tarixi:28.07.2008
+* Vətəndaşlıq:Azərbaycan
+* Üstünlük verdiyi ayaq:sağ
+
+
+Ad:Mirəli
+Soyad:Abdullayev
+Mövqe: müdafiə 
+Forma nömrəsi:4
+Doğum tarixi:04.03.2009
+Vətəndaşlıq:Azərbaycan
+Üstünlük verdiyi ayaq:Sol
+
+
+
+Ad: Əli 
+Soyad: Məmmədov
+Movge: mudafiə
+forma nomresi: 99
+dogum tarixi 01.11.2008
+vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sağ
+
+
+Ad : Hacı
+Soyad : Muradov
+mövqe : forvet
+Forma nömrəsi : 7
+Doğum tarixi : 04.03.2005
+Vətəndaşlığı : Azərbaycan
+Üstünlük verdiyi ayaq : Sağ
+
+
+
+Ad: Onur
+Soyad: Rzayev
+Mövqey: Müdafiəçi
+Forma Nömrəsi: 5 
+Doğum tarixi: 05.08.2009
+Vətəndaşlıq: Azərbaycan
+Üstünlük verdiyi ayaq: Sol
+
+
+
+
+Ad :İlkin 
+soyad: Məmmədli 
+Mövqe: Qapıçı
+Nömrə:13
+Vətəndaşliq: azərbaycanlı
+Doğum tarixi:13.10.2007
+Üstünlük verdiyi ayağ:Sağ
+
+Komanda: Khazar Waves
+
+Oyunçu 1 
+
+* Ad: Büsat
+* Soyad: Əsədov
+* Mövqe: Sol Cinah Hücumçusu
+* Forma nömrəsi: 17
+* Doğum tarixi: 15.11.2008
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 2
+
+* Ad: Məmməd
+* Soyad:Məmmədli
+* Mövqe: Yarımmüdafiə
+* Forma nömrəsi: 8
+* Doğum tarixi: 02.02.2008
+* Vətəndaşlıq:Azərbaycan
+* Üstünlük verdiyi ayaq:Sağ
+
+Oyunçu 3
+
+* Ad:Fuad
+* Soyad: Cumayev
+* Mövqe: Sol Cinah Hücumçusu
+* Forma nömrəsi: 7
+* Doğum tarixi: 31.12.2007 
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 4
+* Ad: Ayxan
+* Soyad: Sultanlı
+* Mövqe: Sağ Cinah Hücumçusu
+* Forma nömrəsi: 10
+* Doğum tarixi: 20.02.2007
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 5
+
+* Ad: Əli
+* Soyad: Manaflı
+* Mövqe: Müdafiə
+* Forma nömrəsi: 4
+* Doğum tarixi: 07.07.2008
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 6
+
+* Ad: Ziyad
+* Soyad: Hacızadə
+* Mövqe: Müdafiə
+* Forma nömrəsi: 5
+* Doğum tarixi: 16.05.2008
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 7
+
+* Ad: Məlik
+* Soyad: Əliyev
+* Mövqe: Qapıçı
+* Forma nömrəsi: 1
+* Doğum tarixi: 04.10.2007
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ
+
+Oyunçu 8
+
+* Ad: Yusif
+* Soyad: Mehdizadə
+* Mövqe: Müdafiə
+* Forma nömrəsi: 3
+* Doğum tarixi: 29.08.2009
+* Vətəndaşlıq: Azərbaycan
+* Üstünlük verdiyi ayaq: Sağ

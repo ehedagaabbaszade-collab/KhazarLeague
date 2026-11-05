@@ -1,0 +1,54 @@
+{
+  "source": "imports/oyunçular-source.txt",
+  "teams": 16,
+  "players": 128,
+  "players_per_team": {
+    "Los Caspios FC": 8,
+    "Khazar Masallı FK": 8,
+    "Ghost FC": 8,
+    "Turizm FK": 8,
+    "Comita FC": 8,
+    "Khazar Force": 8,
+    "Khazar Eagles FC": 8,
+    "Real Munich": 8,
+    "Khazar Storm FC": 8,
+    "Caspian FC": 8,
+    "Zenith MFC": 8,
+    "Harop MFK": 8,
+    "Khazar Vortex": 8,
+    "Khazar Fire": 8,
+    "Khazar United": 8,
+    "Khazar Waves": 8
+  },
+  "position_codes": {
+    "DF": 41,
+    "FW": 27,
+    "GK": 16,
+    "MF": 31,
+    "CF": 1,
+    "CDM": 2,
+    "LW": 6,
+    "RW": 4
+  },
+  "english_labels": {
+    "Defender": 41,
+    "Forward": 27,
+    "Goalkeeper": 16,
+    "Midfielder": 30,
+    "Second Striker": 1,
+    "Defensive Midfielder": 2,
+    "Left Winger": 6,
+    "Right Winger": 4,
+    "Forward / Midfielder / Defender": 1
+  },
+  "validation": {
+    "sixteen_teams": true,
+    "eight_players_each": true,
+    "unique_player_per_team": true
+  },
+  "notes": [
+    "Mövqe adları mənbədəki kimi position_label_az sahəsində saxlanılıb.",
+    "İngilis dilində standart rol adı və taktiki kod əlavə edilib.",
+    "Ümumi mövqelər dəqiq alt mövqe uydurulmadan DF (Defender), MF (Midfielder), FW (Forward) kimi kodlaşdırılıb; mənbədə konkret cinah və ya müdafiəyönümlü rol veriləndə LW/RW/CDM/CF istifadə edilib."
+  ]
+}

@@ -7,7 +7,8 @@
   "notes": [
     "Məlumatlar istifadəçinin təqdim etdiyi ilkin komanda heyətlərinə əsaslanır.",
     "Harop MFK komandasında Elnur Miriyev və Amin Fətəliyevin vətəndaşlıq məlumatı təqdim edilmədiyi üçün boş saxlanılıb.",
-    "Kapitan kimi yalnız istifadəçinin açıq şəkildə qeyd etdiyi Həkimxan Həsənxanlı və Ağa Ağazadə göstərilib."
+    "Kapitan kimi yalnız istifadəçinin açıq şəkildə qeyd etdiyi Həkimxan Həsənxanlı və Ağa Ağazadə göstərilib.",
+    "Mövqelər oyunçular.txt mənbəsindəki mövqe məlumatına əsasən ingilis dilində standart kodlarla əlavə edilib; ümumi mövqelər dəqiq alt mövqe uydurulmadan DF/MF/FW kimi saxlanılıb."
   ],
   "teams": [
     {
@@ -25,7 +26,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -38,7 +46,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -51,7 +66,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -64,7 +86,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -77,7 +106,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -90,7 +126,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -103,7 +146,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -116,7 +166,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Hər ikisi",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -135,7 +192,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -148,7 +212,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -161,7 +232,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -174,7 +252,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -187,7 +272,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -200,7 +292,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -213,7 +312,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -226,7 +332,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -245,7 +358,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -258,7 +378,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -271,7 +398,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -284,7 +418,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -297,7 +438,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -310,7 +458,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Hər ikisi",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -323,7 +478,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -336,7 +498,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -355,7 +524,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "CF",
+          "position_label_az": "Gizli hücumçu",
+          "position_label_en": "Second Striker",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -368,7 +544,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -381,7 +564,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -394,7 +584,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "CDM",
+          "position_label_az": "Müdafiəyönümlü yarımmüdafiəçi",
+          "position_label_en": "Defensive Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -407,7 +604,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -420,7 +624,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -433,7 +644,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "CDM",
+          "position_label_az": "Müdafiəyönümlü yarımmüdafiəçi",
+          "position_label_en": "Defensive Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -446,7 +664,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -465,7 +690,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -478,7 +710,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -491,7 +730,14 @@
           "nationality": "Gürcüstan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -504,7 +750,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -517,7 +770,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -530,7 +790,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -543,7 +810,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -556,7 +830,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -575,7 +856,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": true,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -588,7 +876,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -601,7 +896,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -614,7 +916,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Hər ikisi",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -627,7 +936,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Hər ikisi",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -640,7 +956,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -653,7 +976,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -666,7 +996,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -685,7 +1022,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -698,7 +1042,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -711,7 +1062,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Hər ikisi",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -724,7 +1082,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -737,7 +1102,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -750,7 +1122,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -763,7 +1142,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -776,7 +1162,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -795,7 +1188,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -808,7 +1208,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -821,7 +1228,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Hər ikisi",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "LW",
+          "position_label_az": "Sol cinah hücumçusu",
+          "position_label_en": "Left Winger",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -834,7 +1248,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -847,7 +1268,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Hər ikisi",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -860,7 +1288,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -873,7 +1308,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -886,7 +1328,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -905,7 +1354,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -918,7 +1374,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -931,7 +1394,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -944,7 +1414,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -957,7 +1434,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -970,7 +1454,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -983,7 +1474,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -996,7 +1494,14 @@
           "nationality": "Türkiyə",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -1015,7 +1520,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -1028,7 +1540,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -1041,7 +1560,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "LW",
+          "position_label_az": "Sol cinah hücumçusu",
+          "position_label_en": "Left Winger",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -1054,7 +1580,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -1067,7 +1600,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -1080,7 +1620,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -1093,7 +1640,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -1106,7 +1660,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "RW",
+          "position_label_az": "Sağ cinah hücumçusu",
+          "position_label_en": "Right Winger",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -1125,7 +1686,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -1138,7 +1706,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Hər ikisi",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -1151,7 +1726,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -1164,7 +1746,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -1177,7 +1766,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -1190,7 +1786,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -1203,7 +1806,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Hər ikisi",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -1216,7 +1826,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -1235,7 +1852,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -1248,7 +1872,17 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Hücumçu / Yarımmüdafiəçi / Müdafiəçi",
+          "position_label_en": "Forward / Midfielder / Defender",
+          "secondary_positions": [
+            "FW",
+            "DF"
+          ],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədə bir neçə ümumi mövqe göstərilib; əsas kod MF seçilib, əlavə mövqelər FW və DF-dir."
         },
         {
           "player_number": 3,
@@ -1261,7 +1895,14 @@
           "nationality": null,
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "nationality_pending"
+          "registration_status": "nationality_pending",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -1274,7 +1915,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -1287,7 +1935,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -1300,7 +1955,14 @@
           "nationality": null,
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "nationality_pending"
+          "registration_status": "nationality_pending",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -1313,7 +1975,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -1326,7 +1995,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -1345,7 +2021,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Hər ikisi",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -1358,7 +2041,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Hər ikisi",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -1371,7 +2061,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -1384,7 +2081,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Hər ikisi",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -1397,7 +2101,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -1410,7 +2121,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Hər ikisi",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -1423,7 +2141,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -1436,7 +2161,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -1455,7 +2187,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "LW",
+          "position_label_az": "Sol cinah hücumçusu",
+          "position_label_en": "Left Winger",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -1468,7 +2207,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "RW",
+          "position_label_az": "Sağ cinah hücumçusu",
+          "position_label_en": "Right Winger",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -1481,7 +2227,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "LW",
+          "position_label_az": "Sol cinah hücumçusu",
+          "position_label_en": "Left Winger",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -1494,7 +2247,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -1507,7 +2267,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -1520,7 +2287,14 @@
           "nationality": "Türkiyə",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "RW",
+          "position_label_az": "Sağ cinah hücumçusu",
+          "position_label_en": "Right Winger",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -1533,7 +2307,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -1546,7 +2327,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -1565,7 +2353,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Hər ikisi",
           "captain": true,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -1578,7 +2373,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -1591,7 +2393,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -1604,7 +2413,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -1617,7 +2433,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -1630,7 +2453,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "FW",
+          "position_label_az": "Hücumçu",
+          "position_label_en": "Forward",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -1643,7 +2473,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sol",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -1656,7 +2493,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     },
@@ -1675,7 +2519,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "LW",
+          "position_label_az": "Sol cinah hücumçusu",
+          "position_label_en": "Left Winger",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 2,
@@ -1688,7 +2539,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "MF",
+          "position_label_az": "Yarımmüdafiəçi",
+          "position_label_en": "Midfielder",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 3,
@@ -1701,7 +2559,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "LW",
+          "position_label_az": "Sol cinah hücumçusu",
+          "position_label_en": "Left Winger",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 4,
@@ -1714,7 +2579,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "RW",
+          "position_label_az": "Sağ cinah hücumçusu",
+          "position_label_en": "Right Winger",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 5,
@@ -1727,7 +2599,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 6,
@@ -1740,7 +2619,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 7,
@@ -1753,7 +2639,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "GK",
+          "position_label_az": "Qapıçı",
+          "position_label_en": "Goalkeeper",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         },
         {
           "player_number": 8,
@@ -1766,7 +2659,14 @@
           "nationality": "Azərbaycan",
           "preferred_foot": "Sağ",
           "captain": false,
-          "registration_status": "initial_roster"
+          "registration_status": "initial_roster",
+          "position_code": "DF",
+          "position_label_az": "Müdafiəçi",
+          "position_label_en": "Defender",
+          "secondary_positions": [],
+          "position_status": "approved",
+          "position_source": "oyunçular.txt",
+          "position_review_note": "Mənbədəki mövqe adı saxlanılıb və ingilis dilində ümumi mövqe koduna uyğunlaşdırılıb."
         }
       ]
     }

@@ -574,10 +574,10 @@ app.put('/api/players/:id', (req, res) => {
     if (req.currentUser?.role === 'team_captain' && player.team_id !== req.currentUser.team_id) return res.status(403).json({ error: 'Yalnız öz komandanızın oyunçularını redaktə edə bilərsiniz' });
     const allowed = req.currentUser?.role === 'team_captain'
         ? ['first_name','last_name','jersey_number','position','course']
-         : ['first_name','last_name','team_id','jersey_number','position','position_code','position_label_az','position_status','secondary_positions','preferred_foot','date_of_birth','nationality','student_id','phone','course','registration_status','status','is_captain'];
+         : ['first_name','last_name','team_id','jersey_number','position','position_code','position_label_az','position_label_en','position_status','secondary_positions','preferred_foot','date_of_birth','nationality','student_id','phone','course','registration_status','status','is_captain'];
     const updates = {};
     allowed.forEach(key => { if (req.body[key] !== undefined) updates[key] = req.body[key]; });
-    const positionLabels = {GK:'Qapıçı',CB:'Mərkəz müdafiəçisi',RB:'Sağ cinah müdafiəçisi',LB:'Sol cinah müdafiəçisi',RWB:'Sağ cinah hücumameyilli müdafiəçi',LWB:'Sol cinah hücumameyilli müdafiəçi',CDM:'Müdafiəyönümlü yarımmüdafiəçi',CM:'Mərkəz yarımmüdafiəçisi',CAM:'Hücumameyilli yarımmüdafiəçi',RM:'Sağ yarımmüdafiəçi',LM:'Sol yarımmüdafiəçi',RW:'Sağ cinah hücumçusu',LW:'Sol cinah hücumçusu',CF:'Mərkəz hücumçusu',ST:'Hücumçu'};
+    const positionLabels = {GK:'Qapıçı',DF:'Müdafiəçi',MF:'Yarımmüdafiəçi',FW:'Hücumçu',CB:'Mərkəz müdafiəçisi',RB:'Sağ cinah müdafiəçisi',LB:'Sol cinah müdafiəçisi',RWB:'Sağ cinah hücumameyilli müdafiəçi',LWB:'Sol cinah hücumameyilli müdafiəçi',CDM:'Müdafiəyönümlü yarımmüdafiəçi',CM:'Mərkəz yarımmüdafiəçisi',CAM:'Hücumameyilli yarımmüdafiəçi',RM:'Sağ yarımmüdafiəçi',LM:'Sol yarımmüdafiəçi',RW:'Sağ cinah hücumçusu',LW:'Sol cinah hücumçusu',CF:'Mərkəz hücumçusu',ST:'Hücumçu'};
     if (updates.position_code && positionLabels[updates.position_code]) {
         updates.position = positionLabels[updates.position_code];
         updates.position_label_az = positionLabels[updates.position_code];
@@ -1907,7 +1907,7 @@ app.post('/api/admin/player-position-import', positionImportUpload.single('file'
         }
 
         const allowedPositions = new Set([
-            'GK', 'CB', 'RB', 'LB', 'RWB', 'LWB',
+            'GK', 'DF', 'MF', 'FW', 'CB', 'RB', 'LB', 'RWB', 'LWB',
             'CDM', 'CM', 'CAM', 'RM', 'LM',
             'RW', 'LW', 'CF', 'ST'
         ]);
@@ -2025,6 +2025,7 @@ app.post('/api/admin/player-position-import', positionImportUpload.single('file'
         for (const { player, item } of updates) {
             player.position_code = item.primaryPosition;
             player.position_label_az = item.positionLabelAz || null;
+            player.position_label_en = item.positionLabelEn || null;
             player.position_status = item.positionStatus || 'approved';
             player.secondary_positions = Array.isArray(item.secondaryPositions)
                 ? item.secondaryPositions

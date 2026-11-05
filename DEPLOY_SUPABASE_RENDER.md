@@ -11,3 +11,8 @@
 6. Keep GitHub repository private. The bundled data file includes the existing admin password hash; rotate the admin password after first successful login.
 
 The first backend boot seeds the Supabase `league_state` row from `data/khazar_league.json` if empty. Subsequent mutations are persisted to that row only after the previous state is copied into `league_backups`. Local JSON snapshots are also written to `backups/` before each local save; Render ephemeral storage is not treated as the durable backup. Keep Supabase database backups enabled as an additional recovery layer. The platform is configured for one Super Admin account. Public users do not receive management accounts; all management endpoints reject non-Super-Admin roles.
+
+
+## Khazar League 2.0 mövqe metadata yenilənməsi
+
+Yeni mövqe sahələri üçün `database/migrations/2026-11-05-player-position-metadata.sql` faylını Supabase SQL Editor-də bir dəfə icra edin. Sonra Admin panelində **Mövqələrin toplu təsdiqi** bölməsinə daxil olaraq `imports/khazar-league-position-approval-v5-full-128.json` faylını yoxlayıb tətbiq edin. Tətbiq zamanı backend avtomatik backup yaradır.

@@ -1,6 +1,7 @@
 import './AdminPages.css';
 import { useEffect, useMemo, useState } from 'react';
 import api, { tournamentApi } from '../../services/api';
+import { OFFICIAL_MATCH_CALENDAR } from '../../data/officialMatchCalendar';
 const API_ORIGIN=(import.meta.env.VITE_API_BASE_URL||'http://localhost:3000/api').replace(/\/api\/?$/,'');
 
 const config = {
@@ -8,8 +9,8 @@ const config = {
     ['name','Komanda adı','text',true], ['short_name','Qısa ad','text'], ['group_id','Qrup ID-si','text'], ['captain_name','Kapitan','text'], ['captain_phone','Kapitan telefonu','text'], ['student_ticket','Tələbə bileti','text'], ['contact_phone','Əlaqə telefonu','text'], ['coordinator','Əlaqələndirici','text'], ['description','Təsvir','text']
   ], columns: [['logo_path','Loqo'],['name','Komanda'],['captain_name','Kapitan'],['captain_phone','Kapitan telefonu'],['student_ticket','Tələbə bileti'],['contact_phone','Əlaqə telefonu'],['group_id','Qrup'],['registration_status','Qeydiyyat'],['coordinator','Əlaqələndirici']] },
   players: { title: 'Oyunçular', subtitle: 'Oyunçu reyestri və heyət məlumatları', endpoint: '/players', fields: [
-    ['first_name','Ad','text',true], ['last_name','Soyad','text',true], ['team_id','Komanda ID-si','text',true], ['jersey_number','Forma nömrəsi','number'], ['position','Mövqe adı (AZ)','text'], ['position_code','Mövqe kodu','position'], ['course','Kurs','text'], ['phone','Telefon','text'], ['student_id','Tələbə bileti №','text']
-  ], columns: [['first_name','Ad'],['last_name','Soyad'],['team_id','Komanda ID-si'],['jersey_number','№'],['position_label_az','Mövqe'],['position_code','Kod'],['position_status','Təsdiq'],['course','Kurs'],['phone','Telefon'],['student_id','Tələbə bileti'],['registration_status','Qeydiyyat']] },
+    ['first_name','Ad','text',true], ['last_name','Soyad','text',true], ['team_id','Komanda ID-si','text',true], ['jersey_number','Forma nömrəsi','number'], ['position_label_az','Mövqe (AZ)','text'], ['position_label_en','Position (EN)','text'], ['position_code','Position code','position'], ['course','Kurs','text'], ['phone','Telefon','text'], ['student_id','Tələbə bileti №','text']
+  ], columns: [['first_name','Ad'],['last_name','Soyad'],['team_id','Komanda ID-si'],['jersey_number','№'],['position_label_en','Position (EN)'],['position_code','Kod'],['position_status','Təsdiq'],['course','Kurs'],['phone','Telefon'],['student_id','Tələbə bileti'],['registration_status','Qeydiyyat']] },
   matches: { title: 'Oyun təqvimi', subtitle: '24 qrup oyunu, tarixlər admin tərəfindən təyin olunur', endpoint: '/matches', fields: [
     ['home_team_id','Ev sahibi ID','text',true], ['away_team_id','Qonaq ID','text',true], ['group_id','Qrup ID-si','text',true], ['match_date','Tarix (YYYY-MM-DD)','date',true], ['kickoff_time','Saat','time'], ['venue','Stadion','text']
   ], columns: [['group_name','Qrup'],['round_number','Tur'],['home_team_id','Ev sahibi'],['away_team_id','Qonaq'],['match_date','Tarix'],['kickoff_time','Saat'],['match_status','Status']] },
@@ -85,6 +86,50 @@ export function AdminResourcePage({ type }) {
     try { const result=await api.post(`/tournaments/${tournament.id}/generate-schedule`,schedule); setNotice(`${result.data.updated} oyunun təqvimi yaradıldı.`); setShowSchedule(false); await load(); }
     catch(err){setError(err.response?.data?.error||'Təqvim yaradıla bilmədi.');}
   };
+
+  const importOfficialSchedule = async () => {
+    if (!tournament?.id) { setError('Aktiv turnir tapılmadı.'); return; }
+    if (!window.confirm('PDF-dəki rəsmi 24 qrup oyununu idxal etmək istəyirsiniz? Mövcud nəticələr silinməyəcək, pley-off oyunlarına toxunulmayacaq.')) return;
+    setSaving(true); setError(''); setNotice('');
+    let created = 0, updated = 0, preserved = 0;
+    const normalizeTeam = value => String(value || '').trim().toLocaleLowerCase('az').replace(/\s+fc$/i, '');
+    try {
+      for (const fixture of OFFICIAL_MATCH_CALENDAR) {
+        const home = teams.find(t => normalizeTeam(t.name) === normalizeTeam(fixture.home_team));
+        const away = teams.find(t => normalizeTeam(t.name) === normalizeTeam(fixture.away_team));
+        if (!home || !away) throw new Error(`Komanda tapılmadı: ${fixture.home_team} / ${fixture.away_team}`);
+        const group = groups.find(g => String(g.name).toUpperCase() === fixture.group);
+        const groupId = group?.id || home.group_id || null;
+        if (!groupId) throw new Error(`${fixture.group} qrupu üçün ID tapılmadı.`);
+        const existing = rows.find(m => m.tournament_id === tournament.id &&
+          (m.stage === 'group' || !m.stage) &&
+          ((m.home_team_id === home.id && m.away_team_id === away.id) ||
+           (m.home_team_id === away.id && m.away_team_id === home.id)));
+        const payload = {
+          match_date: fixture.match_date, kickoff_time: fixture.kickoff_time,
+          group_id: groupId, group_name: fixture.group, round_name: fixture.round_name,
+          round_number: fixture.round_number, match_number: fixture.match_number, stage: 'group'
+        };
+        if (existing) {
+          if (existing.match_status === 'completed' || existing.result_locked) { preserved++; continue; }
+          await api.put(`/matches/${existing.id}`, payload);
+          updated++;
+        } else {
+          await api.post('/matches', {
+            ...payload, tournament_id: tournament.id, season_id: tournament.season_id || null,
+            home_team_id: home.id, away_team_id: away.id, venue: ''
+          });
+          created++;
+        }
+      }
+      setNotice(`Rəsmi təqvim tətbiq edildi: ${created} yeni oyun, ${updated} yenilənmiş oyun, ${preserved} tamamlanmış oyun qorunub saxlanıldı.`);
+      await load();
+    } catch (err) {
+      setError(err.response?.data?.error || err.message || 'Rəsmi təqvim idxal edilə bilmədi.');
+      await load();
+    } finally { setSaving(false); }
+  };
+
   const openCreate = () => { setEditRow(null);setForm(type === 'matches' && tournament ? {tournament_id:tournament.id, match_status:'scheduled'} : type === 'tournaments' ? {players_on_pitch:6,substitutes_per_team:2} : {}); setShowForm(true); };
   const openEdit = row => {setEditRow(row);const values={};cfg.fields.forEach(([key])=>{values[key]=row[key]??(type==='tournaments'&&key==='players_on_pitch'?6:type==='tournaments'&&key==='substitutes_per_team'?2:'');});setForm(values);setShowForm(true);};
   const submit = async (e) => {
@@ -139,7 +184,7 @@ export function AdminResourcePage({ type }) {
       <div className="heading-actions">
          {type === 'standings' ? <button className="btn btn-primary" onClick={recalc}>Cədvəli hesabla</button> : null}
         {type === 'awards' ? <button className="btn btn-outline" onClick={autoAwards}>Komanda mükafatlarını hesabla</button> : null}
-        {type === 'matches' ? <button className="btn btn-outline" onClick={()=>setShowSchedule(true)}>Təqvimi avtomatik yarat</button> : null}
+        {type === 'matches' ? <><button className="btn btn-outline" onClick={importOfficialSchedule} disabled={saving || loading}>Rəsmi 24 oyunu idxal et</button><button className="btn btn-outline" onClick={()=>setShowSchedule(true)}>Təqvimi avtomatik yarat</button></> : null}
         <button className="btn btn-primary" onClick={openCreate}>＋ Yeni əlavə et</button>
       </div>
     </div>
@@ -164,7 +209,7 @@ export function AdminResourcePage({ type }) {
         {inputType==='textarea' ? <textarea required={!!required} value={form[key]||''} onChange={e=>setForm({...form,[key]:e.target.value})}/> :
         inputType==='file' ? <input required={!!required} type="file" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={e=>setForm({...form,[key]:e.target.files?.[0]||null})}/> :
         key==='players_on_pitch' ? <select required value={form[key]??6} onChange={e=>setForm({...form,[key]:Number(e.target.value)})}><option value={6}>6 n?f?r</option><option value={11}>11 n?f?r</option></select> :
-        inputType==='position' ? <select value={form[key]||''} onChange={e=>setForm({...form,[key]:e.target.value})}><option value="">Təsdiq gözləyir</option>{['GK','CB','RB','LB','RWB','LWB','CDM','CM','CAM','RM','LM','RW','LW','CF','ST'].map(code=><option key={code} value={code}>{code}</option>)}</select> :
+        inputType==='position' ? <select value={form[key]||''} onChange={e=>setForm({...form,[key]:e.target.value})}><option value="">Təsdiq gözləyir</option>{['GK','DF','MF','FW','CB','RB','LB','RWB','LWB','CDM','CM','CAM','RM','LM','RW','LW','CF','ST'].map(code=><option key={code} value={code}>{code}</option>)}</select> :
         ['team_id','home_team_id','away_team_id'].includes(key) ? <select required={!!required} value={form[key]||''} onChange={e=>setForm({...form,[key]:e.target.value})}><option value="">Komanda seçin</option>{teams.map(t=><option key={t.id} value={t.id}>{t.name}</option>)}</select> :
         key==='group_id' ? <select required={!!required} value={form[key]||''} onChange={e=>setForm({...form,[key]:e.target.value})}><option value="">Qrup seçin</option>{groups.map(g=><option key={g.id} value={g.id}>Qrup {g.name}</option>)}</select> :
         <input required={!!required} type={inputType} value={form[key]??''} onChange={e=>setForm({...form,[key]:inputType==='number'?(e.target.value===''?'':Number(e.target.value)):e.target.value})}/>}
