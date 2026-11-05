@@ -525,3 +525,125 @@ li,
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Mobile overflow correction for the public landing page */
+@media (max-width: 780px) {
+  .public-home,
+  .public-home * {
+    box-sizing: border-box;
+  }
+  .public-home {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+  .public-home .site-header,
+  .public-home main,
+  .public-home .league-hero,
+  .public-home .content-section,
+  .public-home .editorial-section,
+  .public-home .stats-strip,
+  .public-home .hero-copy,
+  .public-home .hero-art,
+  .public-home .hero-control-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .public-home .site-header {
+    width: 100%;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .public-home .site-brand {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .public-home .site-brand span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .public-home .header-actions {
+    flex: 0 0 auto;
+  }
+  .public-home .hero-kicker {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+  }
+  .public-home .hero-copy p {
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+  .public-home .hero-buttons {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .public-home .hero-buttons a {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    justify-content: center;
+    white-space: normal;
+    text-align: center;
+  }
+  .public-home .hero-meta {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .public-home .hero-meta > span {
+    min-width: 0;
+    font-size: clamp(17px, 5vw, 22px);
+  }
+  .public-home .hero-control-top,
+  .public-home .hero-control-bottom {
+    min-width: 0;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .public-home .hero-control-brand,
+  .public-home .hero-control-fixture,
+  .public-home .hero-control-match-label {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .public-home .hero-control-brand strong,
+  .public-home .hero-control-brand small,
+  .public-home .hero-control-fixture strong {
+    overflow-wrap: anywhere;
+  }
+  .public-home .section-heading,
+  .public-home .editorial-heading {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+@media (max-width: 380px) {
+  .public-home .site-brand img {
+    width: 34px;
+    height: 34px;
+  }
+  .public-home .site-brand span {
+    font-size: 10px;
+    letter-spacing: .07em;
+  }
+  .public-home .admin-link {
+    padding: 8px;
+    font-size: 9px;
+  }
+  .public-home .mobile-menu {
+    padding: 7px 8px;
+  }
+  .public-home .hero-meta {
+    gap: 6px;
+  }
+  .public-home .hero-meta b {
+    font-size: 7px;
+    letter-spacing: .08em;
+  }
+}
