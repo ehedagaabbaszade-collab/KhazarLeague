@@ -21,3 +21,34 @@
 .lineup-3d-bench>b{font-size:10px;letter-spacing:.1em;color:#73dba7;margin-right:4px}
 .lineup-3d-bench>span,.lineup-3d-bench>small{padding:7px 10px;border-radius:8px;background:#123243;color:#d8e9e0;font-size:11px}
 @media(max-width:700px){.lineup-3d-stage{height:340px}.lineup-3d-pitch{width:94%;height:260px}.lineup-3d-player{width:76px}.lineup-3d-player>b{max-width:82px;font-size:8px}.lineup-3d-player>span{width:28px;height:28px}}
+
+/* Mobile layout fix v2 — selectors matched to actual JSX */
+@media (max-width: 600px) {
+  .team-lineup-admin { padding: 12px; }
+  .team-lineup-admin h1 { font-size: clamp(23px, 6vw, 28px); line-height: 1.12; }
+  .team-lineup-panel { padding: 14px; gap: 12px; border-radius: 15px; }
+  .lineup-3d-preview { padding: 13px; }
+  .lineup-3d-heading { gap: 8px; }
+  .lineup-3d-heading h2 { font-size: 17px; line-height: 1.15; }
+  .lineup-3d-heading > strong { flex: 0 0 auto; max-width: 74px; padding: 7px 8px; font-size: 12px; line-height: 1.2; overflow-wrap: anywhere; text-align: center; }
+  .lineup-3d-stage { height: clamp(260px, 76vw, 330px); padding: 8px 0; }
+  .lineup-3d-pitch { width: 96%; height: clamp(180px, 53vw, 225px); }
+  .lineup-3d-player { width: 58px; gap: 3px; }
+  .lineup-3d-player > span { width: 27px; height: 27px; font-size: 12px; }
+  .lineup-3d-player > b { width: 66px; max-width: 66px; box-sizing: border-box; padding: 3px 4px; font-size: 8px; line-height: 1.1; white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; }
+  .lineup-3d-player > small { max-width: 64px; font-size: 7px; line-height: 1.1; overflow-wrap: anywhere; }
+  .lineup-3d-bench { gap: 6px; }
+  .lineup-3d-bench > b { flex-basis: 100%; }
+  .lineup-3d-bench > span, .lineup-3d-bench > small { max-width: 100%; padding: 6px 8px; font-size: 10px; overflow-wrap: anywhere; }
+  .team-lineup-actions { display: grid; grid-template-columns: 1fr; }
+  .team-lineup-actions button { width: 100%; }
+}
+@media (max-width: 380px) {
+  .lineup-3d-preview { padding: 11px; }
+  .lineup-3d-stage { height: 255px; }
+  .lineup-3d-pitch { width: 98%; height: 175px; }
+  .lineup-3d-player { width: 52px; }
+  .lineup-3d-player > span { width: 24px; height: 24px; font-size: 11px; }
+  .lineup-3d-player > b { width: 58px; max-width: 58px; font-size: 7px; }
+  .lineup-3d-player > small { max-width: 56px; font-size: 6px; }
+}
