@@ -643,11 +643,6 @@ app.post('/api/matches', (req, res) => {
             assistant_referee_2_id: null,
             fourth_official_id: null,
             match_status: 'scheduled',
-            group_name: req.body.group_name || null,
-            stage: req.body.stage || 'group',
-            round_name: round_name || null,
-            round_number: round_number ?? null,
-            match_number: match_number ?? null,
             attendance: null,
             weather: null,
             pitch_condition: null,
@@ -711,7 +706,7 @@ app.put('/api/matches/:id', (req, res) => {
     if (match.result_locked && req.currentUser?.role !== 'super_admin') {
         return res.status(403).json({ error: 'Təsdiqlənmiş nəticəni yalnız Super Admin dəyişə bilər' });
     }
-    const allowed = ['match_date','kickoff_time','venue','home_score','away_score','match_status','home_penalties','away_penalties','round_name','round_number','match_number','group_name','group_id','stage'];
+    const allowed = ['match_date','kickoff_time','venue','home_score','away_score','match_status','home_penalties','away_penalties','round_name','round_number'];
     const updates = {};
     if (req.body.match_status === 'live' || req.body.match_status === 'in_progress') return res.status(400).json({ error: 'Canlı matç statusu istifadə edilmir. Nəticə oyun bitdikdən sonra daxil edilməlidir.' });
     allowed.forEach(key => { if (req.body[key] !== undefined) updates[key] = req.body[key]; });
@@ -1773,7 +1768,7 @@ app.get('/api/public/news/:id',(req,res)=>{
 app.get('/api/public/team/:teamId', (req, res, next) => {
     const team = db.findById('teams', req.params.teamId);
     if (!team) return next();
-    const roster = (db.db.players || []).filter(p => p.team_id === team.id).map(p => ({ id: p.id, first_name: p.first_name, last_name: p.last_name, full_name: p.full_name, jersey_number: p.jersey_number, position: p.position, nationality: p.nationality, preferred_foot: p.preferred_foot, photo_path: p.photo_path || null, is_captain: p.is_captain === 1 }));
+    const roster = (db.db.players || []).filter(p => p.team_id === team.id).map(p => ({ id: p.id, first_name: p.first_name, last_name: p.last_name, full_name: p.full_name, jersey_number: p.jersey_number, position: p.position, position_code: p.position_code || null, position_label_az: p.position_label_az || p.position || null, position_status: p.position_status || null, secondary_positions: Array.isArray(p.secondary_positions) ? p.secondary_positions : [], nationality: p.nationality, preferred_foot: p.preferred_foot, photo_path: p.photo_path || null, is_captain: p.is_captain === 1 }));
     const matches = (db.db.matches || []).filter(m => m.home_team_id === team.id || m.away_team_id === team.id).sort((a,b) => String(b.match_date || '').localeCompare(String(a.match_date || '')));
     const completed = matches.filter(m => m.match_status === 'completed' && m.home_score != null && m.away_score != null);
     const stats = completed.reduce((s,m) => { const home=m.home_team_id===team.id, gf=Number(home?m.home_score:m.away_score), ga=Number(home?m.away_score:m.home_score); s.played++;s.goals_for+=gf;s.goals_against+=ga;if(gf>ga)s.won++;else if(gf===ga)s.drawn++;else s.lost++;return s; }, {played:0,won:0,drawn:0,lost:0,goals_for:0,goals_against:0});
@@ -1787,7 +1782,7 @@ app.get('/api/public/player/:playerId', (req, res, next) => {
     const events = (db.db.match_events || []).filter(e => e.player_id === player.id);
     const matches = (db.db.matches || []).filter(m => (m.home_team_id === player.team_id || m.away_team_id === player.team_id) && (db.db.match_lineups || []).some(l => l.match_id === m.id && l.player_id === player.id));
     const team = db.findById('teams', player.team_id);
-    res.json({ player: { id: player.id, first_name: player.first_name, last_name: player.last_name, full_name: player.full_name, jersey_number: player.jersey_number, position: player.position, nationality: player.nationality, preferred_foot: player.preferred_foot || null, photo_path: player.photo_path || null, is_captain: player.is_captain === 1 }, team: team && { id: team.id, name: team.name, logo_path: team.logo_path }, stats: { appearances: new Set(matches.map(m => m.id)).size, goals: events.filter(e => ['goal','penalty_goal'].includes(e.event_type)).length, assists: (db.db.match_events || []).filter(e => e.assist_player_id === player.id).length, yellow_cards: events.filter(e => e.event_type === 'yellow_card').length, red_cards: events.filter(e => e.event_type === 'red_card').length, mvp_awards: (db.db.awards || []).filter(a => a.player_id === player.id && /mvp|player.of.match/i.test(a.award_type || a.category || '')).length+(db.db.matches||[]).filter(m=>m.mvp_player_id===player.id).length }, matches });
+    res.json({ player: { id: player.id, first_name: player.first_name, last_name: player.last_name, full_name: player.full_name, jersey_number: player.jersey_number, position: player.position, position_code: player.position_code || null, position_label_az: player.position_label_az || player.position || null, position_status: player.position_status || null, secondary_positions: Array.isArray(player.secondary_positions) ? player.secondary_positions : [], nationality: player.nationality, preferred_foot: player.preferred_foot || null, photo_path: player.photo_path || null, is_captain: player.is_captain === 1 }, team: team && { id: team.id, name: team.name, logo_path: team.logo_path }, stats: { appearances: new Set(matches.map(m => m.id)).size, goals: events.filter(e => ['goal','penalty_goal'].includes(e.event_type)).length, assists: (db.db.match_events || []).filter(e => e.assist_player_id === player.id).length, yellow_cards: events.filter(e => e.event_type === 'yellow_card').length, red_cards: events.filter(e => e.event_type === 'red_card').length, mvp_awards: (db.db.awards || []).filter(a => a.player_id === player.id && /mvp|player.of.match/i.test(a.award_type || a.category || '')).length+(db.db.matches||[]).filter(m=>m.mvp_player_id===player.id).length }, matches });
 });
 
 

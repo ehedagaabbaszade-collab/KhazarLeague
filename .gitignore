@@ -16,3 +16,8 @@ data/
 
 # Local pre-change snapshots
 backups/
+
+# Never commit local browser sessions or credentials
+**/torneo_chrome_profile/
+**/Default/Cookies
+**/Default/Login Data
