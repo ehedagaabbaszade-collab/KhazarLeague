@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:3000/api' : '/api');
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:3000/api' : 'https://khazarleague.onrender.com/api');
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -164,6 +163,7 @@ export const publicApi = {
   removePushSubscription: (data) => api.delete('/public/push-subscriptions', { data }),
   getTournament: (tournamentId) => api.get(`/public/tournament/${tournamentId}`),
   getTeam: (teamId) => api.get(`/public/team/${teamId}`),
+  getApprovedLineup: (teamId) => api.get(`/teams/${teamId}/approved-lineup`),
   getPlayer: (playerId) => api.get(`/public/player/${playerId}`),
   getMatch: (matchId) => api.get(`/public/match/${matchId}`),
   getVotingSessions: () => api.get('/public/voting', { withCredentials: true }),

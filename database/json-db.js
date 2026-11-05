@@ -45,7 +45,7 @@ function createEmptyDatabase() {
     return {
         organizations: [], seasons: [], tournaments: [], groups: [],
         teams: [], users: [], user_permissions: [], players: [],
-        matches: [], match_events: [], match_lineups: [],
+        matches: [], match_events: [], match_lineups: [], team_lineup_versions: [], match_lineup_versions: [],
         group_standings: [], player_tournament_stats: [], awards: [],
         voting_sessions: [], votes: [], archived_players: [],
         announcements: [], notifications: [], push_subscriptions: [], documents: [],

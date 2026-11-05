@@ -3,6 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 
 const navItems = [
   {path:'/admin/audit-logs',label:'Audit jurnalı',icon:'◷',roles:['super_admin']},
+  {path:'/admin/team-lineups',label:'Komanda heyətləri',icon:'⚽',roles:['super_admin']},
   {path:'/admin/lineups',label:'Matç heyətləri',icon:'◉',roles:['super_admin','tournament_admin','match_official']},
   {path:'/admin/dashboard',label:'İcmal',icon:'▦',roles:['super_admin','tournament_admin']},
   {path:'/admin/tournaments',label:'Turnir',icon:'◇',roles:['super_admin','tournament_admin']},

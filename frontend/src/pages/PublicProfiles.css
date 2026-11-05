@@ -86,3 +86,25 @@
 .tactical-player-summary span{color:#c3d5e4}
 .profile-match-row{border-bottom-color:rgba(130,184,222,.13)}
 @media(max-width:720px){.profile-page{padding-inline:14px}.profile-hero,.match-profile-hero{align-items:flex-start;flex-wrap:wrap}.profile-metrics{width:100%;margin:12px 0 0;justify-content:space-between}.tactics-bench>div{grid-template-columns:1fr}.team-tactics-pitch{min-height:500px}.tactical-shirt{min-width:58px;min-height:48px}.tactical-shirt>b{max-width:76px;overflow:hidden;text-overflow:ellipsis}}
+
+/* Shared 3D tactical lineup view: admin, team profile and match profile */
+.kl-3d-lineup{margin:22px 0;padding:20px;border-radius:18px;background:#071b27;color:#f3fbf6;overflow:hidden}
+.kl-3d-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.kl-3d-head span{font-size:10px;font-weight:900;letter-spacing:.16em;color:#69d9a4}
+.kl-3d-head h3{margin:5px 0 0;color:#fff;font-size:18px}
+.kl-3d-head>b{padding:8px 12px;border:1px solid #326451;border-radius:9px;color:#9ef0c0}
+.kl-3d-stage{height:430px;display:grid;place-items:center;perspective:1100px;overflow:hidden;background:radial-gradient(ellipse at center,#183b35 0%,#071b27 72%);border-radius:14px}
+.kl-3d-pitch{position:relative;width:min(82%,600px);height:330px;transform:rotateX(52deg);transform-style:preserve-3d;border:3px solid #ffffffd9;border-radius:5px;background:repeating-linear-gradient(90deg,#167b4e 0 10%,#198957 10% 20%);box-shadow:0 32px 35px #0008,0 0 0 8px #dce9df22}
+.kl-3d-markings{position:absolute;inset:2%;border:2px solid #ffffffb8;pointer-events:none}
+.kl-3d-markings .half{position:absolute;left:0;right:0;top:50%;border-top:2px solid #ffffffb8}
+.kl-3d-markings .center{position:absolute;width:22%;aspect-ratio:1;border:2px solid #ffffffb8;border-radius:50%;left:39%;top:39%}
+.kl-3d-markings .box{position:absolute;left:30%;width:40%;height:17%;border:2px solid #ffffffb8}
+.kl-3d-markings .box.top{top:0;border-top:0}.kl-3d-markings .box.bottom{bottom:0;border-bottom:0}
+.kl-3d-player{position:absolute;z-index:2;transform:translate(-50%,-50%) rotateX(-52deg) translateZ(24px);display:flex;flex-direction:column;align-items:center;gap:3px;width:105px;text-align:center}
+.kl-3d-player>span{width:34px;height:34px;display:grid;place-items:center;border:2px solid #fff;border-radius:50%;background:linear-gradient(145deg,#0d2937,#1e5265);box-shadow:0 5px 10px #0008;color:#fff;font-weight:900}
+.kl-3d-player>b{max-width:120px;padding:3px 6px;border-radius:5px;background:#f5fff8;color:#10261c;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kl-3d-player>small{color:#d9f7e5;font-size:9px;text-shadow:0 1px 3px #000}
+.kl-3d-bench{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px}
+.kl-3d-bench>b{font-size:10px;letter-spacing:.1em;color:#73dba7;margin-right:4px}
+.kl-3d-bench>span{padding:7px 10px;border-radius:8px;background:#123243;color:#d8e9e0;font-size:11px}
+@media(max-width:700px){.kl-3d-stage{height:340px}.kl-3d-pitch{width:94%;height:260px}.kl-3d-player{width:76px}.kl-3d-player>b{max-width:82px;font-size:8px}.kl-3d-player>span{width:28px;height:28px}}

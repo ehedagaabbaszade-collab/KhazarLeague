@@ -1280,7 +1280,11 @@ app.get('/api/match-events/:id', (req, res) => {
 app.get('/api/matches/:matchId/lineups', (req, res) => {
     const match = db.findById('matches', req.params.matchId);
     if (!match) return res.status(404).json({ error: 'Matç tapılmadı' });
-    const lineups = (db.db.match_lineups || []).filter(row => row.match_id === match.id);
+    const lineups = [match.home_team_id, match.away_team_id].flatMap(teamId => {
+        const draft = latestVersion(db.db.match_lineup_versions || [], row => row.match_id === match.id && row.team_id === teamId);
+        if (draft && draft.status === 'pending') return draft.players || [];
+        return (db.db.match_lineups || []).filter(row => row.match_id === match.id && row.team_id === teamId);
+    });
     res.json(lineups);
 });
 
@@ -1299,12 +1303,110 @@ app.put('/api/matches/:matchId/lineups', (req, res) => {
         const x = Number(p.x), y = Number(p.y);
         return { id: generateId(), match_id: match.id, team_id, player_id: p.player_id, is_starter: p.is_starter ? 1 : 0, position: p.position || null, jersey_number: (db.db.players || []).find(player => player.id === p.player_id)?.jersey_number ?? null, x: Number.isFinite(x) ? Math.max(0, Math.min(100, x)) : null, y: Number.isFinite(y) ? Math.max(0, Math.min(100, y)) : null, formation, updated_at: new Date().toISOString() };
     });
-    db.db.match_lineups = (db.db.match_lineups || []).filter(row => row.match_id !== match.id || row.team_id !== team_id).concat(cleanPlayers);
+    db.db.match_lineup_versions = db.db.match_lineup_versions || [];
+    const prior = latestVersion(db.db.match_lineup_versions, row => row.match_id === match.id && row.team_id === team_id);
+    const version = Number(prior?.version || 0) + 1;
+    const draft = { id: generateId(), match_id: match.id, team_id, version, formation, status: 'pending', players: cleanPlayers, submitted_by: req.currentUser.id, submitted_at: new Date().toISOString(), approved_by: null, approved_at: null };
+    db.db.match_lineup_versions.push(draft);
     db.dirty = true;
     db.save();
     db.table('audit_logs').insert({ id: generateId(), user_id: req.currentUser.id, action: 'match.lineup.saved', resource_type: 'match', resource_id: match.id, details: JSON.stringify({ team_id, formation, players: playerIds.length }), created_at: new Date().toISOString() });
     db.save();
     res.json(cleanPlayers);
+});
+
+
+// ---------------------------------------------------------------------------
+// Approved team roster and match lineup workflow.
+// Drafts are stored separately; public endpoints only expose approved versions.
+// ---------------------------------------------------------------------------
+function safePublicPlayer(player) {
+    if (!player) return null;
+    const { phone, student_id, ...safe } = player;
+    return safe;
+}
+function latestVersion(rows, predicate) {
+    return rows.filter(predicate).sort((a,b) => Number(b.version || 0) - Number(a.version || 0))[0] || null;
+}
+function canManageLineups(user) {
+    return ['super_admin'].includes(user?.role);
+}
+
+app.get('/api/teams/:teamId/lineup', (req, res) => {
+    const team = db.findById('teams', req.params.teamId);
+    if (!team) return res.status(404).json({ error: 'Komanda tapılmadı' });
+    const approved = latestVersion(db.db.team_lineup_versions || [], row => row.team_id === team.id && row.status === 'approved');
+    if (!approved) return res.json({ lineup: null });
+    const players = (approved.players || []).map(item => ({ ...item, player: safePublicPlayer(db.findById('players', item.player_id)) }));
+    res.json({ lineup: { ...approved, players } });
+});
+
+app.put('/api/teams/:teamId/lineup', (req, res) => {
+    if (!canManageLineups(req.currentUser)) return res.status(403).json({ error: 'Yalnız Super Admin komanda heyətini idarə edə bilər' });
+    const team = db.findById('teams', req.params.teamId);
+    if (!team) return res.status(404).json({ error: 'Komanda tapılmadı' });
+    const { formation, players } = req.body || {};
+    if (!Array.isArray(players) || !players.length) return res.status(400).json({ error: 'Heyət oyunçuları seçilməlidir' });
+    const roster = new Set((db.db.players || []).filter(p => p.team_id === team.id).map(p => p.id));
+    const ids = players.map(p => p.player_id);
+    if (ids.some(id => !roster.has(id)) || new Set(ids).size !== ids.length) return res.status(400).json({ error: 'Oyunçular komandanın qeydiyyatlı heyətindən seçilməli və təkrarlanmamalıdır' });
+    const starters = players.filter(p => p.is_starter);
+    if (starters.length !== 6) return res.status(400).json({ error: 'Komanda profili üçün 6 əsas oyunçu seçilməlidir' });
+    const previous = latestVersion(db.db.team_lineup_versions || [], row => row.team_id === team.id);
+    const version = Number(previous?.version || 0) + 1;
+    const draft = {
+        id: generateId(), team_id: team.id, version, status: 'pending',
+        formation: String(formation || '1-2-2-1'),
+        players: players.map((p, index) => ({
+            player_id: p.player_id, is_starter: !!p.is_starter,
+            position: p.position || null,
+            x: Number.isFinite(Number(p.x)) ? Math.max(0, Math.min(100, Number(p.x))) : null,
+            y: Number.isFinite(Number(p.y)) ? Math.max(0, Math.min(100, Number(p.y))) : null,
+            sort_order: index
+        })),
+        submitted_by: req.currentUser.id, submitted_at: new Date().toISOString(),
+        approved_by: null, approved_at: null
+    };
+    db.db.team_lineup_versions = db.db.team_lineup_versions || [];
+    db.db.team_lineup_versions.push(draft); db.dirty = true; db.save();
+    res.json({ lineup: draft, message: 'Komanda heyəti təsdiqə göndərildi' });
+});
+
+app.post('/api/teams/:teamId/lineup/:versionId/approve', (req, res) => {
+    if (!canManageLineups(req.currentUser)) return res.status(403).json({ error: 'Yalnız Super Admin heyəti təsdiqləyə bilər' });
+    const row = (db.db.team_lineup_versions || []).find(x => x.id === req.params.versionId && x.team_id === req.params.teamId);
+    if (!row) return res.status(404).json({ error: 'Heyət versiyası tapılmadı' });
+    if (row.status !== 'pending') return res.status(409).json({ error: 'Bu versiya artıq təsdiqlənib və ya ləğv edilib' });
+    const latestPending = latestVersion(db.db.team_lineup_versions || [], x => x.team_id === row.team_id && x.status === 'pending');
+    if (!latestPending || latestPending.id !== row.id) return res.status(409).json({ error: 'Yalnız ən son göndərilmiş heyət təsdiqlənə bilər' });
+    row.status = 'approved'; row.approved_by = req.currentUser.id; row.approved_at = new Date().toISOString();
+    db.dirty = true; db.save();
+    db.table('audit_logs').insert({ user_id: req.currentUser.id, action: 'team.lineup.approved', resource_type: 'team', resource_id: row.team_id, details: JSON.stringify({ version: row.version }), created_at: new Date().toISOString() });
+    db.save();
+    res.json({ lineup: row, message: 'Komanda heyəti ictimai profildə dərc edildi' });
+});
+
+app.get('/api/teams/:teamId/lineup/history', (req, res) => {
+    if (!canManageLineups(req.currentUser)) return res.status(403).json({ error: 'İcazə yoxdur' });
+    res.json((db.db.team_lineup_versions || []).filter(x => x.team_id === req.params.teamId).sort((a,b)=>b.version-a.version));
+});
+
+
+app.post('/api/matches/:matchId/lineups/:teamId/approve', (req, res) => {
+    if (!canManageLineups(req.currentUser)) return res.status(403).json({ error: 'Yalnız Super Admin matç heyətini təsdiqləyə bilər' });
+    const match = db.findById('matches', req.params.matchId);
+    if (!match) return res.status(404).json({ error: 'Matç tapılmadı' });
+    if (![match.home_team_id, match.away_team_id].includes(req.params.teamId)) return res.status(400).json({ error: 'Komanda bu matçda iştirak etmir' });
+    const row = latestVersion(db.db.match_lineup_versions || [], x => x.match_id === match.id && x.team_id === req.params.teamId && x.status === 'pending');
+    if (!row) return res.status(404).json({ error: 'Təsdiq gözləyən matç heyəti tapılmadı' });
+    const latestPending = latestVersion(db.db.match_lineup_versions || [], x => x.match_id === match.id && x.team_id === row.team_id && x.status === 'pending');
+    if (!latestPending || latestPending.id !== row.id) return res.status(409).json({ error: 'Yalnız ən son göndərilmiş matç heyəti təsdiqlənə bilər' });
+    row.status = 'approved'; row.approved_by = req.currentUser.id; row.approved_at = new Date().toISOString();
+    db.db.match_lineups = (db.db.match_lineups || []).filter(x => x.match_id !== match.id || x.team_id !== row.team_id).concat(row.players);
+    db.dirty = true; db.save();
+    db.table('audit_logs').insert({ user_id: req.currentUser.id, action: 'match.lineup.approved', resource_type: 'match', resource_id: match.id, details: JSON.stringify({ team_id: row.team_id, version: row.version }), created_at: new Date().toISOString() });
+    db.save();
+    res.json({ message: 'Matç heyəti təsdiqləndi və dərc edildi', lineup: row });
 });
 
 // Matches - Full CRUD
@@ -1778,7 +1880,9 @@ app.get('/api/public/team/:teamId', (req, res, next) => {
     const completed = matches.filter(m => m.match_status === 'completed' && m.home_score != null && m.away_score != null);
     const stats = completed.reduce((s,m) => { const home=m.home_team_id===team.id, gf=Number(home?m.home_score:m.away_score), ga=Number(home?m.away_score:m.home_score); s.played++;s.goals_for+=gf;s.goals_against+=ga;if(gf>ga)s.won++;else if(gf===ga)s.drawn++;else s.lost++;return s; }, {played:0,won:0,drawn:0,lost:0,goals_for:0,goals_against:0});
     const publicTeam = { id: team.id, name: team.name, short_name: team.short_name, logo_path: team.logo_path, group_id: team.group_id, captain_name: team.captain_name || null };
-    return res.json({ team: publicTeam, players: roster, matches, stats });
+    const approvedTeamLineup = latestVersion(db.db.team_lineup_versions || [], row => row.team_id === team.id && row.status === 'approved');
+    const publicLineup = approvedTeamLineup ? { ...approvedTeamLineup, players: (approvedTeamLineup.players || []).map(item => ({ ...item, player: safePublicPlayer(db.findById('players', item.player_id)) })) } : null;
+    return res.json({ team: publicTeam, players: roster, matches, stats, approvedTeamLineup: publicLineup });
 });
 
 app.get('/api/public/player/:playerId', (req, res, next) => {
