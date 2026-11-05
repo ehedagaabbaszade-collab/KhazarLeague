@@ -1,0 +1,18 @@
+KHAZAR LEAGUE 2.0 — REVIEW FIRST
+
+Bu paket yalnız lokal baxış və test üçündür. Production yayımlanması edilmir.
+
+1) ZIP-i yeni qovluğa çıxar: məsələn C:\KhazarLeague-2.0-preview
+2) Node.js 18+ quraşdırılmış olsun.
+3) START_KHAZAR_LEAGUE.bat faylını başladın. İlk dəfə backend və frontend asılılıqları avtomatik quraşdırılacaq.
+4) Sayt: http://127.0.0.1:4174
+5) Admin: http://127.0.0.1:4174/login
+6) API health: http://127.0.0.1:3000/api/health
+
+Bu paketə .env və .env.local daxil edilməyib. Beləliklə lokal preview Supabase production məlumat bazasına qoşulmur və yalnız paketdəki lokal JSON məlumatı ilə işləyir. Production Supabase bağlantısını preview üçün əlavə etməyin.
+
+Mövcud məlumatlar qorunub: 16 komanda, 128 oyunçu, 4 qrup, 24 ilkin matç və 16 loqo.
+
+İstifadəçi preview-i bəyəndikdən və ayrıca təsdiq etdikdən sonra Supabase schema, GitHub, Render və Vercel yayımlanma mərhələsi aparılacaq.
+
+Qeyd: bu təqdimat mühitində frontend npm asılılıqlarının quraşdırılması vaxt limitinə düşdüyü üçün production build burada icra edilə bilmədi. Lokal ilk başladılmada START_KHAZAR_LEAGUE.bat asılılıqları quraşdırır.

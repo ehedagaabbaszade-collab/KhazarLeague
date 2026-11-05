@@ -1875,6 +1875,17 @@ app.post('/api/admin/player-position-import', positionImportUpload.single('file'
 
             playersByTeamAndName.get(nameKey).push(player);
 
+            // Also index a token-sorted key so harmless first/last-name order
+            // differences do not prevent a match. Ambiguous matches are rejected below.
+            const nameTokens = norm(fullName).match(/[a-z0-9]+/g) || [];
+            const unorderedNameKey = `${player.team_id}|${nameTokens.sort().join('|')}`;
+            if (!playersByTeamAndName.has(unorderedNameKey)) {
+                playersByTeamAndName.set(unorderedNameKey, []);
+            }
+            if (unorderedNameKey !== nameKey) {
+                playersByTeamAndName.get(unorderedNameKey).push(player);
+            }
+
             const jersey = String(
                 player.jersey_number ?? player.shirt_number ?? ''
             ).trim();
@@ -1908,8 +1919,16 @@ app.post('/api/admin/player-position-import', positionImportUpload.single('file'
                 continue;
             }
 
-            const nameKey = `${team.id}|${norm(item.name)}`;
-            const nameMatches = playersByTeamAndName.get(nameKey) || [];
+            const normalizedItemName = norm(item.name);
+            const nameKey = `${team.id}|${normalizedItemName}`;
+            let nameMatches = playersByTeamAndName.get(nameKey) || [];
+
+            // Fallback only when the normalized exact match is absent.
+            if (!nameMatches.length) {
+                const itemTokens = normalizedItemName.match(/[a-z0-9]+/g) || [];
+                const unorderedNameKey = `${team.id}|${itemTokens.sort().join('|')}`;
+                nameMatches = playersByTeamAndName.get(unorderedNameKey) || [];
+            }
 
             let player = null;
 
@@ -1957,8 +1976,9 @@ app.post('/api/admin/player-position-import', positionImportUpload.single('file'
                 error: 'Yoxlama uğursuz oldu. Heç bir məlumat dəyişdirilmədi.',
                 matched: updates.length,
                 expected: 128,
-                errors: errors.slice(0, 30),
-                errorCount: errors.length
+                errors: errors.slice(0, 100),
+                errorCount: errors.length,
+                hint: 'Aşağıdakı siyahıda uyğun gəlməyən komanda və ya oyunçular göstərilir. Bu mərhələdə bazaya heç bir dəyişiklik edilmir.'
             });
         }
 
@@ -2011,7 +2031,7 @@ app.post('/api/admin/player-position-import', positionImportUpload.single('file'
                 ? 'İlkin mövqe bölgüsü admin tərəfindən toplu şəkildə təsdiqlənib; zərurət olduqda sonradan dəyişdirilə bilər.'
                 : null;
 
-            player.position = item.positionLabelAz || player.position || null;
+            player.position = item.positionLabelAz || player.position || item.primaryPosition || null;
             player.updated_at = now;
         }
 

@@ -25,7 +25,15 @@ function loadDatabase() {
     if (fs.existsSync(DB_FILE)) {
         try {
             const data = fs.readFileSync(DB_FILE, 'utf8');
-            return JSON.parse(data);
+            const parsed = JSON.parse(data);
+            if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+                throw new Error('Database root must be a JSON object');
+            }
+            const empty = createEmptyDatabase();
+            for (const [tableName, defaultRows] of Object.entries(empty)) {
+                if (!Array.isArray(parsed[tableName])) parsed[tableName] = defaultRows;
+            }
+            return parsed;
         } catch (e) {
             throw new Error(`Failed to load JSON database at ${DB_FILE}; refusing to replace existing data: ${e.message}`);
         }
@@ -95,7 +103,15 @@ class JsonDatabase {
         if (!response.ok) throw new Error(`Supabase load failed (${response.status}): ${await response.text()}`);
         const rows = await response.json();
         if (rows.length && rows[0].payload) {
-            this.db = rows[0].payload;
+            const remotePayload = rows[0].payload;
+            if (!remotePayload || typeof remotePayload !== 'object' || Array.isArray(remotePayload)) {
+                throw new Error('Supabase league_state payload is not a valid JSON object');
+            }
+            const normalized = { ...createEmptyDatabase(), ...remotePayload };
+            for (const tableName of Object.keys(createEmptyDatabase())) {
+                if (!Array.isArray(normalized[tableName])) normalized[tableName] = [];
+            }
+            this.db = normalized;
             this.dirty = false;
             return { enabled: true, loaded: true };
         }
