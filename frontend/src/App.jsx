@@ -10,6 +10,7 @@ import { LineupBuilderPage, MatchProfilePage, NewsArticlePage, PlayerProfilePage
 import { StatisticsPage } from './pages/StatisticsPage';
 import { AuditLogsPage } from './pages/admin/AuditLogsPage';
 import { PlayerPositionImportPage } from './pages/admin/PlayerPositionImportPage';
+import { TeamLineupAdminPage } from './pages/admin/TeamLineupAdminPage';
 import { AdminLayout } from './components/layout/AdminLayout';
 import { PublicHome } from './pages/PortalPages';
 import './index.css';
@@ -46,6 +47,7 @@ function AppRoutes() {
       <Route path="/admin/player-positions" element={<PlayerPositionImportPage />} />
       <Route path="/admin/matches" element={<AdminResourcePage type="matches" />} />
       <Route path="/admin/lineups" element={<LineupBuilderPage />} />
+      <Route path="/admin/team-lineups" element={<TeamLineupAdminPage />} />
       <Route path="/admin/standings" element={<StandingsPage />} />
       <Route path="/admin/knockout" element={<KnockoutPage />} />
       <Route path="/admin/awards" element={<AdminResourcePage type="awards" />} />

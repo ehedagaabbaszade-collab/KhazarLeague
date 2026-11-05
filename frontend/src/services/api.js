@@ -164,6 +164,7 @@ export const publicApi = {
   removePushSubscription: (data) => api.delete('/public/push-subscriptions', { data }),
   getTournament: (tournamentId) => api.get(`/public/tournament/${tournamentId}`),
   getTeam: (teamId) => api.get(`/public/team/${teamId}`),
+  getApprovedLineup: (teamId) => api.get(`/teams/${teamId}/approved-lineup`),
   getPlayer: (playerId) => api.get(`/public/player/${playerId}`),
   getMatch: (matchId) => api.get(`/public/match/${matchId}`),
   getVotingSessions: () => api.get('/public/voting', { withCredentials: true }),
