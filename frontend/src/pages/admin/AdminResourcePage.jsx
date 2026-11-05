@@ -2,6 +2,33 @@ import './AdminPages.css';
 import { useEffect, useMemo, useState } from 'react';
 import api, { tournamentApi } from '../../services/api';
 const API_ORIGIN=(import.meta.env.VITE_API_BASE_URL||'http://localhost:3000/api').replace(/\/api\/?$/,'');
+const OFFICIAL_GROUP_FIXTURES = [
+  [1,'2026-12-06','12:00','A','Khazar Force','Khazar Vortex'],
+  [2,'2026-12-06','13:00','A','Zenith FC','Real Munich'],
+  [3,'2026-12-06','14:00','B','Caspian FC','Ghost FC'],
+  [4,'2026-12-06','15:00','C','Khazar Fire','Khazar Masallı FK'],
+  [5,'2026-12-06','16:00','D','Khazar Storm','Harop MFK'],
+  [6,'2026-12-13','12:00','A','Khazar Force','Zenith FC'],
+  [7,'2026-12-13','13:00','B','Khazar Eagles','Los Caspios FC'],
+  [8,'2026-12-13','14:00','A','Khazar Vortex','Real Munich'],
+  [9,'2026-12-13','15:00','C','Turizim FK','Khazar United'],
+  [10,'2026-12-13','16:00','D','Khazar Waves','Comita FC'],
+  [11,'2026-12-20','12:00','B','Caspian FC','Khazar Eagles'],
+  [12,'2026-12-20','13:00','B','Ghost FC','Los Caspios FC'],
+  [13,'2026-12-20','14:00','C','Khazar Masallı FK','Turizim FK'],
+  [14,'2026-12-20','15:00','D','Comita FC','Harop MFK'],
+  [15,'2026-12-27','12:00','A','Zenith FC','Khazar Vortex'],
+  [16,'2026-12-27','13:00','B','Ghost FC','Khazar Eagles'],
+  [17,'2026-12-27','14:00','C','Khazar United','Khazar Masallı FK'],
+  [18,'2026-12-27','15:00','D','Khazar Waves','Khazar Storm'],
+  [19,'2026-12-27','16:00','C','Khazar Fire','Turizim FK'],
+  [20,'2027-01-03','12:00','A','Real Munich','Khazar Force'],
+  [21,'2027-01-03','13:00','B','Los Caspios FC','Caspian FC'],
+  [22,'2027-01-03','14:00','C','Khazar Fire','Khazar United'],
+  [23,'2027-01-03','15:00','D','Harop MFK','Khazar Waves'],
+  [24,'2027-01-03','16:00','D','Khazar Storm','Comita FC'],
+];
+const normalizeTeamName = value => String(value||'').normalize('NFKC').toLocaleLowerCase('az').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
 
 const config = {
   teams: { title: 'Komandalar', subtitle: 'Komanda heyətləri və qrup bölgüsü', endpoint: '/teams', fields: [
@@ -85,6 +112,33 @@ export function AdminResourcePage({ type }) {
     try { const result=await api.post(`/tournaments/${tournament.id}/generate-schedule`,schedule); setNotice(`${result.data.updated} oyunun təqvimi yaradıldı.`); setShowSchedule(false); await load(); }
     catch(err){setError(err.response?.data?.error||'Təqvim yaradıla bilmədi.');}
   };
+  const importOfficialCalendar = async () => {
+    if (!tournament) { setError('Əvvəlcə aktiv turnir yaradılmalıdır.'); return; }
+    if (!window.confirm('Rəsmi təqvimdəki 24 qrup oyununu bazaya daxil etmək və mövcud eyni qarşılaşmaların tarix/saatını yeniləmək istəyirsiniz?')) return;
+    setSaving(true); setError(''); setNotice('');
+    try {
+      const teamByName = new Map(teams.map(team => [normalizeTeamName(team.name), team]));
+      const groupByName = new Map(groups.map(group => [String(group.name).toUpperCase(), group]));
+      const missing = [...new Set(OFFICIAL_GROUP_FIXTURES.flatMap(([, , , , home, away]) => [home, away]))].filter(name => !teamByName.has(normalizeTeamName(name)));
+      if (missing.length) throw new Error(`Bazadakı komanda adları tapılmadı: ${missing.join(', ')}`);
+      const existingResponse = await api.get('/matches');
+      const existing = getRows(existingResponse.data).filter(match => match.tournament_id === tournament.id);
+      let created = 0, updated = 0;
+      for (const [number, date, time, groupName, homeName, awayName] of OFFICIAL_GROUP_FIXTURES) {
+        const home = teamByName.get(normalizeTeamName(homeName));
+        const away = teamByName.get(normalizeTeamName(awayName));
+        const group = groupByName.get(groupName);
+        if (!group) throw new Error(`${groupName} qrupu bazada tapılmadı.`);
+        const payload = { tournament_id:tournament.id, season_id:tournament.season_id||null, group_id:group.id, group_name:groupName, stage:'group', home_team_id:home.id, away_team_id:away.id, match_date:date, kickoff_time:time, venue:tournament.venue||'', round_name:`${['1-ci','2-ci','3-cü','4-cü','5-ci'][['2026-12-06','2026-12-13','2026-12-20','2026-12-27','2027-01-03'].indexOf(date)]} oyun günü`, round_number:['2026-12-06','2026-12-13','2026-12-20','2026-12-27','2027-01-03'].indexOf(date)+1, match_number:number, match_status:'scheduled' };
+        const old = existing.find(match => (match.home_team_id===home.id && match.away_team_id===away.id) || (match.home_team_id===away.id && match.away_team_id===home.id));
+        if (old) { await api.put(`/matches/${old.id}`, payload); updated++; }
+        else { await api.post('/matches', payload); created++; }
+      }
+      setNotice(`Rəsmi təqvim uğurla tətbiq edildi: ${created} yeni oyun yaradıldı, ${updated} mövcud oyun yeniləndi. Cəmi 24 oyun.`);
+      await load();
+    } catch (err) { setError(err.response?.data?.error || err.message || 'Rəsmi təqvim import edilə bilmədi.'); }
+    finally { setSaving(false); }
+  };
   const openCreate = () => { setEditRow(null);setForm(type === 'matches' && tournament ? {tournament_id:tournament.id, match_status:'scheduled'} : type === 'tournaments' ? {players_on_pitch:6,substitutes_per_team:2} : {}); setShowForm(true); };
   const openEdit = row => {setEditRow(row);const values={};cfg.fields.forEach(([key])=>{values[key]=row[key]??(type==='tournaments'&&key==='players_on_pitch'?6:type==='tournaments'&&key==='substitutes_per_team'?2:'');});setForm(values);setShowForm(true);};
   const submit = async (e) => {
@@ -139,7 +193,7 @@ export function AdminResourcePage({ type }) {
       <div className="heading-actions">
          {type === 'standings' ? <button className="btn btn-primary" onClick={recalc}>Cədvəli hesabla</button> : null}
         {type === 'awards' ? <button className="btn btn-outline" onClick={autoAwards}>Komanda mükafatlarını hesabla</button> : null}
-        {type === 'matches' ? <button className="btn btn-outline" onClick={()=>setShowSchedule(true)}>Təqvimi avtomatik yarat</button> : null}
+        {type === 'matches' ? <><button className="btn btn-outline" disabled={saving} onClick={importOfficialCalendar}>{saving?'İdxal edilir…':'Rəsmi 24 oyunu idxal et'}</button><button className="btn btn-outline" onClick={()=>setShowSchedule(true)}>Təqvimi avtomatik yarat</button></> : null}
         <button className="btn btn-primary" onClick={openCreate}>＋ Yeni əlavə et</button>
       </div>
     </div>
