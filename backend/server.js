@@ -643,6 +643,11 @@ app.post('/api/matches', (req, res) => {
             assistant_referee_2_id: null,
             fourth_official_id: null,
             match_status: 'scheduled',
+            group_name: req.body.group_name || null,
+            stage: req.body.stage || 'group',
+            round_name: round_name || null,
+            round_number: round_number ?? null,
+            match_number: match_number ?? null,
             attendance: null,
             weather: null,
             pitch_condition: null,
@@ -706,7 +711,7 @@ app.put('/api/matches/:id', (req, res) => {
     if (match.result_locked && req.currentUser?.role !== 'super_admin') {
         return res.status(403).json({ error: 'Təsdiqlənmiş nəticəni yalnız Super Admin dəyişə bilər' });
     }
-    const allowed = ['match_date','kickoff_time','venue','home_score','away_score','match_status','home_penalties','away_penalties','round_name','round_number'];
+    const allowed = ['match_date','kickoff_time','venue','home_score','away_score','match_status','home_penalties','away_penalties','round_name','round_number','match_number','group_name','group_id','stage'];
     const updates = {};
     if (req.body.match_status === 'live' || req.body.match_status === 'in_progress') return res.status(400).json({ error: 'Canlı matç statusu istifadə edilmir. Nəticə oyun bitdikdən sonra daxil edilməlidir.' });
     allowed.forEach(key => { if (req.body[key] !== undefined) updates[key] = req.body[key]; });
