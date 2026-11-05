@@ -1962,19 +1962,23 @@ app.post('/api/admin/player-position-import', positionImportUpload.single('file'
             }
 
             if (seen.has(player.id)) {
-                errors.push(`Təkrar oyunçu: ${item.team} — ${item.name}`);
-                continue;
-            }
+    errors.push(`Təkrar oyunçu: ${item.team} — ${item.name}`);
+    continue;
+}
 
-            if (!allowedPositions.has(item.primaryPosition)) {
-                errors.push(`Yanlış mövqe kodu: ${item.name} — ${item.primaryPosition}`);
-                continue;
-            }
+if (!allowedPositions.has(item.primaryPosition)) {
+    errors.push(`Yanlış mövqe kodu: ${item.name} — ${item.primaryPosition}`);
+    continue;
+}
 
-            seen.add(player.id);
-            updates.push({ player, item });
-        }
+if (!Number.isInteger(Number(item.shirtNumber)) || Number(item.shirtNumber) < 0 || Number(item.shirtNumber) > 99) {
+    errors.push(`Yanlış forma nömrəsi: ${item.name} — ${item.shirtNumber}`);
+    continue;
+}
 
+seen.add(player.id);
+updates.push({ player, item });
+}
         // Heç bir dəyişiklik edilməzdən əvvəl bütün 128 oyunçu yoxlanılır.
         if (errors.length || updates.length !== 128 || seen.size !== 128) {
             return res.status(422).json({
@@ -2021,15 +2025,15 @@ app.post('/api/admin/player-position-import', positionImportUpload.single('file'
         );
 
         const now = new Date().toISOString();
-
-        for (const { player, item } of updates) {
-            player.position_code = item.primaryPosition;
-            player.position_label_az = item.positionLabelAz || null;
-            player.position_label_en = item.positionLabelEn || null;
-            player.position_status = item.positionStatus || 'approved';
-            player.secondary_positions = Array.isArray(item.secondaryPositions)
-                ? item.secondaryPositions
-                : [];
+for (const { player, item } of updates) {
+    player.position_code = item.primaryPosition;
+    player.jersey_number = Number(item.shirtNumber);
+    player.position_label_az = item.positionLabelAz || null;
+    player.position_label_en = item.positionLabelEn || player.position_label_en || null;
+    player.position_status = item.positionStatus || 'approved';
+    player.secondary_positions = Array.isArray(item.secondaryPositions)
+        ? item.secondaryPositions
+        : [];
 
             player.position_source = 'admin_bulk_approval_import';
 
